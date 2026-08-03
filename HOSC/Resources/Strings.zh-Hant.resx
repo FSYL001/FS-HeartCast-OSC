@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve"><value>FS-HeartCast-OSC - 心率到 VRChat</value></data>
+  <data name="DevicesHeader" xml:space="preserve"><value>心率設備</value></data>
+  <data name="LiveHeartRate" xml:space="preserve"><value>即時心率</value></data>
+  <data name="DeviceName" xml:space="preserve"><value>名稱</value></data>
+  <data name="DeviceBpm" xml:space="preserve"><value>BPM</value></data>
+  <data name="DeviceSignal" xml:space="preserve"><value>訊號</value></data>
+  <data name="DeviceStatus" xml:space="preserve"><value>狀態</value></data>
+  <data name="DeviceAddress" xml:space="preserve"><value>位址</value></data>
+  <data name="DeviceLastSeen" xml:space="preserve"><value>最近接收</value></data>
+  <data name="DeviceNoName" xml:space="preserve"><value>未知裝置</value></data>
+  <data name="DeviceBroadcasting" xml:space="preserve"><value>廣播中</value></data>
+  <data name="DeviceOffline" xml:space="preserve"><value>離線</value></data>
+  <data name="DeviceConnected" xml:space="preserve"><value>已連線</value></data>
+  <data name="DeviceConnecting" xml:space="preserve"><value>連接中</value></data>
+  <data name="DeviceConnectError" xml:space="preserve"><value>連線失敗</value></data>
+  <data name="NoDevices" xml:space="preserve"><value>未發現心率廣播</value></data>
+  <data name="ScanStart" xml:space="preserve"><value>開始掃描</value></data>
+  <data name="ScanStop" xml:space="preserve"><value>停止掃描</value></data>
+  <data name="ClearList" xml:space="preserve"><value>清空</value></data>
+  <data name="Scanning" xml:space="preserve"><value>正在掃描</value></data>
+  <data name="ScanStopped" xml:space="preserve"><value>已停止</value></data>
+  <data name="BluetoothOff" xml:space="preserve"><value>藍牙未開啟</value></data>
+  <data name="SettingsHeader" xml:space="preserve"><value>設定</value></data>
+  <data name="VrchatHeader" xml:space="preserve"><value>VRChat OSC</value></data>
+  <data name="EnableVrchat" xml:space="preserve"><value>匯入 VRChat</value></data>
+  <data name="AddressLabel" xml:space="preserve"><value>OSC 位址</value></data>
+  <data name="PortLabel" xml:space="preserve"><value>OSC 連接埠</value></data>
+  <data name="HrAddressLabel" xml:space="preserve"><value>HR 參數位址</value></data>
+  <data name="BeatAddressLabel" xml:space="preserve"><value>心跳參數位址</value></data>
+  <data name="OscTest" xml:space="preserve"><value>OSC 測試</value></data>
+  <data name="OscTestSent" xml:space="preserve"><value>已傳送 OSC 測試</value></data>
+  <data name="OscTestFailed" xml:space="preserve"><value>OSC 測試失敗</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>語言</value></data>
+  <data name="ThemeLabel" xml:space="preserve"><value>主題</value></data>
+  <data name="ThemeSystem" xml:space="preserve"><value>跟隨系統</value></data>
+  <data name="ThemeLight" xml:space="preserve"><value>淺色</value></data>
+  <data name="ThemeDark" xml:space="preserve"><value>深色</value></data>
+  <data name="LocalOnly" xml:space="preserve"><value>僅在本機處理，無需配對、雲端服務或帳號</value></data>
+  <data name="ActiveDeviceLabel" xml:space="preserve"><value>活動設備</value></data>
+  <data name="ActiveDeviceNone" xml:space="preserve"><value>無</value></data>
+  <data name="Connect" xml:space="preserve"><value>連接</value></data>
+  <data name="Disconnect" xml:space="preserve"><value>中斷連線</value></data>
+  <data name="SettingsButton" xml:space="preserve"><value>設定</value></data>
+  <data name="SettingsCategoryGeneral" xml:space="preserve"><value>一般</value></data>
+  <data name="SettingsCategoryAppearance" xml:space="preserve"><value>外觀</value></data>
+  <data name="SettingsCategoryAbout" xml:space="preserve"><value>關於</value></data>
+  <data name="SettingsGeneralDescription" xml:space="preserve"><value>調整應用程式啟動、掃描與視窗行為。</value></data>
+  <data name="SettingsAppearanceDescription" xml:space="preserve"><value>選擇語言與配色。</value></data>
+  <data name="SettingsAboutDescription" xml:space="preserve"><value>關於 FS-HeartCast-OSC。</value></data>
+  <data name="StartupGroup" xml:space="preserve"><value>啟動</value></data>
+  <data name="WindowGroup" xml:space="preserve"><value>視窗</value></data>
+  <data name="AutoStartScanLabel" xml:space="preserve"><value>啟動時自動開始掃描</value></data>
+  <data name="StartWithWindowsLabel" xml:space="preserve"><value>開機時自動啟動</value></data>
+  <data name="AlwaysOnTopLabel" xml:space="preserve"><value>視窗永遠在最上層</value></data>
+  <data name="AccentLabel" xml:space="preserve"><value>強調色</value></data>
+  <data name="AccentTeal" xml:space="preserve"><value>青綠</value></data>
+  <data name="AccentBlue" xml:space="preserve"><value>藍色</value></data>
+  <data name="AccentPurple" xml:space="preserve"><value>紫色</value></data>
+  <data name="AccentGreen" xml:space="preserve"><value>綠色</value></data>
+  <data name="AccentOrange" xml:space="preserve"><value>橙色</value></data>
+  <data name="AccentPink" xml:space="preserve"><value>粉紅色</value></data>
+  <data name="VersionLabel" xml:space="preserve"><value>版本</value></data>
+  <data name="Done" xml:space="preserve"><value>完成</value></data>
+</root>

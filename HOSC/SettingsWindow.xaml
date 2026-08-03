@@ -1,0 +1,318 @@
+<Window x:Class="HOSC.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:HOSC.Localization"
+        Title="{Binding [SettingsHeader], Source={x:Static local:AppResources.Instance}}"
+        Width="720"
+        Height="480"
+        MinWidth="640"
+        MinHeight="420"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanMinimize"
+        ShowInTaskbar="False"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        Foreground="{DynamicResource TextPrimaryBrush}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Logo.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="NavItem" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Padding" Value="10,8" />
+                <Setter Property="Margin" Value="0,2" />
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Border x:Name="ItemBorder"
+                                    Background="Transparent"
+                                    CornerRadius="5"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource RowHoverBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource AccentBrush}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource AccentTextBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="PageTitle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+            </Style>
+
+            <Style x:Key="PageDescription" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="Margin" Value="0,0,0,18" />
+            </Style>
+
+            <Style x:Key="FieldLabel" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="0,14,0,4" />
+            </Style>
+
+            <Style x:Key="GroupTitle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Style>
+
+            <Style x:Key="StatusTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style TargetType="{x:Type Hyperlink}">
+                <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+                <Setter Property="TextDecorations">
+                    <Setter.Value>
+                        <TextDecorationCollection />
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="TextDecorations" Value="Underline" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Background="{DynamicResource PanelBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="0,0,1,0">
+                <ListBox x:Name="CategoryList"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Margin="10"
+                         SelectionChanged="CategoryList_SelectionChanged">
+                    <ListBoxItem Style="{StaticResource NavItem}"
+                                 Tag="General"
+                                 Content="{Binding [SettingsCategoryGeneral], Source={x:Static local:AppResources.Instance}}" />
+                    <ListBoxItem Style="{StaticResource NavItem}"
+                                 Tag="Appearance"
+                                 Content="{Binding [SettingsCategoryAppearance], Source={x:Static local:AppResources.Instance}}" />
+                    <ListBoxItem Style="{StaticResource NavItem}"
+                                 Tag="About"
+                                 Content="{Binding [SettingsCategoryAbout], Source={x:Static local:AppResources.Instance}}" />
+                </ListBox>
+            </Border>
+
+            <Border Grid.Column="1" Background="{DynamicResource BorderBrush}" />
+
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="24,20,24,20">
+                    <Grid x:Name="GeneralPage">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource PageTitle}"
+                                       Text="{Binding [SettingsCategoryGeneral], Source={x:Static local:AppResources.Instance}}" />
+                            <TextBlock Style="{StaticResource PageDescription}"
+                                       Text="{Binding [SettingsGeneralDescription], Source={x:Static local:AppResources.Instance}}" />
+
+                            <TextBlock Style="{StaticResource GroupTitle}"
+                                       Text="{Binding [StartupGroup], Source={x:Static local:AppResources.Instance}}" />
+                            <CheckBox x:Name="AutoStartScanCheckBox"
+                                      Content="{Binding [AutoStartScanLabel], Source={x:Static local:AppResources.Instance}}"
+                                      Checked="AutoStartScan_Changed"
+                                      Unchecked="AutoStartScan_Changed" />
+                            <CheckBox x:Name="StartWithWindowsCheckBox"
+                                      Content="{Binding [StartWithWindowsLabel], Source={x:Static local:AppResources.Instance}}"
+                                      Checked="StartWithWindows_Changed"
+                                      Unchecked="StartWithWindows_Changed" />
+
+                            <TextBlock Style="{StaticResource GroupTitle}"
+                                       Margin="0,18,0,8"
+                                       Text="{Binding [WindowGroup], Source={x:Static local:AppResources.Instance}}" />
+                            <CheckBox x:Name="AlwaysOnTopCheckBox"
+                                      Content="{Binding [AlwaysOnTopLabel], Source={x:Static local:AppResources.Instance}}"
+                                      Checked="AlwaysOnTop_Changed"
+                                      Unchecked="AlwaysOnTop_Changed" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="AppearancePage" Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource PageTitle}"
+                                       Text="{Binding [SettingsCategoryAppearance], Source={x:Static local:AppResources.Instance}}" />
+                            <TextBlock Style="{StaticResource PageDescription}"
+                                       Text="{Binding [SettingsAppearanceDescription], Source={x:Static local:AppResources.Instance}}" />
+
+                            <TextBlock Style="{StaticResource FieldLabel}"
+                                       Text="{Binding [LanguageLabel], Source={x:Static local:AppResources.Instance}}" />
+                            <ComboBox x:Name="LanguageComboBox"
+                                      Width="230"
+                                      HorizontalAlignment="Left"
+                                      SelectionChanged="Language_SelectionChanged">
+                                <ComboBoxItem Content="简体中文" Tag="zh-Hans" />
+                                <ComboBoxItem Content="繁體中文" Tag="zh-Hant" />
+                                <ComboBoxItem Content="English" Tag="en" />
+                                <ComboBoxItem Content="日本語" Tag="ja" />
+                            </ComboBox>
+
+                            <TextBlock Style="{StaticResource FieldLabel}"
+                                       Text="{Binding [ThemeLabel], Source={x:Static local:AppResources.Instance}}" />
+                            <ComboBox x:Name="ThemeComboBox"
+                                      Width="230"
+                                      HorizontalAlignment="Left"
+                                      SelectionChanged="Theme_SelectionChanged">
+                                <ComboBoxItem Tag="System"
+                                              Content="{Binding [ThemeSystem], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Light"
+                                              Content="{Binding [ThemeLight], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Dark"
+                                              Content="{Binding [ThemeDark], Source={x:Static local:AppResources.Instance}}" />
+                            </ComboBox>
+
+                            <TextBlock Style="{StaticResource FieldLabel}"
+                                       Text="{Binding [AccentLabel], Source={x:Static local:AppResources.Instance}}" />
+                            <ComboBox x:Name="AccentComboBox"
+                                      Width="230"
+                                      HorizontalAlignment="Left"
+                                      SelectionChanged="Accent_SelectionChanged">
+                                <ComboBoxItem Tag="Teal"
+                                              Content="{Binding [AccentTeal], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Blue"
+                                              Content="{Binding [AccentBlue], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Purple"
+                                              Content="{Binding [AccentPurple], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Green"
+                                              Content="{Binding [AccentGreen], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Orange"
+                                              Content="{Binding [AccentOrange], Source={x:Static local:AppResources.Instance}}" />
+                                <ComboBoxItem Tag="Pink"
+                                              Content="{Binding [AccentPink], Source={x:Static local:AppResources.Instance}}" />
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="AboutPage" Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource PageTitle}"
+                                       Text="{Binding [SettingsCategoryAbout], Source={x:Static local:AppResources.Instance}}" />
+                            <TextBlock Style="{StaticResource PageDescription}"
+                                       Text="{Binding [SettingsAboutDescription], Source={x:Static local:AppResources.Instance}}" />
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                                <Image Source="{StaticResource AppLogo}"
+                                       Width="44"
+                                       Height="44"
+                                       Stretch="Uniform"
+                                       VerticalAlignment="Center" />
+                                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="FS-HeartCast-OSC"
+                                               FontSize="17"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextPrimaryBrush}" />
+                                    <TextBlock x:Name="VersionText"
+                                               Style="{StaticResource StatusTextStyle}"
+                                               Margin="0,2,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Border Height="1"
+                                    Background="{DynamicResource BorderBrush}"
+                                    Margin="0,0,0,16" />
+
+                            <TextBlock Style="{StaticResource GroupTitle}"
+                                       Text="{Binding [WebmasterEmailLabel], Source={x:Static local:AppResources.Instance}}" />
+                            <TextBlock Style="{StaticResource StatusTextStyle}"
+                                       Margin="0,0,0,14">
+                                <Hyperlink NavigateUri="mailto:email@fsyl001.sbs"
+                                           RequestNavigate="Hyperlink_RequestNavigate">email@fsyl001.sbs</Hyperlink>
+                                <Run Text="   /   " />
+                                <Hyperlink NavigateUri="mailto:3320969905@qq.com"
+                                           RequestNavigate="Hyperlink_RequestNavigate">3320969905@qq.com</Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Style="{StaticResource GroupTitle}"
+                                       Text="{Binding [CommunityGroup], Source={x:Static local:AppResources.Instance}}" />
+                            <TextBlock Margin="0,0,0,6">
+                                <Hyperlink NavigateUri="https://github.com/0Amyhub"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    <Run Text="{Binding [GitHubLabel], Source={x:Static local:AppResources.Instance}}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="0,0,0,6">
+                                <Hyperlink NavigateUri="https://space.bilibili.com/450000657?spm_id_from=333.1007.0.0"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    <Run Text="{Binding [BilibiliLabel], Source={x:Static local:AppResources.Instance}}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="0,0,0,6">
+                                <Hyperlink NavigateUri="https://www.douyin.com/user/MS4wLjABAAAAzWfG071S0Ol0_wF3xT1i0oL5eSpPdiYZZY_gKib9S_M?from_tab_name=main"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    <Run Text="{Binding [DouyinLabel], Source={x:Static local:AppResources.Instance}}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="0,0,0,6">
+                                <Hyperlink NavigateUri="https://ifdian.net/a/fsyl001"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    <Run Text="{Binding [AifadianLabel], Source={x:Static local:AppResources.Instance}}" />
+                                </Hyperlink>
+                            </TextBlock>
+
+                            <Border Height="1"
+                                    Background="{DynamicResource BorderBrush}"
+                                    Margin="0,18,0,12" />
+                            <TextBlock FontWeight="SemiBold">
+                                <Hyperlink NavigateUri="https://blog.fsyl001.sbs"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    <Run Text="© FSYLの小破站 | FSYL的小破站" />
+                                </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Style="{StaticResource StatusTextStyle}"
+                                       Margin="0,14,0,0"
+                                       Text="{Binding [LocalOnly], Source={x:Static local:AppResources.Instance}}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Border Grid.Row="1"
+                Background="{DynamicResource PanelBackgroundBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="16,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="DoneButton"
+                        Content="{Binding [Done], Source={x:Static local:AppResources.Instance}}"
+                        MinWidth="96"
+                        IsDefault="True"
+                        IsCancel="True"
+                        Click="Done_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

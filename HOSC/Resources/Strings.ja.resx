@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve"><value>FS-HeartCast-OSC - 心拍数を VRChat へ</value></data>
+  <data name="DevicesHeader" xml:space="preserve"><value>心拍数デバイス</value></data>
+  <data name="LiveHeartRate" xml:space="preserve"><value>リアルタイム心拍数</value></data>
+  <data name="DeviceName" xml:space="preserve"><value>名前</value></data>
+  <data name="DeviceBpm" xml:space="preserve"><value>BPM</value></data>
+  <data name="DeviceSignal" xml:space="preserve"><value>電波強度</value></data>
+  <data name="DeviceStatus" xml:space="preserve"><value>状態</value></data>
+  <data name="DeviceAddress" xml:space="preserve"><value>アドレス</value></data>
+  <data name="DeviceLastSeen" xml:space="preserve"><value>最終受信</value></data>
+  <data name="DeviceNoName" xml:space="preserve"><value>不明なデバイス</value></data>
+  <data name="DeviceBroadcasting" xml:space="preserve"><value>広告中</value></data>
+  <data name="DeviceOffline" xml:space="preserve"><value>オフライン</value></data>
+  <data name="DeviceConnected" xml:space="preserve"><value>接続済み</value></data>
+  <data name="DeviceConnecting" xml:space="preserve"><value>接続中</value></data>
+  <data name="DeviceConnectError" xml:space="preserve"><value>接続エラー</value></data>
+  <data name="NoDevices" xml:space="preserve"><value>心拍数のブロードキャストが見つかりません</value></data>
+  <data name="ScanStart" xml:space="preserve"><value>スキャン開始</value></data>
+  <data name="ScanStop" xml:space="preserve"><value>スキャン停止</value></data>
+  <data name="ClearList" xml:space="preserve"><value>クリア</value></data>
+  <data name="Scanning" xml:space="preserve"><value>スキャン中</value></data>
+  <data name="ScanStopped" xml:space="preserve"><value>停止済み</value></data>
+  <data name="BluetoothOff" xml:space="preserve"><value>Bluetooth がオフです</value></data>
+  <data name="SettingsHeader" xml:space="preserve"><value>設定</value></data>
+  <data name="VrchatHeader" xml:space="preserve"><value>VRChat OSC</value></data>
+  <data name="EnableVrchat" xml:space="preserve"><value>VRChat にインポート</value></data>
+  <data name="AddressLabel" xml:space="preserve"><value>OSC アドレス</value></data>
+  <data name="PortLabel" xml:space="preserve"><value>OSC ポート</value></data>
+  <data name="HrAddressLabel" xml:space="preserve"><value>HR パラメーターアドレス</value></data>
+  <data name="BeatAddressLabel" xml:space="preserve"><value>心拍パラメーターアドレス</value></data>
+  <data name="OscTest" xml:space="preserve"><value>OSC テスト</value></data>
+  <data name="OscTestSent" xml:space="preserve"><value>OSC テストを送信しました</value></data>
+  <data name="OscTestFailed" xml:space="preserve"><value>OSC テストに失敗しました</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>言語</value></data>
+  <data name="ThemeLabel" xml:space="preserve"><value>テーマ</value></data>
+  <data name="ThemeSystem" xml:space="preserve"><value>システムに従う</value></data>
+  <data name="ThemeLight" xml:space="preserve"><value>ライト</value></data>
+  <data name="ThemeDark" xml:space="preserve"><value>ダーク</value></data>
+  <data name="LocalOnly" xml:space="preserve"><value>すべてローカル処理。ペアリング、クラウド、アカウント不要</value></data>
+  <data name="ActiveDeviceLabel" xml:space="preserve"><value>アクティブデバイス</value></data>
+  <data name="ActiveDeviceNone" xml:space="preserve"><value>なし</value></data>
+  <data name="Connect" xml:space="preserve"><value>接続</value></data>
+  <data name="Disconnect" xml:space="preserve"><value>切断</value></data>
+  <data name="SettingsButton" xml:space="preserve"><value>設定</value></data>
+  <data name="SettingsCategoryGeneral" xml:space="preserve"><value>一般</value></data>
+  <data name="SettingsCategoryAppearance" xml:space="preserve"><value>外観</value></data>
+  <data name="SettingsCategoryAbout" xml:space="preserve"><value>このアプリについて</value></data>
+  <data name="SettingsGeneralDescription" xml:space="preserve"><value>起動、スキャン、ウィンドウの動作を調整します。</value></data>
+  <data name="SettingsAppearanceDescription" xml:space="preserve"><value>言語と配色を選択します。</value></data>
+  <data name="SettingsAboutDescription" xml:space="preserve"><value>FS-HeartCast-OSC について。</value></data>
+  <data name="StartupGroup" xml:space="preserve"><value>起動</value></data>
+  <data name="WindowGroup" xml:space="preserve"><value>ウィンドウ</value></data>
+  <data name="AutoStartScanLabel" xml:space="preserve"><value>起動時にスキャンを自動開始</value></data>
+  <data name="StartWithWindowsLabel" xml:space="preserve"><value>Windows の起動時に自動起動</value></data>
+  <data name="AlwaysOnTopLabel" xml:space="preserve"><value>ウィンドウを常に最前面に表示</value></data>
+  <data name="AccentLabel" xml:space="preserve"><value>アクセントカラー</value></data>
+  <data name="AccentTeal" xml:space="preserve"><value>ティール</value></data>
+  <data name="AccentBlue" xml:space="preserve"><value>ブルー</value></data>
+  <data name="AccentPurple" xml:space="preserve"><value>パープル</value></data>
+  <data name="AccentGreen" xml:space="preserve"><value>グリーン</value></data>
+  <data name="AccentOrange" xml:space="preserve"><value>オレンジ</value></data>
+  <data name="AccentPink" xml:space="preserve"><value>ピンク</value></data>
+  <data name="VersionLabel" xml:space="preserve"><value>バージョン</value></data>
+  <data name="Done" xml:space="preserve"><value>完了</value></data>
+</root>

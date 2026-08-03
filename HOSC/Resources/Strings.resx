@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve"><value>FS-HeartCast-OSC - Heart Rate to VRChat</value></data>
+  <data name="DevicesHeader" xml:space="preserve"><value>Heart Rate Devices</value></data>
+  <data name="LiveHeartRate" xml:space="preserve"><value>Live Heart Rate</value></data>
+  <data name="DeviceName" xml:space="preserve"><value>Name</value></data>
+  <data name="DeviceBpm" xml:space="preserve"><value>BPM</value></data>
+  <data name="DeviceSignal" xml:space="preserve"><value>Signal</value></data>
+  <data name="DeviceStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="DeviceAddress" xml:space="preserve"><value>Address</value></data>
+  <data name="DeviceLastSeen" xml:space="preserve"><value>Last seen</value></data>
+  <data name="DeviceNoName" xml:space="preserve"><value>Unknown device</value></data>
+  <data name="DeviceBroadcasting" xml:space="preserve"><value>Broadcasting</value></data>
+  <data name="DeviceOffline" xml:space="preserve"><value>Offline</value></data>
+  <data name="DeviceConnected" xml:space="preserve"><value>Connected</value></data>
+  <data name="DeviceConnecting" xml:space="preserve"><value>Connecting</value></data>
+  <data name="DeviceConnectError" xml:space="preserve"><value>Connection error</value></data>
+  <data name="NoDevices" xml:space="preserve"><value>No heart rate broadcasts found</value></data>
+  <data name="ScanStart" xml:space="preserve"><value>Start Scan</value></data>
+  <data name="ScanStop" xml:space="preserve"><value>Stop Scan</value></data>
+  <data name="ClearList" xml:space="preserve"><value>Clear</value></data>
+  <data name="Scanning" xml:space="preserve"><value>Scanning</value></data>
+  <data name="ScanStopped" xml:space="preserve"><value>Stopped</value></data>
+  <data name="BluetoothOff" xml:space="preserve"><value>Bluetooth is off</value></data>
+  <data name="SettingsHeader" xml:space="preserve"><value>Settings</value></data>
+  <data name="VrchatHeader" xml:space="preserve"><value>VRChat OSC</value></data>
+  <data name="EnableVrchat" xml:space="preserve"><value>Import to VRChat</value></data>
+  <data name="AddressLabel" xml:space="preserve"><value>OSC address</value></data>
+  <data name="PortLabel" xml:space="preserve"><value>OSC port</value></data>
+  <data name="HrAddressLabel" xml:space="preserve"><value>HR address</value></data>
+  <data name="BeatAddressLabel" xml:space="preserve"><value>Beat address</value></data>
+  <data name="OscTest" xml:space="preserve"><value>OSC Test</value></data>
+  <data name="OscTestSent" xml:space="preserve"><value>OSC test sent</value></data>
+  <data name="OscTestFailed" xml:space="preserve"><value>OSC test failed</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>Language</value></data>
+  <data name="ThemeLabel" xml:space="preserve"><value>Theme</value></data>
+  <data name="ThemeSystem" xml:space="preserve"><value>System</value></data>
+  <data name="ThemeLight" xml:space="preserve"><value>Light</value></data>
+  <data name="ThemeDark" xml:space="preserve"><value>Dark</value></data>
+  <data name="LocalOnly" xml:space="preserve"><value>Local only. No cloud, no account, no pairing.</value></data>
+  <data name="ActiveDeviceLabel" xml:space="preserve"><value>Active device</value></data>
+  <data name="ActiveDeviceNone" xml:space="preserve"><value>None</value></data>
+  <data name="Connect" xml:space="preserve"><value>Connect</value></data>
+  <data name="Disconnect" xml:space="preserve"><value>Disconnect</value></data>
+  <data name="SettingsButton" xml:space="preserve"><value>Settings</value></data>
+  <data name="SettingsCategoryGeneral" xml:space="preserve"><value>General</value></data>
+  <data name="SettingsCategoryAppearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="SettingsCategoryAbout" xml:space="preserve"><value>About</value></data>
+  <data name="SettingsGeneralDescription" xml:space="preserve"><value>Control how the app starts, scans, and behaves.</value></data>
+  <data name="SettingsAppearanceDescription" xml:space="preserve"><value>Choose your language and color style.</value></data>
+  <data name="SettingsAboutDescription" xml:space="preserve"><value>About FS-HeartCast-OSC.</value></data>
+  <data name="StartupGroup" xml:space="preserve"><value>Startup</value></data>
+  <data name="WindowGroup" xml:space="preserve"><value>Window</value></data>
+  <data name="AutoStartScanLabel" xml:space="preserve"><value>Start scanning automatically on launch</value></data>
+  <data name="StartWithWindowsLabel" xml:space="preserve"><value>Launch at Windows startup</value></data>
+  <data name="AlwaysOnTopLabel" xml:space="preserve"><value>Keep window always on top</value></data>
+  <data name="AccentLabel" xml:space="preserve"><value>Accent color</value></data>
+  <data name="AccentTeal" xml:space="preserve"><value>Teal</value></data>
+  <data name="AccentBlue" xml:space="preserve"><value>Blue</value></data>
+  <data name="AccentPurple" xml:space="preserve"><value>Purple</value></data>
+  <data name="AccentGreen" xml:space="preserve"><value>Green</value></data>
+  <data name="AccentOrange" xml:space="preserve"><value>Orange</value></data>
+  <data name="AccentPink" xml:space="preserve"><value>Pink</value></data>
+  <data name="VersionLabel" xml:space="preserve"><value>Version</value></data>
+  <data name="Done" xml:space="preserve"><value>Done</value></data>
+</root>
