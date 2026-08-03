@@ -257,7 +257,7 @@
                             <TextBlock Style="{StaticResource GroupTitle}"
                                        Text="{Binding [CommunityGroup], Source={x:Static local:AppResources.Instance}}" />
                             <TextBlock Margin="0,0,0,6">
-                                <Hyperlink NavigateUri="https://github.com/0Amyhub"
+                                <Hyperlink NavigateUri="https://github.com/FSYL001/FS-HeartCast-OSC"
                                            RequestNavigate="Hyperlink_RequestNavigate">
                                     <Run Text="{Binding [GitHubLabel], Source={x:Static local:AppResources.Instance}}" />
                                 </Hyperlink>
