@@ -357,17 +357,9 @@ public partial class MainWindow : Window
         var bpm = _activeDevice?.Bpm;
         LiveBpmText.Text = bpm.HasValue ? bpm.Value.ToString() : "--";
 
-        if (_activeDevice is not { IsOnline: true })
+        if (bpm.HasValue && _activeDevice is { IsOnline: true })
         {
-            LiveBpmText.Foreground = (Brush)FindResource("TextMutedBrush");
-        }
-        else if (ReferenceEquals(_connectedDevice, _activeDevice) && _gatt.IsConnected)
-        {
-            LiveBpmText.Foreground = (Brush)FindResource("SuccessBrush");
-        }
-        else if (bpm.HasValue)
-        {
-            LiveBpmText.Foreground = (Brush)FindResource("AccentBrush");
+            LiveBpmText.Foreground = (Brush)FindResource("HeartRateBrush");
         }
         else
         {

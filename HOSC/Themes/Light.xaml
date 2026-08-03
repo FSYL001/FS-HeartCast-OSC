@@ -13,6 +13,7 @@
     <SolidColorBrush x:Key="BorderBrush" Color="#D5DEE5" />
     <SolidColorBrush x:Key="SuccessBrush" Color="#1E9E57" />
     <SolidColorBrush x:Key="DangerBrush" Color="#D64545" />
+    <SolidColorBrush x:Key="HeartRateBrush" Color="#D64545" />
     <SolidColorBrush x:Key="GridLineBrush" Color="#E3E9EE" />
     <SolidColorBrush x:Key="RowHoverBrush" Color="#EDF4F5" />
     <SolidColorBrush x:Key="RowSelectedBrush" Color="#D2EAE7" />

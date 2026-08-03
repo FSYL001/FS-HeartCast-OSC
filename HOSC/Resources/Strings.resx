@@ -61,6 +61,12 @@
   <data name="SettingsGeneralDescription" xml:space="preserve"><value>Control how the app starts, scans, and behaves.</value></data>
   <data name="SettingsAppearanceDescription" xml:space="preserve"><value>Choose your language and color style.</value></data>
   <data name="SettingsAboutDescription" xml:space="preserve"><value>About FS-HeartCast-OSC.</value></data>
+  <data name="WebmasterEmailLabel" xml:space="preserve"><value>Webmaster email</value></data>
+  <data name="CommunityGroup" xml:space="preserve"><value>Community</value></data>
+  <data name="GitHubLabel" xml:space="preserve"><value>GitHub</value></data>
+  <data name="BilibiliLabel" xml:space="preserve"><value>Bilibili</value></data>
+  <data name="DouyinLabel" xml:space="preserve"><value>Douyin</value></data>
+  <data name="AifadianLabel" xml:space="preserve"><value>Afdian</value></data>
   <data name="StartupGroup" xml:space="preserve"><value>Startup</value></data>
   <data name="WindowGroup" xml:space="preserve"><value>Window</value></data>
   <data name="AutoStartScanLabel" xml:space="preserve"><value>Start scanning automatically on launch</value></data>

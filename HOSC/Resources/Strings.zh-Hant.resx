@@ -61,6 +61,12 @@
   <data name="SettingsGeneralDescription" xml:space="preserve"><value>調整應用程式啟動、掃描與視窗行為。</value></data>
   <data name="SettingsAppearanceDescription" xml:space="preserve"><value>選擇語言與配色。</value></data>
   <data name="SettingsAboutDescription" xml:space="preserve"><value>關於 FS-HeartCast-OSC。</value></data>
+  <data name="WebmasterEmailLabel" xml:space="preserve"><value>站長郵箱</value></data>
+  <data name="CommunityGroup" xml:space="preserve"><value>社區主頁</value></data>
+  <data name="GitHubLabel" xml:space="preserve"><value>GitHub 主頁</value></data>
+  <data name="BilibiliLabel" xml:space="preserve"><value>B站主頁</value></data>
+  <data name="DouyinLabel" xml:space="preserve"><value>抖音主頁</value></data>
+  <data name="AifadianLabel" xml:space="preserve"><value>愛發電主頁</value></data>
   <data name="StartupGroup" xml:space="preserve"><value>啟動</value></data>
   <data name="WindowGroup" xml:space="preserve"><value>視窗</value></data>
   <data name="AutoStartScanLabel" xml:space="preserve"><value>啟動時自動開始掃描</value></data>

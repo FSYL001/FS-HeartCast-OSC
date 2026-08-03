@@ -61,6 +61,12 @@
   <data name="SettingsGeneralDescription" xml:space="preserve"><value>起動、スキャン、ウィンドウの動作を調整します。</value></data>
   <data name="SettingsAppearanceDescription" xml:space="preserve"><value>言語と配色を選択します。</value></data>
   <data name="SettingsAboutDescription" xml:space="preserve"><value>FS-HeartCast-OSC について。</value></data>
+  <data name="WebmasterEmailLabel" xml:space="preserve"><value>管理者メールアドレス</value></data>
+  <data name="CommunityGroup" xml:space="preserve"><value>コミュニティ</value></data>
+  <data name="GitHubLabel" xml:space="preserve"><value>GitHub ホームページ</value></data>
+  <data name="BilibiliLabel" xml:space="preserve"><value>Bilibili ホームページ</value></data>
+  <data name="DouyinLabel" xml:space="preserve"><value>Douyin ホームページ</value></data>
+  <data name="AifadianLabel" xml:space="preserve"><value>Afdian ホームページ</value></data>
   <data name="StartupGroup" xml:space="preserve"><value>起動</value></data>
   <data name="WindowGroup" xml:space="preserve"><value>ウィンドウ</value></data>
   <data name="AutoStartScanLabel" xml:space="preserve"><value>起動時にスキャンを自動開始</value></data>

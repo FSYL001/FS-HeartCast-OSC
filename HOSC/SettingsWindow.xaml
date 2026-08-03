@@ -78,6 +78,15 @@
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
+            <Style x:Key="CommunityLogoTile" TargetType="{x:Type Border}">
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="Background" Value="#FFFFFF" />
+                <Setter Property="Margin" Value="0,0,8,0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
             <Style TargetType="{x:Type Hyperlink}">
                 <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
                 <Setter Property="TextDecorations">
@@ -256,30 +265,58 @@
 
                             <TextBlock Style="{StaticResource GroupTitle}"
                                        Text="{Binding [CommunityGroup], Source={x:Static local:AppResources.Instance}}" />
-                            <TextBlock Margin="0,0,0,6">
-                                <Hyperlink NavigateUri="https://github.com/FSYL001/FS-HeartCast-OSC"
-                                           RequestNavigate="Hyperlink_RequestNavigate">
-                                    <Run Text="{Binding [GitHubLabel], Source={x:Static local:AppResources.Instance}}" />
-                                </Hyperlink>
-                            </TextBlock>
-                            <TextBlock Margin="0,0,0,6">
-                                <Hyperlink NavigateUri="https://space.bilibili.com/450000657?spm_id_from=333.1007.0.0"
-                                           RequestNavigate="Hyperlink_RequestNavigate">
-                                    <Run Text="{Binding [BilibiliLabel], Source={x:Static local:AppResources.Instance}}" />
-                                </Hyperlink>
-                            </TextBlock>
-                            <TextBlock Margin="0,0,0,6">
-                                <Hyperlink NavigateUri="https://www.douyin.com/user/MS4wLjABAAAAzWfG071S0Ol0_wF3xT1i0oL5eSpPdiYZZY_gKib9S_M?from_tab_name=main"
-                                           RequestNavigate="Hyperlink_RequestNavigate">
-                                    <Run Text="{Binding [DouyinLabel], Source={x:Static local:AppResources.Instance}}" />
-                                </Hyperlink>
-                            </TextBlock>
-                            <TextBlock Margin="0,0,0,6">
-                                <Hyperlink NavigateUri="https://ifdian.net/a/fsyl001"
-                                           RequestNavigate="Hyperlink_RequestNavigate">
-                                    <Run Text="{Binding [AifadianLabel], Source={x:Static local:AppResources.Instance}}" />
-                                </Hyperlink>
-                            </TextBlock>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <Border Style="{StaticResource CommunityLogoTile}">
+                                    <Image Source="pack://application:,,,/Assets/GitHubLogo.png"
+                                           Stretch="Uniform"
+                                           Margin="2" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Hyperlink NavigateUri="https://github.com/FSYL001/FS-HeartCast-OSC"
+                                               RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Run Text="{Binding [GitHubLabel], Mode=OneWay, Source={x:Static local:AppResources.Instance}}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <Border Style="{StaticResource CommunityLogoTile}">
+                                    <Image Source="pack://application:,,,/Assets/BilibiliLogo.png"
+                                           Stretch="Uniform"
+                                           Margin="2" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Hyperlink NavigateUri="https://space.bilibili.com/450000657?spm_id_from=333.1007.0.0"
+                                               RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Run Text="{Binding [BilibiliLabel], Mode=OneWay, Source={x:Static local:AppResources.Instance}}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <Border Style="{StaticResource CommunityLogoTile}">
+                                    <Image Source="pack://application:,,,/Assets/DouyinLogo.png"
+                                           Stretch="Uniform"
+                                           Margin="2" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Hyperlink NavigateUri="https://www.douyin.com/user/MS4wLjABAAAAzWfG071S0Ol0_wF3xT1i0oL5eSpPdiYZZY_gKib9S_M?from_tab_name=main"
+                                               RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Run Text="{Binding [DouyinLabel], Mode=OneWay, Source={x:Static local:AppResources.Instance}}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <Border Style="{StaticResource CommunityLogoTile}">
+                                    <Image Source="pack://application:,,,/Assets/AifadianLogo.png"
+                                           Stretch="Uniform"
+                                           Margin="2" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Hyperlink NavigateUri="https://ifdian.net/a/fsyl001"
+                                               RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Run Text="{Binding [AifadianLabel], Mode=OneWay, Source={x:Static local:AppResources.Instance}}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
 
                             <Border Height="1"
                                     Background="{DynamicResource BorderBrush}"

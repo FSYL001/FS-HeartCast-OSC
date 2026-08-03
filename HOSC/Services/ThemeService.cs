@@ -80,11 +80,19 @@ public static class ThemeService
     {
         try
         {
-            var value = Registry.GetValue(
-                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-                "AppsUseLightTheme",
-                1);
-            return Convert.ToInt32(value) != 0;
+            using var key = Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            if (key?.GetValue("AppsUseLightTheme") is int appsValue)
+            {
+                return appsValue != 0;
+            }
+
+            if (key?.GetValue("SystemUsesLightTheme") is int systemValue)
+            {
+                return systemValue != 0;
+            }
+
+            return true;
         }
         catch
         {
