@@ -21,6 +21,10 @@ FS-HeartCast-OSC 是一款 Windows 10/11 桌面工具：监听低功耗蓝牙（
 
 所有数据仅在本机处理，不需要账号、不需要云服务，也不需要手表与 Windows 配对。
 
+<img width="1920" height="1080" alt="VRChat_2026-08-02_19-41-57 789_1920x1080" src="https://github.com/user-attachments/assets/c3d655ee-cc1a-45db-a050-eee8edcef021" />
+
+
+
 ## 功能特性
 
 - 免配对扫描：使用 `BluetoothLEAdvertisementWatcher` 主动扫描 BLE 广播，无需在 Windows 中配对或绑定手表
@@ -67,6 +71,8 @@ FS-HeartCast-OSC 是一款 Windows 10/11 桌面工具：监听低功耗蓝牙（
 3. 应用默认自动开始扫描，确认设备出现在列表并显示 BPM
 4. 需要发送到 VRChat 时，先在 VRChat 中开启 OSC，再勾选 "导入 VRChat"（默认地址 `127.0.0.1`，端口 `9000`）
 5. 点击 "OSC 测试"，确认 VRChat 收到参数
+
+<img width="2026" height="1214" alt="屏幕截图 2026-08-03 130651" src="https://github.com/user-attachments/assets/0cda7e6c-eacf-4015-98e0-8f988c61f0eb" />
 
 ## VRChat 配置
 
