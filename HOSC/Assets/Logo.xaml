@@ -1,156 +1,118 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <LinearGradientBrush x:Key="LogoHeartBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#FFB6D5" Offset="0" />
-        <GradientStop Color="#FF3B5C" Offset="0.35" />
-        <GradientStop Color="#4D8DFF" Offset="0.7" />
-        <GradientStop Color="#36D98A" Offset="1" />
+    <LinearGradientBrush x:Key="LogoMainBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF416C" Offset="0" />
+        <GradientStop Color="#FF4B2B" Offset="1" />
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="LogoWingBrush" StartPoint="0,1" EndPoint="1,0">
-        <GradientStop Color="#FFB6D5" Offset="0" />
-        <GradientStop Color="#FF6F9D" Offset="0.55" />
-        <GradientStop Color="#FF3B5C" Offset="1" />
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="LogoSignalBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#4D8DFF" Offset="0" />
-        <GradientStop Color="#36D98A" Offset="1" />
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="LogoWaveBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#FFB6D5" Offset="0" />
-        <GradientStop Color="#FF3B5C" Offset="0.5" />
-        <GradientStop Color="#4D8DFF" Offset="1" />
+    <LinearGradientBrush x:Key="LogoSoftBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#FF416C" Offset="0" />
+        <GradientStop Color="#FF7A59" Offset="1" />
     </LinearGradientBrush>
 
     <DrawingImage x:Key="AppLogo">
         <DrawingImage.Drawing>
             <DrawingGroup>
-            <GeometryDrawing Brush="#111318">
-                <GeometryDrawing.Geometry>
-                    <RectangleGeometry Rect="70,70,660,660" RadiusX="150" RadiusY="150" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#1B1F27">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 325,186 L 325,126 C 325,103 343,86 366,86 L 434,86 C 457,86 475,103 475,126 L 475,186" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="#343A46" Thickness="15" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#1B1F27">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 325,546 L 325,606 C 325,629 343,646 366,646 L 434,646 C 457,646 475,629 475,606 L 475,546" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="#343A46" Thickness="15" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#1C2028">
-                <GeometryDrawing.Geometry>
-                    <RectangleGeometry Rect="245,166,310,400" RadiusX="78" RadiusY="78" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="#343A46" Thickness="15" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#080A0E">
-                <GeometryDrawing.Geometry>
-                    <RectangleGeometry Rect="275,211,250,310" RadiusX="52" RadiusY="52" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        <DrawingGroup Opacity="0.98">
-            <GeometryDrawing Brush="{StaticResource LogoHeartBrush}">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 364,429 C 344.2,409.2 292,375 292,327.3 C 292,293.1 317.2,271.5 346.9,271.5 C 368.5,271.5 384.7,284.1 400,303 C 415.3,284.1 431.5,271.5 453.1,271.5 C 482.8,271.5 508,293.1 508,327.3 C 508,375 455.8,409.2 436,429 L 400,460.5 Z" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingGroup>
-        <DrawingGroup Opacity="0.95">
-            <GeometryDrawing Brush="{StaticResource LogoWingBrush}">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 393.81,402.39 C 378.19,391.14 363.19,374.26 351.94,354.26 C 369.44,361.76 386.31,371.76 401.94,386.14 L 409.44,400.51 Z" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingGroup>
-        <DrawingGroup Opacity="0.72">
-            <GeometryDrawing Brush="{StaticResource LogoWingBrush}">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 389.44,413.64 C 370.69,407.39 354.44,397.39 339.44,385.51 C 357.56,387.39 376.94,393.01 397.56,404.26 L 405.69,411.76 Z" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingGroup>
-        <DrawingGroup Opacity="0.48">
-            <GeometryDrawing Brush="{StaticResource LogoWingBrush}">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 390.69,424.26 C 371.94,421.76 355.69,416.76 341.31,409.89 C 358.81,407.39 376.94,410.51 398.19,418.01 L 405.06,423.01 Z" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingGroup>
-            <GeometryDrawing>
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 285,366 L 325,366 L 345,366 L 362,336 L 382,406 L 407,301 L 432,391 L 450,366 L 515,366" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="#FFFFFF" Thickness="15" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing>
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 285,366 L 325,366 L 345,366 L 362,336 L 382,406 L 407,301 L 432,391 L 450,366 L 515,366" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource LogoWaveBrush}" Thickness="7" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing>
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 575,301 C 620,341 620,391 575,431" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource LogoSignalBrush}" Thickness="16" StartLineCap="Round" EndLineCap="Round" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-        <DrawingGroup Opacity="0.75">
-            <GeometryDrawing>
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 605,261 C 675,331 675,401 605,471" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource LogoSignalBrush}" Thickness="12" StartLineCap="Round" EndLineCap="Round" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-        </DrawingGroup>
-            <GeometryDrawing Brush="#FF3B5C">
-                <GeometryDrawing.Geometry>
-                    <EllipseGeometry Center="555,366" RadiusX="12" RadiusY="12" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#4D8DFF">
-                <GeometryDrawing.Geometry>
-                    <EllipseGeometry Center="590,536" RadiusX="17" RadiusY="17" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#36D98A">
-                <GeometryDrawing.Geometry>
-                    <EllipseGeometry Center="650,591" RadiusX="12" RadiusY="12" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-            <GeometryDrawing>
-                <GeometryDrawing.Geometry>
-                    <PathGeometry Figures="M 590,536 L 650,591" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource LogoSignalBrush}" Thickness="10" StartLineCap="Round" EndLineCap="Round" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="#FFB6D5">
-                <GeometryDrawing.Geometry>
-                    <EllipseGeometry Center="620,563" RadiusX="6" RadiusY="6" />
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
+                <DrawingGroup Opacity="0.22">
+                    <GeometryDrawing Brush="{x:Null}">
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry Center="250,220" RadiusX="170" RadiusY="170" />
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{StaticResource LogoMainBrush}" Thickness="2" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.12">
+                    <GeometryDrawing Brush="{x:Null}">
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry Center="250,220" RadiusX="158" RadiusY="158" />
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{StaticResource LogoMainBrush}" Thickness="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.9">
+                    <GeometryDrawing Brush="{StaticResource LogoMainBrush}">
+                        <GeometryDrawing.Geometry>
+                            <StreamGeometry>M155 185 C125 160 100 125 78 90 C115 105 150 125 180 150 L200 180 Z</StreamGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.65">
+                    <GeometryDrawing Brush="{StaticResource LogoSoftBrush}">
+                        <GeometryDrawing.Geometry>
+                            <StreamGeometry>M145 205 C110 190 82 168 55 145 C88 150 125 162 165 185 L185 200 Z</StreamGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.4">
+                    <GeometryDrawing Brush="{StaticResource LogoMainBrush}">
+                        <GeometryDrawing.Geometry>
+                            <StreamGeometry>M150 225 C115 220 85 210 58 195 C90 190 125 195 165 210 L180 220 Z</StreamGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.9">
+                    <GeometryDrawing Brush="{StaticResource LogoMainBrush}">
+                        <GeometryDrawing.Geometry>
+                            <StreamGeometry>M345 185 C375 160 400 125 422 90 C385 105 350 125 320 150 L300 180 Z</StreamGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.65">
+                    <GeometryDrawing Brush="{StaticResource LogoSoftBrush}">
+                        <GeometryDrawing.Geometry>
+                            <StreamGeometry>M355 205 C390 190 418 168 445 145 C412 150 375 162 335 185 L315 200 Z</StreamGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <DrawingGroup Opacity="0.4">
+                    <GeometryDrawing Brush="{StaticResource LogoMainBrush}">
+                        <GeometryDrawing.Geometry>
+                            <StreamGeometry>M350 225 C385 220 415 210 442 195 C410 190 375 195 335 210 L320 220 Z</StreamGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+
+                <GeometryDrawing Brush="{StaticResource LogoMainBrush}">
+                    <GeometryDrawing.Geometry>
+                        <StreamGeometry>M185 145 H250 V165 H208 V195 H242 V215 H208 V265 H185 Z</StreamGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="{StaticResource LogoMainBrush}">
+                    <GeometryDrawing.Geometry>
+                        <StreamGeometry>M315 145 H265 C242 145 230 158 230 178 C230 198 242 208 262 212 L286 217 C294 219 298 224 298 232 C298 241 292 246 282 246 H230 V265 H285 C309 265 322 252 322 231 C322 211 310 200 290 196 L266 191 C258 189 254 184 254 177 C254 169 259 164 268 164 H315 Z</StreamGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="{x:Null}">
+                    <GeometryDrawing.Geometry>
+                        <StreamGeometry>M145 235 L170 235 L180 235 L188 220 L196 250 L204 205 L212 250 L220 235 L280 235 L288 220 L296 250 L304 205 L312 250 L320 235 L355 235</StreamGeometry>
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource LogoSoftBrush}"
+                             Thickness="4"
+                             StartLineCap="Round"
+                             EndLineCap="Round"
+                             LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF416C">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="250,235" RadiusX="4" RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>

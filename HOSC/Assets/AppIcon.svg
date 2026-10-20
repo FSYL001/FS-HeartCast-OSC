@@ -1,45 +1,95 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-labelledby="title desc">
-  <title id="title">FS-HeartCast-OSC app icon</title>
-  <desc id="desc">Heart rate watch with wing, ECG trace and OSC broadcast signals.</desc>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="55 30 390 390"
+     width="500"
+     height="500">
+
   <defs>
-    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFB6D5"/>
-      <stop offset="35%" stop-color="#FF3B5C"/>
-      <stop offset="70%" stop-color="#4D8DFF"/>
-      <stop offset="100%" stop-color="#36D98A"/>
+    <linearGradient id="main"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%">
+      <stop offset="0%" stop-color="#FF416C"/>
+      <stop offset="100%" stop-color="#FF4B2B"/>
     </linearGradient>
-    <linearGradient id="wingGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FFB6D5"/>
-      <stop offset="55%" stop-color="#FF6F9D"/>
-      <stop offset="100%" stop-color="#FF3B5C"/>
-    </linearGradient>
-    <linearGradient id="signalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4D8DFF"/>
-      <stop offset="100%" stop-color="#36D98A"/>
-    </linearGradient>
-    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FFB6D5"/>
-      <stop offset="50%" stop-color="#FF3B5C"/>
-      <stop offset="100%" stop-color="#4D8DFF"/>
+
+    <linearGradient id="soft"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%">
+      <stop offset="0%" stop-color="#FF416C"/>
+      <stop offset="100%" stop-color="#FF7A59"/>
     </linearGradient>
   </defs>
-  <rect x="70" y="70" width="660" height="660" rx="150" fill="#111318"/>
-  <path d="M 325 186 L 325 126 C 325 103 343 86 366 86 L 434 86 C 457 86 475 103 475 126 L 475 186" fill="#1B1F27" stroke="#343A46" stroke-width="15"/>
-  <path d="M 325 546 L 325 606 C 325 629 343 646 366 646 L 434 646 C 457 646 475 629 475 606 L 475 546" fill="#1B1F27" stroke="#343A46" stroke-width="15"/>
-  <rect x="245" y="166" width="310" height="400" rx="78" fill="#1C2028" stroke="#343A46" stroke-width="15"/>
-  <rect x="275" y="211" width="250" height="310" rx="52" fill="#080A0E"/>
-  <path d="M 364 429 C 344.2 409.2 292 375 292 327.3 C 292 293.1 317.2 271.5 346.9 271.5 C 368.5 271.5 384.7 284.1 400 303 C 415.3 284.1 431.5 271.5 453.1 271.5 C 482.8 271.5 508 293.1 508 327.3 C 508 375 455.8 409.2 436 429 L 400 460.5 Z" fill="url(#heartGradient)" opacity="0.98"/>
-  <path d="M 393.81 402.39 C 378.19 391.14 363.19 374.26 351.94 354.26 C 369.44 361.76 386.31 371.76 401.94 386.14 L 409.44 400.51 Z" fill="url(#wingGradient)" opacity="0.95"/>
-  <path d="M 389.44 413.64 C 370.69 407.39 354.44 397.39 339.44 385.51 C 357.56 387.39 376.94 393.01 397.56 404.26 L 405.69 411.76 Z" fill="url(#wingGradient)" opacity="0.72"/>
-  <path d="M 390.69 424.26 C 371.94 421.76 355.69 416.76 341.31 409.89 C 358.81 407.39 376.94 410.51 398.19 418.01 L 405.06 423.01 Z" fill="url(#wingGradient)" opacity="0.48"/>
-  <path d="M 285 366 L 325 366 L 345 366 L 362 336 L 382 406 L 407 301 L 432 391 L 450 366 L 515 366" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 285 366 L 325 366 L 345 366 L 362 336 L 382 406 L 407 301 L 432 391 L 450 366 L 515 366" fill="none" stroke="url(#waveGradient)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 575 301 C 620 341 620 391 575 431" fill="none" stroke="url(#signalGradient)" stroke-width="16" stroke-linecap="round"/>
-  <path d="M 605 261 C 675 331 675 401 605 471" fill="none" stroke="url(#signalGradient)" stroke-width="12" stroke-linecap="round" opacity="0.75"/>
-  <circle cx="555" cy="366" r="12" fill="#FF3B5C"/>
-  <circle cx="590" cy="536" r="17" fill="#4D8DFF"/>
-  <circle cx="650" cy="591" r="12" fill="#36D98A"/>
-  <path d="M590 536 L650 591" stroke="url(#signalGradient)" stroke-width="10" stroke-linecap="round"/>
-  <circle cx="620" cy="563" r="6" fill="#FFB6D5"/>
+
+  <circle
+    cx="250"
+    cy="220"
+    r="170"
+    fill="none"
+    stroke="url(#main)"
+    stroke-width="2"
+    opacity="0.22"/>
+
+  <circle
+    cx="250"
+    cy="220"
+    r="158"
+    fill="none"
+    stroke="url(#main)"
+    stroke-width="1"
+    opacity="0.12"/>
+
+  <path
+    d="M155 185 C125 160 100 125 78 90 C115 105 150 125 180 150 L200 180 Z"
+    fill="url(#main)"
+    opacity="0.9"/>
+
+  <path
+    d="M145 205 C110 190 82 168 55 145 C88 150 125 162 165 185 L185 200 Z"
+    fill="url(#soft)"
+    opacity="0.65"/>
+
+  <path
+    d="M150 225 C115 220 85 210 58 195 C90 190 125 195 165 210 L180 220 Z"
+    fill="url(#main)"
+    opacity="0.4"/>
+
+  <path
+    d="M345 185 C375 160 400 125 422 90 C385 105 350 125 320 150 L300 180 Z"
+    fill="url(#main)"
+    opacity="0.9"/>
+
+  <path
+    d="M355 205 C390 190 418 168 445 145 C412 150 375 162 335 185 L315 200 Z"
+    fill="url(#soft)"
+    opacity="0.65"/>
+
+  <path
+    d="M350 225 C385 220 415 210 442 195 C410 190 375 195 335 210 L320 220 Z"
+    fill="url(#main)"
+    opacity="0.4"/>
+
+  <g fill="url(#main)">
+    <path
+      d="M185 145 H250 V165 H208 V195 H242 V215 H208 V265 H185 Z"/>
+    <path
+      d="M315 145 H265 C242 145 230 158 230 178 C230 198 242 208 262 212 L286 217 C294 219 298 224 298 232 C298 241 292 246 282 246 H230 V265 H285 C309 265 322 252 322 231 C322 211 310 200 290 196 L266 191 C258 189 254 184 254 177 C254 169 259 164 268 164 H315 Z"/>
+  </g>
+
+  <polyline
+    points="145,235 170,235 180,235 188,220 196,250 204,205 212,250 220,235 280,235 288,220 296,250 304,205 312,250 320,235 355,235"
+    fill="none"
+    stroke="url(#soft)"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <circle
+    cx="250"
+    cy="235"
+    r="4"
+    fill="#FF416C"/>
+
 </svg>
