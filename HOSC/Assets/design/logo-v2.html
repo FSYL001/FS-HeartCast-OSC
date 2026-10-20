@@ -1,0 +1,380 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 800 800"
+     width="800"
+     height="800">
+
+  <defs>
+
+    <!-- 爱心四色渐变 -->
+    <linearGradient id="heartGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%">
+      <stop offset="0%"   stop-color="#FFB6D5"/>
+      <stop offset="35%"  stop-color="#FF3B5C"/>
+      <stop offset="70%"  stop-color="#4D8DFF"/>
+      <stop offset="100%" stop-color="#36D98A"/>
+    </linearGradient>
+
+    <!-- 翅膀渐变 -->
+    <linearGradient id="wingGradient"
+                    x1="0%"
+                    y1="100%"
+                    x2="100%"
+                    y2="0%">
+      <stop offset="0%"   stop-color="#FFB6D5"/>
+      <stop offset="55%"  stop-color="#FF6F9D"/>
+      <stop offset="100%" stop-color="#FF3B5C"/>
+    </linearGradient>
+
+    <!-- 蓝绿广播 -->
+    <linearGradient id="signalGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%">
+      <stop offset="0%"   stop-color="#4D8DFF"/>
+      <stop offset="100%" stop-color="#36D98A"/>
+    </linearGradient>
+
+    <!-- 心率渐变 -->
+    <linearGradient id="waveGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%">
+      <stop offset="0%"   stop-color="#FFB6D5"/>
+      <stop offset="50%"  stop-color="#FF3B5C"/>
+      <stop offset="100%" stop-color="#4D8DFF"/>
+    </linearGradient>
+
+    <!-- 阴影 -->
+    <filter id="shadow"
+            x="-30%"
+            y="-30%"
+            width="160%"
+            height="160%">
+
+      <feDropShadow
+        dx="0"
+        dy="10"
+        stdDeviation="14"
+        flood-opacity="0.18"/>
+
+    </filter>
+
+  </defs>
+
+
+  <!-- ===================================== -->
+  <!-- 背景 -->
+  <!-- ===================================== -->
+
+  <rect
+    x="70"
+    y="70"
+    width="660"
+    height="660"
+    rx="150"
+    fill="#111318"/>
+
+
+  <!-- 手表整体下移 16，顶部表带不再超出底板 -->
+
+  <g transform="translate(0,16)">
+
+  <!-- ===================================== -->
+  <!-- 手表顶部表带 -->
+  <!-- ===================================== -->
+
+  <path
+    d="
+      M325 170
+      V110
+      C325 87 343 70 366 70
+      H434
+      C457 70 475 87 475 110
+      V170
+    "
+    fill="#1B1F27"
+    stroke="#343A46"
+    stroke-width="15"/>
+
+
+  <!-- ===================================== -->
+  <!-- 手表底部表带 -->
+  <!-- ===================================== -->
+
+  <path
+    d="
+      M325 530
+      V590
+      C325 613 343 630 366 630
+      H434
+      C457 630 475 613 475 590
+      V530
+    "
+    fill="#1B1F27"
+    stroke="#343A46"
+    stroke-width="15"/>
+
+
+  <!-- ===================================== -->
+  <!-- 手表主体 -->
+  <!-- ===================================== -->
+
+  <rect
+    x="245"
+    y="150"
+    width="310"
+    height="400"
+    rx="78"
+    fill="#1C2028"
+    stroke="#343A46"
+    stroke-width="15"
+    filter="url(#shadow)"/>
+
+
+  <!-- ===================================== -->
+  <!-- 屏幕 -->
+  <!-- ===================================== -->
+
+  <rect
+    x="275"
+    y="195"
+    width="250"
+    height="310"
+    rx="52"
+    fill="#080A0E"/>
+
+
+  <!-- ===================================== -->
+  <!-- 爱心 -->
+  <!-- ===================================== -->
+
+  <path
+    d="
+      M400 445
+
+      C378 423 320 385 320 332
+
+      C320 294 348 270 381 270
+
+      C405 270 423 284 440 305
+
+      C457 284 475 270 499 270
+
+      C532 270 560 294 560 332
+
+      C560 385 502 423 480 445
+
+      L440 480
+
+      Z
+    "
+    fill="url(#heartGradient)"
+    transform="translate(4,12.5) scale(0.9)"
+    opacity="0.98"/>
+
+
+  <!-- ===================================== -->
+  <!-- ★ 单只小翅膀 ★ -->
+  <!-- 参考你提供的翅膀造型 -->
+  <!-- 只保留左侧一只 -->
+  <!-- ===================================== -->
+
+  <!-- 翅膀 + 心率线：作为一个整体缩小并移到爱心右下 -->
+  <g transform="translate(426,384.2) scale(0.625) translate(-376.5,-316.5)">
+
+  <g transform="translate(0,-5)">
+
+    <!-- 第一层羽翼 -->
+    <path
+      d="
+        M325 325
+        C300 307 276 280 258 248
+        C286 260 313 276 338 299
+        L350 322
+        Z"
+      fill="url(#wingGradient)"
+      opacity="0.95"/>
+
+    <!-- 第二层羽翼 -->
+    <path
+      d="
+        M318 343
+        C288 333 262 317 238 298
+        C267 301 298 310 331 328
+        L344 340
+        Z"
+      fill="url(#wingGradient)"
+      opacity="0.72"/>
+
+    <!-- 第三层羽翼 -->
+    <path
+      d="
+        M320 360
+        C290 356 264 348 241 337
+        C269 333 298 338 332 350
+        L343 358
+        Z"
+      fill="url(#wingGradient)"
+      opacity="0.48"/>
+
+  </g>
+
+
+  <!-- ===================================== -->
+  <!-- 心率波形 -->
+  <!-- ===================================== -->
+
+  <path
+    d="
+      M285 350
+      H325
+
+      L345 350
+      L362 320
+
+      L382 390
+
+      L407 285
+
+      L432 375
+
+      L450 350
+
+      H515
+    "
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="15"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+
+  <!-- 彩色心率波形 -->
+  <path
+    d="
+      M285 350
+      H325
+
+      L345 350
+      L362 320
+
+      L382 390
+
+      L407 285
+
+      L432 375
+
+      L450 350
+
+      H515
+    "
+    fill="none"
+    stroke="url(#waveGradient)"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+
+  </g>
+
+  <!-- ===================================== -->
+  <!-- 广播信号 -->
+  <!-- ===================================== -->
+
+  <path
+    d="
+      M575 285
+      C620 325 620 375 575 415
+    "
+    fill="none"
+    stroke="url(#signalGradient)"
+    stroke-width="16"
+    stroke-linecap="round"/>
+
+
+  <path
+    d="
+      M605 245
+      C675 315 675 385 605 455
+    "
+    fill="none"
+    stroke="url(#signalGradient)"
+    stroke-width="12"
+    stroke-linecap="round"
+    opacity="0.75"/>
+
+
+  <!-- 广播中心 -->
+  <circle
+    cx="555"
+    cy="350"
+    r="12"
+    fill="#FF3B5C"/>
+
+
+  <!-- ===================================== -->
+  <!-- OSC 数据连接 -->
+  <!-- ===================================== -->
+
+  <circle
+    cx="590"
+    cy="520"
+    r="17"
+    fill="#4D8DFF"/>
+
+  <circle
+    cx="650"
+    cy="575"
+    r="12"
+    fill="#36D98A"/>
+
+  <path
+    d="
+      M590 520
+      L650 575
+    "
+    stroke="url(#signalGradient)"
+    stroke-width="10"
+    stroke-linecap="round"/>
+
+
+  <!-- 数据连接节点 -->
+  <circle
+    cx="620"
+    cy="547"
+    r="6"
+    fill="#FFB6D5"/>
+
+
+  </g>
+
+
+  <!-- ===================================== -->
+  <!-- 软件名称 -->
+  <!-- ===================================== -->
+
+  <text
+    x="400"
+    y="701"
+    text-anchor="middle"
+    font-family="Inter, Segoe UI, Arial, sans-serif"
+    font-size="51"
+    font-weight="700"
+    letter-spacing="0.5">
+
+    <tspan fill="#FFFFFF">FS-</tspan>
+
+    <tspan fill="#FF3B5C">Heart</tspan>
+
+    <tspan fill="#4D8DFF">Cast</tspan>
+
+    <tspan fill="#36D98A">-OSC</tspan>
+
+  </text>
+
+</svg>

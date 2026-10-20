@@ -145,8 +145,16 @@ HOSC/
 │  └─ StartupService.cs             # 开机自启注册
 ├─ Resources/                       # 多语言资源
 ├─ Themes/                          # 深色与浅色主题
-└─ Assets/                          # 图标与社区 Logo
+└─ Assets/                          # 应用图标、社区 Logo、设计源与旧版资源
 ```
+
+## 品牌资源
+
+- 应用图标：`HOSC/Assets/AppIcon.svg`（矢量）、`AppIcon.png`（1024 透明底）、`AppIcon.ico`（16–256 px 多尺寸）
+- 完整 Logo：`HOSC/Assets/logo.svg`（图标 + `FS-HeartCast-OSC` 字标，文字已转曲）
+- 应用内图形：`HOSC/Assets/Logo.xaml`（WPF `DrawingImage`）
+- 设计源与预览：`HOSC/Assets/design/`
+- 换标前的旧 Logo 保留在 `HOSC/Assets/legacy/`，未删除
 
 ## 常见问题
 
