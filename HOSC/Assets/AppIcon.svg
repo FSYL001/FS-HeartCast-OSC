@@ -356,4 +356,24 @@
   <!-- ===================================== -->
   <!-- 软件名称 -->
   <!-- ===================================== -->
+
+  <text
+    x="400"
+    y="701"
+    text-anchor="middle"
+    font-family="Inter, Segoe UI, Arial, sans-serif"
+    font-size="51"
+    font-weight="700"
+    letter-spacing="0.5">
+
+    <tspan fill="#FFFFFF">FS-</tspan>
+
+    <tspan fill="#FF3B5C">Heart</tspan>
+
+    <tspan fill="#4D8DFF">Cast</tspan>
+
+    <tspan fill="#36D98A">-OSC</tspan>
+
+  </text>
+
 </svg>
