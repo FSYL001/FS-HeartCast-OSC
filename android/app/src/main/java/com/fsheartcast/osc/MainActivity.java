@@ -1054,25 +1054,45 @@ public final class MainActivity extends Activity {
         btnDiscover.setEnabled(false);
         tvDiscoverStatus.setVisibility(View.VISIBLE);
         tvDiscoverStatus.setText(R.string.discovery_scanning);
-        LanDiscovery.scan(new LanDiscovery.Callback() {
+
+        // 1) 首选：mDNS 直接发现 VRChat 的 OSC 服务（电脑端不需要装任何东西）
+        VrchatDiscovery.scan(this, new VrchatDiscovery.Callback() {
             @Override
-            public void onFinished(LanDiscovery.Result result) {
+            public void onFinished(VrchatDiscovery.Result result) {
                 if (isFinishing()) {
                     return;
                 }
-                btnDiscover.setEnabled(true);
-                if (result == null) {
-                    tvDiscoverStatus.setText(R.string.discovery_not_found);
+                if (result != null) {
+                    applyDiscovered(result.host, result.port, R.string.discovery_vrchat);
                     return;
                 }
-                etIp.setText(result.host);
-                etPort.setText(String.valueOf(result.port));
-                flushOscFields();
-                tvDiscoverStatus.setText(getString(R.string.discovery_found, result.host,
-                        Integer.valueOf(result.port)));
-                toast(getString(R.string.discovery_found, result.host, Integer.valueOf(result.port)));
+                // 2) 备选：找电脑上的中继（可选安装）
+                LanDiscovery.scan(new LanDiscovery.Callback() {
+                    @Override
+                    public void onFinished(LanDiscovery.Result relay) {
+                        if (isFinishing()) {
+                            return;
+                        }
+                        if (relay != null) {
+                            applyDiscovered(relay.host, relay.port, R.string.discovery_relay);
+                        } else {
+                            btnDiscover.setEnabled(true);
+                            tvDiscoverStatus.setText(R.string.discovery_not_found);
+                        }
+                    }
+                });
             }
         });
+    }
+
+    private void applyDiscovered(String host, int port, int stringRes) {
+        btnDiscover.setEnabled(true);
+        etIp.setText(host);
+        etPort.setText(String.valueOf(port));
+        flushOscFields();
+        String text = getString(stringRes, host, Integer.valueOf(port));
+        tvDiscoverStatus.setText(text);
+        toast(text);
     }
 
     private View.OnClickListener open(final String url) {

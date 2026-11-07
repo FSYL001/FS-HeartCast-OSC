@@ -44,12 +44,12 @@ android\dist\FS-HeartCast-OSC-1.1.1-debug.apk      ← 同一份
 1. **手表开启心率广播**。华为/荣耀等：设置 → 心率数据广播；只允许官方 App 连接的手表必须走这个模式。
 2. 手机和电脑连**同一个 Wi-Fi**。
 3. 电脑上启动 VRChat 并开启 OSC（Options → OSC）。
-4. 电脑上运行中继脚本（见第 3 节，VRChat 只监听本机回环地址）：
+4. （可选）只有直连不通时才需要在电脑上跑中继脚本，见第 3 节：
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\tools\osc-relay.ps1
    ```
    脚本会打印「手机里填的电脑 IP」。
-5. 手机打开 App → 允许蓝牙权限 → 在「VRChat OSC」卡片点「高级」填电脑 IP / 端口（用中继时填 `9001`）→
+5. 手机打开 App → 允许蓝牙权限 → 「VRChat OSC → 高级 → 自动检测」（会通过 mDNS 找到 VRChat，自动填 IP:9000）→
    点「开始扫描」→ 点手表所在行选中 → 点「连接手表」。
 6. 心率出现后，点「OSC 测试」验证链路，然后在 VRChat 里看 Avatar 参数。
 
@@ -57,27 +57,28 @@ App 默认以前台服务运行，**锁屏/切后台继续读取和发送**（�
 
 ---
 
-## 3. 为什么直接发到「电脑 IP:9000」收不到
+## 3. 网络：能直连，不需要在电脑上装东西
 
-VRChat 的 OSC 只监听本机回环 `127.0.0.1:9000`，不监听局域网网卡。
-所以需要 PC 端做一次转发：`tools/osc-relay.ps1` 监听 `0.0.0.0:9001` → 原样转发到 `127.0.0.1:9000`，
-手机端端口填 **9001**。
+VRChat 开启 OSC 后监听 **UDP 0.0.0.0:9000**（本机所有网卡），并对局域网广播两个 mDNS 服务：
+
+| 服务 | 用途 |
+| --- | --- |
+| `_osc._udp` | 端口就是 OSC 端口（默认 9000），手机据此直连 |
+| `_oscjson._tcp` | OSCQuery，HTTP 端口随机，只用于确认主机存在 |
+
+所以：**手机 → 电脑 IP:9000 直接发就行**，电脑端不需要安装任何软件或脚本。
+
+唯一需要放行的是 Windows 防火墙：第一次运行 VRChat 时如果弹过提示，选「允许（专用网络）」；
+如果没弹或选错了，用管理员 PowerShell 补一条：
 
 ```powershell
-# 默认 9001 → 9000
-powershell -ExecutionPolicy Bypass -File .\tools\osc-relay.ps1
-
-# 顺手加一条入站防火墙规则（需要管理员）
-powershell -ExecutionPolicy Bypass -File .\tools\osc-relay.ps1 -AddFirewallRule
-
-# 自定义端口
-powershell -ExecutionPolicy Bypass -File .\tools\osc-relay.ps1 -ListenPort 9100 -ForwardPort 9000
+netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow protocol=UDP localport=9000
 ```
 
-已实测：中继把 16 字节 / 8 字节的 OSC 测试包逐字节转发到 `127.0.0.1:9000`。
+手机端点「高级 → 自动检测」会通过 mDNS 直接找到 VRChat 并填好 IP 与 9000 端口。
 
----
-
+> `tools/osc-relay.ps1` 仍然保留，但只是**备选**：只有在路由器禁止组播、或要不经过防火墙策略
+> 才需要它（监听 9001 → 转发 127.0.0.1:9000，手机端口填 9001）。
 ## 4. 界面（手机原生，不照搬 PC）
 
 整体是**单屏双标签**的手机结构，不是把桌面窗口缩小：

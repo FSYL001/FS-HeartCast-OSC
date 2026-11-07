@@ -101,8 +101,10 @@ $extras = [ordered]@{
     "discovery_label" = @{ en = "PC address"; zh = "电脑地址"; tw = "電腦位址"; ja = "PC のアドレス" }
     "discovery_button" = @{ en = "Auto detect"; zh = "自动检测"; tw = "自動偵測"; ja = "自動検出" }
     "discovery_scanning" = @{ en = "Scanning LAN…"; zh = "正在扫描局域网…"; tw = "正在掃描區域網路…"; ja = "LAN をスキャン中…" }
+    "discovery_vrchat" = @{ en = 'Found VRChat: %1$s:%2$d'; zh = '已发现 VRChat：%1$s:%2$d'; tw = '已發現 VRChat：%1$s:%2$d'; ja = 'VRChat を検出：%1$s:%2$d' }
+    "discovery_relay" = @{ en = 'Found via relay: %1$s:%2$d'; zh = '已通过中继找到：%1$s:%2$d'; tw = '已透過中繼找到：%1$s:%2$d'; ja = 'リレー経由で検出：%1$s:%2$d' }
     "discovery_found" = @{ en = 'Found %1$s:%2$d'; zh = '已找到 %1$s:%2$d'; tw = '已找到 %1$s:%2$d'; ja = '%1$s:%2$d を検出' }
-    "discovery_not_found" = @{ en = "Not found. Make sure osc-relay.ps1 is running on the PC."; zh = "没找到。请确认电脑上已运行 osc-relay.ps1"; tw = "找不到。請確認電腦上已執行 osc-relay.ps1"; ja = "見つかりません。PC 側で osc-relay.ps1 を実行してください。" }
+    "discovery_not_found" = @{ en = "Not found. Make sure VRChat has OSC enabled, both devices are on the same Wi-Fi, and Windows Firewall allows UDP 9000."; zh = "没找到。请确认：VRChat 已开启 OSC、手机与电脑在同一 Wi-Fi、Windows 防火墙允许 UDP 9000"; tw = "找不到。請確認：VRChat 已開啟 OSC、手機與電腦在同一個 Wi-Fi、Windows 防火牆允許 UDP 9000"; ja = "見つかりません。VRChat の OSC が有効で、同じ Wi-Fi、Windows ファイアウォールが UDP 9000 を許可しているか確認してください。" }
     "check_update" = @{ en = "Check for updates"; zh = "检查更新"; tw = "檢查更新"; ja = "アップデートを確認" }
     "update_checking" = @{ en = "Checking…"; zh = "正在检查…"; tw = "正在檢查…"; ja = "確認中…" }
     "update_latest" = @{ en = "You are up to date"; zh = "已是最新版本"; tw = "已是最新版本"; ja = "最新版です" }
@@ -132,8 +134,8 @@ $extras = [ordered]@{
     "scanning_chip" = @{ en = "Scanning"; zh = "扫描中"; tw = "掃描中"; ja = "スキャン中" }
     "connect_device" = @{ en = "Connect watch"; zh = "连接手表"; tw = "連接手錶"; ja = "ウォッチに接続" }
     "about_android" = @{
-        en = "This is the Android build: the phone reads heart rate from a BLE watch and forwards it to VRChat over OSC on the local network. VRChat only listens on 127.0.0.1:9000, so when the phone cannot reach it directly, run the bundled osc-relay.ps1 on the PC first."
-        zh = "这是 Android 版：手机读取 BLE 手表心率，再通过局域网 OSC 转给 VRChat。VRChat 只监听 127.0.0.1:9000，手机直连收不到时，请先在电脑上运行随附的 osc-relay.ps1。"
+        en = "This is the Android build: the phone reads heart rate from a BLE watch and forwards it to VRChat over OSC on the local network. VRChat listens on UDP 9000 on all interfaces, so the phone can connect directly; allow UDP 9000 in Windows Firewall if it is blocked."
+        zh = "这是 Android 版：手机读取 BLE 手表心率，再通过局域网 OSC 转给 VRChat。VRChat 默认监听本机所有网卡的 9000 端口，手机可直接连接；若被防火墙拦截，在 Windows 上放行 UDP 9000 即可。"
         tw = "這是 Android 版：手機讀取 BLE 手錶心率，再透過區域網路 OSC 轉給 VRChat。VRChat 只監聽 127.0.0.1:9000，手機直連收不到時，請先在電腦上執行隨附的 osc-relay.ps1。"
         ja = "Android 版です。スマートフォンが BLE ウォッチの心拍数を読み取り、LAN 上の OSC で VRChat に転送します。VRChat は 127.0.0.1:9000 のみ待ち受けるため、直接届かない場合は付属の osc-relay.ps1 を PC 側で実行してください。"
     }

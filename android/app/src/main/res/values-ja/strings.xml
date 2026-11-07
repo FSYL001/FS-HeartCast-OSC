@@ -98,8 +98,10 @@
     <string name="discovery_label">PC のアドレス</string>
     <string name="discovery_button">自動検出</string>
     <string name="discovery_scanning">LAN をスキャン中…</string>
+    <string name="discovery_vrchat">VRChat を検出：%1$s:%2$d</string>
+    <string name="discovery_relay">リレー経由で検出：%1$s:%2$d</string>
     <string name="discovery_found">%1$s:%2$d を検出</string>
-    <string name="discovery_not_found">見つかりません。PC 側で osc-relay.ps1 を実行してください。</string>
+    <string name="discovery_not_found">見つかりません。VRChat の OSC が有効で、同じ Wi-Fi、Windows ファイアウォールが UDP 9000 を許可しているか確認してください。</string>
     <string name="check_update">アップデートを確認</string>
     <string name="update_checking">確認中…</string>
     <string name="update_latest">最新版です</string>

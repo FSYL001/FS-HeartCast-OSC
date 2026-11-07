@@ -98,8 +98,10 @@
     <string name="discovery_label">PC address</string>
     <string name="discovery_button">Auto detect</string>
     <string name="discovery_scanning">Scanning LAN…</string>
+    <string name="discovery_vrchat">Found VRChat: %1$s:%2$d</string>
+    <string name="discovery_relay">Found via relay: %1$s:%2$d</string>
     <string name="discovery_found">Found %1$s:%2$d</string>
-    <string name="discovery_not_found">Not found. Make sure osc-relay.ps1 is running on the PC.</string>
+    <string name="discovery_not_found">Not found. Make sure VRChat has OSC enabled, both devices are on the same Wi-Fi, and Windows Firewall allows UDP 9000.</string>
     <string name="check_update">Check for updates</string>
     <string name="update_checking">Checking…</string>
     <string name="update_latest">You are up to date</string>
@@ -128,5 +130,5 @@
     <string name="idle_chip">Idle</string>
     <string name="scanning_chip">Scanning</string>
     <string name="connect_device">Connect watch</string>
-    <string name="about_android">This is the Android build: the phone reads heart rate from a BLE watch and forwards it to VRChat over OSC on the local network. VRChat only listens on 127.0.0.1:9000, so when the phone cannot reach it directly, run the bundled osc-relay.ps1 on the PC first.</string>
+    <string name="about_android">This is the Android build: the phone reads heart rate from a BLE watch and forwards it to VRChat over OSC on the local network. VRChat listens on UDP 9000 on all interfaces, so the phone can connect directly; allow UDP 9000 in Windows Firewall if it is blocked.</string>
 </resources>
