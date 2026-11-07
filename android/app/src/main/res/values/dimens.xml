@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 间距（4dp 网格） -->
+    <dimen name="s2">2dp</dimen>
+    <dimen name="s4">4dp</dimen>
+    <dimen name="s6">6dp</dimen>
+    <dimen name="s8">8dp</dimen>
+    <dimen name="s10">10dp</dimen>
+    <dimen name="s12">12dp</dimen>
+    <dimen name="s16">16dp</dimen>
+    <dimen name="s20">20dp</dimen>
+    <dimen name="s24">24dp</dimen>
+    <dimen name="s32">32dp</dimen>
+    <dimen name="s40">40dp</dimen>
+
+    <!-- 页面 / 卡片 -->
+    <dimen name="screen_padding">20dp</dimen>
+    <dimen name="card_padding">18dp</dimen>
+    <dimen name="card_radius">24dp</dimen>
+    <dimen name="row_radius">16dp</dimen>
+    <dimen name="input_radius">14dp</dimen>
+    <dimen name="pill_height">48dp</dimen>
+    <dimen name="tabbar_height">68dp</dimen>
+    <dimen name="ring_size">204dp</dimen>
+</resources>

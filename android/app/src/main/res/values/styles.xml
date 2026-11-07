@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ============================================================
+         基底主题
+         ============================================================ -->
+
+    <style name="ThemeBase_Dark" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="bg">@color/dk_bg</item>
+        <item name="surface">@color/dk_surface</item>
+        <item name="surfaceAlt">@color/dk_surface_alt</item>
+        <item name="hairline">@color/dk_hairline</item>
+        <item name="textPrimary">@color/dk_text</item>
+        <item name="textSecondary">@color/dk_text_secondary</item>
+        <item name="textMuted">@color/dk_text_muted</item>
+        <item name="heartRate">@color/heart_dark</item>
+        <item name="success">@color/success_dark</item>
+        <item name="danger">@color/danger_dark</item>
+        <item name="rippleColor">@color/dk_ripple</item>
+
+        <item name="android:windowBackground">@color/dk_bg</item>
+        <item name="android:colorBackground">@color/dk_bg</item>
+        <item name="android:statusBarColor">@color/dk_bg</item>
+        <item name="android:navigationBarColor">@color/dk_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:textColorPrimary">@color/dk_text</item>
+        <item name="android:textColorSecondary">@color/dk_text_secondary</item>
+        <item name="android:textColorHint">@color/dk_text_muted</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="ThemeBase_Light" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="bg">@color/lt_bg</item>
+        <item name="surface">@color/lt_surface</item>
+        <item name="surfaceAlt">@color/lt_surface_alt</item>
+        <item name="hairline">@color/lt_hairline</item>
+        <item name="textPrimary">@color/lt_text</item>
+        <item name="textSecondary">@color/lt_text_secondary</item>
+        <item name="textMuted">@color/lt_text_muted</item>
+        <item name="heartRate">@color/heart_light</item>
+        <item name="success">@color/success_light</item>
+        <item name="danger">@color/danger_light</item>
+        <item name="rippleColor">@color/lt_ripple</item>
+
+        <item name="android:windowBackground">@color/lt_bg</item>
+        <item name="android:colorBackground">@color/lt_bg</item>
+        <item name="android:statusBarColor">@color/lt_bg</item>
+        <item name="android:navigationBarColor">@color/lt_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:textColorPrimary">@color/lt_text</item>
+        <item name="android:textColorSecondary">@color/lt_text_secondary</item>
+        <item name="android:textColorHint">@color/lt_text_muted</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- ============================================================
+         强调色 × 深/浅
+         ============================================================ -->
+
+    <style name="AppTheme_Dark_Teal" parent="ThemeBase_Dark">
+        <item name="accent">@color/teal_dark</item>
+        <item name="accentOn">@color/teal_on_dark</item>
+        <item name="accentSoft">@color/teal_soft_dark</item>
+        <item name="android:colorAccent">@color/teal_dark</item>
+        <item name="android:colorControlActivated">@color/teal_dark</item>
+        <item name="android:colorControlHighlight">@color/teal_soft_dark</item>
+    </style>
+
+    <style name="AppTheme_Dark_Blue" parent="ThemeBase_Dark">
+        <item name="accent">@color/blue_dark</item>
+        <item name="accentOn">@color/blue_on_dark</item>
+        <item name="accentSoft">@color/blue_soft_dark</item>
+        <item name="android:colorAccent">@color/blue_dark</item>
+        <item name="android:colorControlActivated">@color/blue_dark</item>
+        <item name="android:colorControlHighlight">@color/blue_soft_dark</item>
+    </style>
+
+    <style name="AppTheme_Dark_Purple" parent="ThemeBase_Dark">
+        <item name="accent">@color/purple_dark</item>
+        <item name="accentOn">@color/purple_on_dark</item>
+        <item name="accentSoft">@color/purple_soft_dark</item>
+        <item name="android:colorAccent">@color/purple_dark</item>
+        <item name="android:colorControlActivated">@color/purple_dark</item>
+        <item name="android:colorControlHighlight">@color/purple_soft_dark</item>
+    </style>
+
+    <style name="AppTheme_Dark_Green" parent="ThemeBase_Dark">
+        <item name="accent">@color/green_dark</item>
+        <item name="accentOn">@color/green_on_dark</item>
+        <item name="accentSoft">@color/green_soft_dark</item>
+        <item name="android:colorAccent">@color/green_dark</item>
+        <item name="android:colorControlActivated">@color/green_dark</item>
+        <item name="android:colorControlHighlight">@color/green_soft_dark</item>
+    </style>
+
+    <style name="AppTheme_Dark_Orange" parent="ThemeBase_Dark">
+        <item name="accent">@color/orange_dark</item>
+        <item name="accentOn">@color/orange_on_dark</item>
+        <item name="accentSoft">@color/orange_soft_dark</item>
+        <item name="android:colorAccent">@color/orange_dark</item>
+        <item name="android:colorControlActivated">@color/orange_dark</item>
+        <item name="android:colorControlHighlight">@color/orange_soft_dark</item>
+    </style>
+
+    <style name="AppTheme_Dark_Pink" parent="ThemeBase_Dark">
+        <item name="accent">@color/pink_dark</item>
+        <item name="accentOn">@color/pink_on_dark</item>
+        <item name="accentSoft">@color/pink_soft_dark</item>
+        <item name="android:colorAccent">@color/pink_dark</item>
+        <item name="android:colorControlActivated">@color/pink_dark</item>
+        <item name="android:colorControlHighlight">@color/pink_soft_dark</item>
+    </style>
+
+    <style name="AppTheme_Light_Teal" parent="ThemeBase_Light">
+        <item name="accent">@color/teal_light</item>
+        <item name="accentOn">@color/teal_on_light</item>
+        <item name="accentSoft">@color/teal_soft_light</item>
+        <item name="android:colorAccent">@color/teal_light</item>
+        <item name="android:colorControlActivated">@color/teal_light</item>
+        <item name="android:colorControlHighlight">@color/teal_soft_light</item>
+    </style>
+
+    <style name="AppTheme_Light_Blue" parent="ThemeBase_Light">
+        <item name="accent">@color/blue_light</item>
+        <item name="accentOn">@color/blue_on_light</item>
+        <item name="accentSoft">@color/blue_soft_light</item>
+        <item name="android:colorAccent">@color/blue_light</item>
+        <item name="android:colorControlActivated">@color/blue_light</item>
+        <item name="android:colorControlHighlight">@color/blue_soft_light</item>
+    </style>
+
+    <style name="AppTheme_Light_Purple" parent="ThemeBase_Light">
+        <item name="accent">@color/purple_light</item>
+        <item name="accentOn">@color/purple_on_light</item>
+        <item name="accentSoft">@color/purple_soft_light</item>
+        <item name="android:colorAccent">@color/purple_light</item>
+        <item name="android:colorControlActivated">@color/purple_light</item>
+        <item name="android:colorControlHighlight">@color/purple_soft_light</item>
+    </style>
+
+    <style name="AppTheme_Light_Green" parent="ThemeBase_Light">
+        <item name="accent">@color/green_light</item>
+        <item name="accentOn">@color/green_on_light</item>
+        <item name="accentSoft">@color/green_soft_light</item>
+        <item name="android:colorAccent">@color/green_light</item>
+        <item name="android:colorControlActivated">@color/green_light</item>
+        <item name="android:colorControlHighlight">@color/green_soft_light</item>
+    </style>
+
+    <style name="AppTheme_Light_Orange" parent="ThemeBase_Light">
+        <item name="accent">@color/orange_light</item>
+        <item name="accentOn">@color/orange_on_light</item>
+        <item name="accentSoft">@color/orange_soft_light</item>
+        <item name="android:colorAccent">@color/orange_light</item>
+        <item name="android:colorControlActivated">@color/orange_light</item>
+        <item name="android:colorControlHighlight">@color/orange_soft_light</item>
+    </style>
+
+    <style name="AppTheme_Light_Pink" parent="ThemeBase_Light">
+        <item name="accent">@color/pink_light</item>
+        <item name="accentOn">@color/pink_on_light</item>
+        <item name="accentSoft">@color/pink_soft_light</item>
+        <item name="android:colorAccent">@color/pink_light</item>
+        <item name="android:colorControlActivated">@color/pink_light</item>
+        <item name="android:colorControlHighlight">@color/pink_soft_light</item>
+    </style>
+
+    <!-- ============================================================
+         排版
+         ============================================================ -->
+
+    <style name="Text" />
+
+    <style name="Text.SectionLabel">
+        <item name="android:textSize">11sp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textColor">?attr/textMuted</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Text.CardTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="Text.PageTitle">
+        <item name="android:textSize">26sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="Text.Body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/textSecondary</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
+    <style name="Text.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/textMuted</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="Text.RowTitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+    </style>
+
+    <style name="Text.RowValue">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/textMuted</item>
+    </style>
+
+    <!-- ============================================================
+         组件
+         ============================================================ -->
+
+    <style name="Card">
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:outlineProvider">background</item>
+        <item name="android:clipToOutline">true</item>
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Button.Pill" parent="@android:style/Widget.Material.Button">
+        <item name="android:minHeight">@dimen/pill_height</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">18dp</item>
+        <item name="android:paddingRight">18dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="Button.Pill.Primary">
+        <item name="android:background">@drawable/bg_pill_primary</item>
+        <item name="android:textColor">?attr/accentOn</item>
+    </style>
+
+    <style name="Button.Pill.Ghost">
+        <item name="android:background">@drawable/bg_pill_ghost</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+    </style>
+
+    <style name="Input" parent="@android:style/Widget.Material.EditText">
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textColorHint">?attr/textMuted</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">14dp</item>
+        <item name="android:paddingRight">14dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:minHeight">46dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Switch" parent="@android:style/Widget.Material.CompoundButton.Switch">
+        <item name="android:minHeight">28dp</item>
+    </style>
+
+</resources>

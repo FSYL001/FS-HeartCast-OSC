@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ============ 深色：近黑底 + 分层表面，靠高度/留白区分层级，不靠描边 ============ -->
+    <color name="dk_bg">#FF0A0C0E</color>
+    <color name="dk_surface">#FF12161A</color>
+    <color name="dk_surface_alt">#FF171C21</color>
+    <color name="dk_hairline">#FF212A31</color>
+    <color name="dk_text">#FFEAF0F4</color>
+    <color name="dk_text_secondary">#FF95A3AE</color>
+    <color name="dk_text_muted">#FF62707B</color>
+    <color name="dk_ripple">#33FFFFFF</color>
+    <color name="dk_scrim">#66000000</color>
+
+    <!-- ============ 浅色 ============ -->
+    <color name="lt_bg">#FFF6F8FA</color>
+    <color name="lt_surface">#FFFFFFFF</color>
+    <color name="lt_surface_alt">#FFF0F4F6</color>
+    <color name="lt_hairline">#FFE3E9ED</color>
+    <color name="lt_text">#FF111A20</color>
+    <color name="lt_text_secondary">#FF5B6A76</color>
+    <color name="lt_text_muted">#FF8B99A4</color>
+    <color name="lt_ripple">#1A000000</color>
+    <color name="lt_scrim">#4D000000</color>
+
+    <!-- ============ 语义色 ============ -->
+    <color name="heart_dark">#FFFF6B7A</color>
+    <color name="heart_light">#FFE8505B</color>
+    <color name="success_dark">#FF4CC38A</color>
+    <color name="success_light">#FF1E9E57</color>
+    <color name="danger_dark">#FFFF6B6B</color>
+    <color name="danger_light">#FFD64545</color>
+
+    <!-- ============ 强调色（深色亮版 / 浅色暗版 / 反白文字） ============ -->
+    <color name="teal_dark">#FF3CC4BB</color>
+    <color name="teal_light">#FF0E7C74</color>
+    <color name="teal_on_dark">#FF04211F</color>
+    <color name="teal_on_light">#FFF5FFFE</color>
+
+    <color name="blue_dark">#FF5B9CFF</color>
+    <color name="blue_light">#FF2C6BD6</color>
+    <color name="blue_on_dark">#FF041226</color>
+    <color name="blue_on_light">#FFF6F9FF</color>
+
+    <color name="purple_dark">#FFA98BFF</color>
+    <color name="purple_light">#FF6A4FD1</color>
+    <color name="purple_on_dark">#FF120A26</color>
+    <color name="purple_on_light">#FFFAF8FF</color>
+
+    <color name="green_dark">#FF4CC38A</color>
+    <color name="green_light">#FF1E9E57</color>
+    <color name="green_on_dark">#FF04170D</color>
+    <color name="green_on_light">#FFF6FFF9</color>
+
+    <color name="orange_dark">#FFF5A25D</color>
+    <color name="orange_light">#FFC0751F</color>
+    <color name="orange_on_dark">#FF1F1105</color>
+    <color name="orange_on_light">#FFFFFBF6</color>
+
+    <color name="pink_dark">#FFFF6B9A</color>
+    <color name="pink_light">#FFC4376B</color>
+    <color name="pink_on_dark">#FF22040D</color>
+    <color name="pink_on_light">#FFFFF7FA</color>
+
+    <!-- 强调色 12% 透明底色（用于选中态/头像底/标签） -->
+    <color name="teal_soft_dark">#263CC4BB</color>
+    <color name="teal_soft_light">#1A0E7C74</color>
+    <color name="blue_soft_dark">#265B9CFF</color>
+    <color name="blue_soft_light">#1A2C6BD6</color>
+    <color name="purple_soft_dark">#26A98BFF</color>
+    <color name="purple_soft_light">#1A6A4FD1</color>
+    <color name="green_soft_dark">#264CC38A</color>
+    <color name="green_soft_light">#1A1E9E57</color>
+    <color name="orange_soft_dark">#26F5A25D</color>
+    <color name="orange_soft_light">#1AC0751F</color>
+    <color name="pink_soft_dark">#26FF6B9A</color>
+    <color name="pink_soft_light">#1AC4376B</color>
+    <!-- ============ 自适应图标 ============ -->
+    <color name="ic_launcher_background">#FF111318</color>
+</resources>

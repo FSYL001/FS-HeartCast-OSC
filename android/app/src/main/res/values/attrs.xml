@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bg" format="color" />
+    <attr name="surface" format="color" />
+    <attr name="surfaceAlt" format="color" />
+    <attr name="hairline" format="color" />
+    <attr name="textPrimary" format="color" />
+    <attr name="textSecondary" format="color" />
+    <attr name="textMuted" format="color" />
+    <attr name="accent" format="color" />
+    <attr name="accentOn" format="color" />
+    <attr name="accentSoft" format="color" />
+    <attr name="heartRate" format="color" />
+    <attr name="success" format="color" />
+    <attr name="danger" format="color" />
+    <attr name="rippleColor" format="color" />
+    <attr name="cardShadow" format="color" />
+</resources>

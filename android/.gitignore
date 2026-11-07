@@ -1,0 +1,14 @@
+# Android Studio / Gradle
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# 签名文件（本仓库的 debug.keystore 只用于本地调试打包）
+debug.keystore
+*.jks
+tests/out/
