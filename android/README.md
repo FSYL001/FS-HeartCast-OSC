@@ -9,9 +9,9 @@
   顶部 Logo + 标题 + 设置，左侧「实时心率 + 设备表」，右侧「VRChat OSC」面板；
 - **设置页与桌面版一致**：通用 / 外观 / 关于；
 - **4 种语言**：简体中文、繁體中文、English、日本語，文案直接复用桌面版 `.resx`；
-- **图标复用桌面版 `AppIcon`**（自适应图标），并重新排过安全区：元素只占画布高度的 58%，
-  左右留白各 29%、上下各 22%，完整落在 Android 自适应图标的 66dp 安全圆内，
-  圆形 / 圆角矩形（各家 ROM 的 squircle）遮罩都不会裁到手表或信号弧；
+- **图标就是桌面版完整 `AppIcon`**（圆角方块 + 手表 + 信号弧 + OSC 线 + 底部字标），
+  按中心等比缩到画布 52%：完整内容（含字标）最远点距中心 32.7%，
+  落在 108dp 画布的 72dp 可见圆（半径 33.3%）以内，圆形与圆角矩形遮罩都不会裁到任何元素；
   状态栏图标是同款白色心跳。
 
   图标三版都留了底，放在 `design/icon-archive/`：
@@ -29,13 +29,13 @@
 ## 1. 已经打包好的 APK
 
 ```
-android\build\output\FS-HeartCast-OSC-1.1.0-debug.apk
-android\dist\FS-HeartCast-OSC-1.1.0-debug.apk      ← 同一份
+android\build\output\FS-HeartCast-OSC-1.1.1-debug.apk
+android\dist\FS-HeartCast-OSC-1.1.1-debug.apk      ← 同一份
 ```
 
 - 最低 Android 8.0（API 26），目标 API 34，已在 Android 14/15 的目标版本上编译；
 - 约 264 KB，**不依赖任何第三方 / AndroidX 库**；
-- `adb install -r FS-HeartCast-OSC-1.1.0-debug.apk`，或传到手机点击安装。
+- `adb install -r FS-HeartCast-OSC-1.1.1-debug.apk`，或传到手机点击安装。
 
 ---
 
@@ -225,7 +225,7 @@ powershell -ExecutionPolicy Bypass -File .\build-apk.ps1
 powershell -ExecutionPolicy Bypass -File .\build-apk.ps1 -AndroidHome "D:\Android\Sdk" -JdkHome "C:\Program Files\Java\jdk-17"
 ```
 
-产物：`build\output\FS-HeartCast-OSC-1.1.0-debug.apk`（`debug.keystore` 自签名，仅调试分发）。
+产物：`build\output\FS-HeartCast-OSC-1.1.1-debug.apk`（`debug.keystore` 自签名，仅调试分发）。
 
 ### 方式 B：Android Studio
 
@@ -293,7 +293,7 @@ VRChat 本身不回包，所以「检测到」= 电脑上的中继在跑 —— 
 1. 改版本号：`app/build.gradle` 的 `versionCode` / `versionName`，以及 `build-apk.ps1` 的同名参数；
 2. 构建：`powershell -File .\build-apk.ps1`；
 3. 在 GitHub 上创建 Release，**tag 用 `v1.1.0` 这种格式**，并把
-   `build\output\FS-HeartCast-OSC-1.1.0-debug.apk` 作为 asset 上传；
+   `build\output\FS-HeartCast-OSC-1.1.1-debug.apk` 作为 asset 上传；
 4. 手机端下次检查就会提示更新。
 
 Release 里最好写上更新说明（会显示在弹窗正文里，超过 600 字会截断）。

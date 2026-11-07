@@ -16,8 +16,8 @@ param(
     [string]$AndroidHome = $env:ANDROID_HOME,
     [string]$JdkHome = $env:JAVA_HOME,
     [string]$OutDir,
-    [string]$VersionName = "1.1.0",
-    [int]$VersionCode = 2,
+    [string]$VersionName = "1.1.1",
+    [int]$VersionCode = 3,
     [int]$MinSdk = 26,
     [int]$TargetSdk = 34
 )
