@@ -12,3 +12,5 @@ captures/
 debug.keystore
 *.jks
 tests/out/
+
+dist/verify/
