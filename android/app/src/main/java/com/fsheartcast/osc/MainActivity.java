@@ -274,9 +274,13 @@ public final class MainActivity extends Activity {
         int inactive = muted;
 
         if (page == PAGE_LIVE) {
+            tabLive.setBackgroundResource(R.drawable.bg_tab_pill);
+            tabSettings.setBackgroundResource(0);
             animateTab(iconLive, labelLive, true, accent, muted);
             animateTab(iconSettings, labelSettings, false, active, inactive);
         } else {
+            tabLive.setBackgroundResource(0);
+            tabSettings.setBackgroundResource(R.drawable.bg_tab_pill);
             animateTab(iconLive, labelLive, false, accent, muted);
             animateTab(iconSettings, labelSettings, true, active, inactive);
         }
@@ -498,7 +502,7 @@ public final class MainActivity extends Activity {
 
         boolean scanning = snapshot.scanning;
         btnScan.setText(scanning ? R.string.scan_stop : R.string.scan_start);
-        setStartIcon(btnScan, scanning ? R.drawable.ic_stop : R.drawable.ic_play,
+        setStartIcon(btnScan, scanning ? R.drawable.ic_stop : R.drawable.ic_radar,
                 Ui.color(this, R.attr.accentOn));
 
         boolean connected = snapshot.connected;
@@ -611,6 +615,7 @@ public final class MainActivity extends Activity {
             TextView name = (TextView) row.findViewById(R.id.tvName);
             TextView addr = (TextView) row.findViewById(R.id.tvAddr);
             TextView bpm = (TextView) row.findViewById(R.id.tvBpm);
+            TextView bpmUnit = (TextView) row.findViewById(R.id.tvBpmUnit);
             TextView status = (TextView) row.findViewById(R.id.tvStatus);
             View dot = row.findViewById(R.id.tvDot);
 
@@ -618,6 +623,9 @@ public final class MainActivity extends Activity {
             name.setText(displayName);
             addr.setText(entry.address);
             bpm.setText(entry.bpmText());
+            if (bpmUnit != null) {
+                bpmUnit.setVisibility(entry.bpm > 0 ? View.VISIBLE : View.GONE);
+            }
             status.setText(entry.statusText(this));
             avatar.setText(initial(displayName));
 

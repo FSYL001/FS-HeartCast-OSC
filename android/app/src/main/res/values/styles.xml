@@ -228,7 +228,7 @@
 
     <style name="Card">
         <item name="android:background">@drawable/bg_card</item>
-        <item name="android:elevation">10dp</item>
+        <item name="android:elevation">4dp</item>
         <item name="android:outlineProvider">background</item>
         <item name="android:clipToOutline">true</item>
         <item name="android:padding">@dimen/card_padding</item>

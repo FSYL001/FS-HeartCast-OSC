@@ -10,12 +10,13 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!-- ============================================================ 心率页 -->
+        <!-- ============================================================ 心率主页 -->
         <ScrollView
             android:id="@+id/pageLive"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:overScrollMode="never"
             android:scrollbars="none">
 
             <LinearLayout
@@ -23,27 +24,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/screen_padding"
-                android:paddingTop="12dp"
+                android:paddingTop="14dp"
                 android:paddingEnd="@dimen/screen_padding"
                 android:paddingBottom="24dp">
 
-                <!-- 标题行 + 状态胶囊 -->
+                <!-- 顶栏：应用品牌 + 状态胶囊 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvAppTitle"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="-0.02"
-                        android:text="@string/app_name"
-                        android:textColor="?attr/textPrimary"
-                        android:textSize="19sp" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvAppTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="-0.02"
+                            android:text="@string/app_name"
+                            android:textColor="?attr/textPrimary"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:fontFamily="sans-serif"
+                            android:text="VRChat OSC Bridge"
+                            android:textColor="?attr/textMuted"
+                            android:textSize="11sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvStatusChip"
@@ -51,6 +67,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_chip"
                         android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
                         android:letterSpacing="0.02"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
@@ -61,24 +78,50 @@
                         android:textSize="11sp" />
                 </LinearLayout>
 
-                <!-- 心率主卡片 -->
+                <!-- 英雄级心率看板卡片 -->
                 <LinearLayout
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:gravity="center_horizontal">
 
-                    <TextView
-                        style="@style/Text.SectionLabel"
-                        android:layout_width="wrap_content"
+                    <!-- 卡片小标题行 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/live_heart_rate" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:contentDescription="@string/live_heart_rate"
+                            android:src="@drawable/ic_pulse"
+                            android:tint="?attr/heartRate" />
+
+                        <TextView
+                            style="@style/Text.SectionLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/live_heart_rate" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="BLE GATT"
+                            android:textColor="?attr/textMuted"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <!-- 精密心率仪表盘 -->
                     <FrameLayout
                         android:layout_width="@dimen/ring_size"
                         android:layout_height="@dimen/ring_size"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="12dp">
 
                         <com.fsheartcast.osc.ui.HeartRateRingView
                             android:id="@+id/ring"
@@ -96,12 +139,12 @@
                                 android:id="@+id/tvBpm"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif"
+                                android:fontFamily="sans-serif-medium"
                                 android:includeFontPadding="false"
-                                android:letterSpacing="-0.04"
+                                android:letterSpacing="-0.03"
                                 android:text="--"
                                 android:textColor="?attr/heartRate"
-                                android:textSize="56sp" />
+                                android:textSize="58sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -115,29 +158,53 @@
                         </LinearLayout>
                     </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/tvDeviceName"
+                    <!-- 卡片底部集成状态条 -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/no_device"
-                        android:textColor="?attr/textPrimary"
-                        android:textSize="14sp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_stat_badge"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="10dp">
 
+                        <!-- 左侧：活动设备名 -->
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:contentDescription="@string/active_device_label"
+                            android:src="@drawable/ic_watch"
+                            android:tint="?attr/accent" />
+
+                        <TextView
+                            android:id="@+id/tvDeviceName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:maxLines="1"
+                            android:text="@string/no_device"
+                            android:textColor="?attr/textPrimary"
+                            android:textSize="13sp" />
+
+                        <!-- 分隔微线 -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="14dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="?attr/hairline" />
+
+                        <!-- 右侧：链路状态点 + 文案 -->
                         <View
                             android:id="@+id/statusDot"
-                            android:layout_width="6dp"
-                            android:layout_height="6dp"
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
                             android:background="@drawable/bg_dot" />
 
                         <TextView
@@ -146,26 +213,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:text="@string/status_idle" />
+                            android:fontFamily="sans-serif"
+                            android:text="@string/status_idle"
+                            android:textColor="?attr/textSecondary" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- 主操作 -->
+                <!-- 操作指令栏：开始扫描 + 连接手表 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnScan"
                         style="@style/Button.Pill.Primary"
                         android:layout_width="0dp"
-                        android:layout_height="52dp"
+                        android:layout_height="@dimen/pill_height"
                         android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_play"
+                        android:drawableStart="@drawable/ic_radar"
                         android:drawablePadding="8dp"
                         android:drawableTint="?attr/accentOn"
+                        android:elevation="4dp"
                         android:gravity="center"
                         android:text="@string/scan_start" />
 
@@ -177,7 +247,7 @@
                         android:id="@+id/btnConnect"
                         style="@style/Button.Pill.Ghost"
                         android:layout_width="0dp"
-                        android:layout_height="52dp"
+                        android:layout_height="@dimen/pill_height"
                         android:layout_weight="1"
                         android:drawableStart="@drawable/ic_link"
                         android:drawablePadding="8dp"
@@ -186,12 +256,12 @@
                         android:text="@string/connect_device" />
                 </LinearLayout>
 
-                <!-- 设备列表 -->
+                <!-- 附近心率设备列表卡片 -->
                 <LinearLayout
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="14dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -208,17 +278,25 @@
 
                         <TextView
                             android:id="@+id/tvDeviceCount"
-                            style="@style/Text.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp" />
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/bg_stat_badge"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="?attr/accent"
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/btnClear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="?android:attr/selectableItemBackgroundBorderless"
-                            android:paddingStart="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingStart="8dp"
                             android:paddingTop="6dp"
                             android:paddingEnd="4dp"
                             android:paddingBottom="6dp"
@@ -231,24 +309,43 @@
                         android:id="@+id/deviceList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="vertical" />
 
-                    <TextView
+                    <!-- 优雅的空状态提示 -->
+                    <LinearLayout
                         android:id="@+id/tvEmpty"
-                        style="@style/Text.Caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/no_devices_hint" />
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="18dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:alpha="0.4"
+                            android:contentDescription="@string/no_devices_hint"
+                            android:src="@drawable/ic_watch"
+                            android:tint="?attr/textMuted" />
+
+                        <TextView
+                            style="@style/Text.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="@string/no_devices_hint" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- OSC 卡片 -->
+                <!-- VRChat OSC 推送卡片 -->
                 <LinearLayout
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="14dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -270,17 +367,40 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tvTarget"
-                        style="@style/Text.Caption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp" />
-
+                    <!-- 推送目标与发包状态信息条 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_stat_badge"
+                        android:orientation="vertical"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/tvTarget"
+                            style="@style/Text.Caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="?attr/textPrimary" />
+
+                        <TextView
+                            android:id="@+id/tvOscStatus"
+                            style="@style/Text.Caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:textColor="?attr/textMuted" />
+                    </LinearLayout>
+
+                    <!-- 操作排：测试 + 高级设置展开 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -288,7 +408,7 @@
                             android:id="@+id/btnTest"
                             style="@style/Button.Pill.Ghost"
                             android:layout_width="0dp"
-                            android:layout_height="46dp"
+                            android:layout_height="44dp"
                             android:layout_weight="1"
                             android:drawableStart="@drawable/ic_external"
                             android:drawablePadding="8dp"
@@ -299,20 +419,22 @@
                         <TextView
                             android:id="@+id/btnAdvanced"
                             android:layout_width="wrap_content"
-                            android:layout_height="46dp"
+                            android:layout_height="44dp"
                             android:layout_marginStart="10dp"
                             android:background="?android:attr/selectableItemBackgroundBorderless"
                             android:drawableEnd="@drawable/ic_chevron_down"
                             android:drawablePadding="4dp"
                             android:drawableTint="?attr/textSecondary"
+                            android:fontFamily="sans-serif-medium"
                             android:gravity="center"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="8dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="10dp"
                             android:text="@string/advanced"
                             android:textColor="?attr/textSecondary"
                             android:textSize="13sp" />
                     </LinearLayout>
 
+                    <!-- 高级参数设置抽屉 -->
                     <LinearLayout
                         android:id="@+id/advancedPanel"
                         android:layout_width="match_parent"
@@ -320,11 +442,17 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="14dp"
+                            android:background="?attr/hairline" />
+
                         <TextView
                             style="@style/Text.SectionLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="14dp"
                             android:text="@string/address_label" />
 
                         <EditText
@@ -341,13 +469,14 @@
                             android:id="@+id/btnDiscover"
                             style="@style/Button.Pill.Ghost"
                             android:layout_width="match_parent"
-                            android:layout_height="46dp"
+                            android:layout_height="44dp"
                             android:layout_marginTop="8dp"
-                            android:drawableStart="@drawable/ic_watch"
+                            android:drawableStart="@drawable/ic_sparkle"
                             android:drawablePadding="8dp"
-                            android:drawableTint="?attr/textPrimary"
+                            android:drawableTint="?attr/accent"
                             android:gravity="center"
-                            android:text="@string/discovery_button" />
+                            android:text="@string/discovery_button"
+                            android:textColor="?attr/accent" />
 
                         <TextView
                             android:id="@+id/tvDiscoverStatus"
@@ -356,6 +485,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:visibility="gone" />
+
                         <TextView
                             style="@style/Text.SectionLabel"
                             android:layout_width="wrap_content"
@@ -366,7 +496,7 @@
                         <EditText
                             android:id="@+id/etPort"
                             style="@style/Input"
-                            android:layout_width="120dp"
+                            android:layout_width="140dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:inputType="number"
@@ -404,13 +534,6 @@
                             android:inputType="text"
                             android:maxLines="1" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvOscStatus"
-                        style="@style/Text.Caption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -421,6 +544,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:overScrollMode="never"
             android:scrollbars="none"
             android:visibility="gone">
 
@@ -446,12 +570,12 @@
                     android:layout_marginTop="4dp"
                     android:text="@string/settings_subtitle" />
 
-                <!-- 启动 -->
+                <!-- 分组 1：启动与运行 -->
                 <TextView
                     style="@style/Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/startup_group" />
 
@@ -528,12 +652,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- 显示 -->
+                <!-- 分组 2：显示与保活 -->
                 <TextView
                     style="@style/Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/behavior_group" />
 
@@ -597,12 +721,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- 外观 -->
+                <!-- 分组 3：外观风格 -->
                 <TextView
                     style="@style/Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/appearance_group" />
 
@@ -617,6 +741,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/theme" />
 
+                    <!-- 主题选择三段滑动开关 -->
                     <FrameLayout
                         android:id="@+id/segTheme"
                         android:layout_width="match_parent"
@@ -642,6 +767,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
                                 android:text="@string/theme_system"
                                 android:textColor="?attr/textSecondary"
@@ -652,6 +778,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
                                 android:text="@string/theme_light"
                                 android:textColor="?attr/textSecondary"
@@ -662,6 +789,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
                                 android:text="@string/theme_dark"
                                 android:textColor="?attr/textSecondary"
@@ -676,11 +804,12 @@
                         android:layout_marginTop="20dp"
                         android:text="@string/accent" />
 
+                    <!-- 6 种强调色选择器 -->
                     <LinearLayout
                         android:id="@+id/accentRow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal" />
 
                     <View
@@ -689,6 +818,7 @@
                         android:layout_marginTop="18dp"
                         android:background="?attr/hairline" />
 
+                    <!-- 语言设置行 -->
                     <LinearLayout
                         android:id="@+id/rowLanguage"
                         android:layout_width="match_parent"
@@ -710,7 +840,7 @@
                             style="@style/Text.RowValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp" />
+                            android:layout_marginEnd="6dp" />
 
                         <ImageView
                             android:layout_width="18dp"
@@ -721,12 +851,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- 关于 -->
+                <!-- 分组 4：关于与更新 -->
                 <TextView
                     style="@style/Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/about" />
 
@@ -742,15 +872,15 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
                             android:contentDescription="@string/app_name"
                             android:src="@drawable/ic_logo_about" />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="14dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -772,9 +902,10 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="16dp"
                         android:background="?attr/hairline" />
 
+                    <!-- 检查更新 -->
                     <LinearLayout
                         android:id="@+id/rowCheckUpdate"
                         android:layout_width="match_parent"
@@ -796,7 +927,7 @@
                             style="@style/Text.RowValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp" />
+                            android:layout_marginEnd="6dp" />
 
                         <ImageView
                             android:layout_width="18dp"
@@ -805,6 +936,8 @@
                             android:src="@drawable/ic_chevron_right"
                             android:tint="?attr/textMuted" />
                     </LinearLayout>
+
+                    <!-- 崩溃日志复制 -->
                     <LinearLayout
                         android:id="@+id/rowCrashLog"
                         android:layout_width="match_parent"
@@ -837,6 +970,7 @@
                             android:src="@drawable/ic_chevron_right"
                             android:tint="?attr/textMuted" />
                     </LinearLayout>
+
                     <TextView
                         style="@style/Text.SectionLabel"
                         android:layout_width="wrap_content"
@@ -844,6 +978,7 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/links_group" />
 
+                    <!-- 社区主页 -->
                     <LinearLayout
                         android:id="@+id/linkGitHub"
                         android:layout_width="match_parent"
@@ -863,7 +998,7 @@
                             style="@style/Text.RowTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="14dp"
                             android:layout_weight="1"
                             android:text="@string/git_hub_label" />
 
@@ -894,7 +1029,7 @@
                             style="@style/Text.RowTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="14dp"
                             android:layout_weight="1"
                             android:text="@string/bilibili_label" />
 
@@ -925,7 +1060,7 @@
                             style="@style/Text.RowTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="14dp"
                             android:layout_weight="1"
                             android:text="@string/douyin_label" />
 
@@ -956,7 +1091,7 @@
                             style="@style/Text.RowTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="14dp"
                             android:layout_weight="1"
                             android:text="@string/aifadian_label" />
 
@@ -1032,21 +1167,26 @@
         android:layout_height="1dp"
         android:background="?attr/hairline" />
 
-    <!-- 底部标签栏 -->
+    <!-- 底部悬浮质感标签导航栏 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tabbar_height"
         android:background="?attr/surface"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
         <LinearLayout
             android:id="@+id/tabLive"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <ImageView
                 android:id="@+id/iconLive"
@@ -1060,21 +1200,23 @@
                 android:id="@+id/labelLive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/tab_live"
                 android:textColor="?attr/accent"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/tabSettings"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <ImageView
                 android:id="@+id/iconSettings"
@@ -1088,11 +1230,11 @@
                 android:id="@+id/labelSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/tab_settings"
                 android:textColor="?attr/textMuted"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

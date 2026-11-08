@@ -14,12 +14,12 @@
     <dimen name="s40">40dp</dimen>
 
     <!-- 页面 / 卡片 -->
-    <dimen name="screen_padding">20dp</dimen>
-    <dimen name="card_padding">18dp</dimen>
-    <dimen name="card_radius">24dp</dimen>
-    <dimen name="row_radius">16dp</dimen>
-    <dimen name="input_radius">14dp</dimen>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_radius">20dp</dimen>
+    <dimen name="row_radius">14dp</dimen>
+    <dimen name="input_radius">12dp</dimen>
     <dimen name="pill_height">48dp</dimen>
-    <dimen name="tabbar_height">68dp</dimen>
-    <dimen name="ring_size">204dp</dimen>
+    <dimen name="tabbar_height">64dp</dimen>
+    <dimen name="ring_size">216dp</dimen>
 </resources>
