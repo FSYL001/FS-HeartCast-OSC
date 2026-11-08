@@ -502,7 +502,7 @@ public final class MainActivity extends Activity {
 
         boolean scanning = snapshot.scanning;
         btnScan.setText(scanning ? R.string.scan_stop : R.string.scan_start);
-        setStartIcon(btnScan, scanning ? R.drawable.ic_stop : R.drawable.ic_radar,
+        setStartIcon(btnScan, scanning ? R.drawable.ic_stop : R.drawable.ic_play,
                 Ui.color(this, R.attr.accentOn));
 
         boolean connected = snapshot.connected;

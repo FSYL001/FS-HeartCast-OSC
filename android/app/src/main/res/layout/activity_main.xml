@@ -78,7 +78,7 @@
                         android:textSize="11sp" />
                 </LinearLayout>
 
-                <!-- 英雄级心率看板卡片 -->
+                <!-- 心率主卡片 -->
                 <LinearLayout
                     style="@style/Card"
                     android:layout_width="match_parent"
@@ -86,42 +86,17 @@
                     android:layout_marginTop="14dp"
                     android:gravity="center_horizontal">
 
-                    <!-- 卡片小标题行 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        style="@style/Text.SectionLabel"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:text="@string/live_heart_rate" />
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:contentDescription="@string/live_heart_rate"
-                            android:src="@drawable/ic_pulse"
-                            android:tint="?attr/heartRate" />
-
-                        <TextView
-                            style="@style/Text.SectionLabel"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:text="@string/live_heart_rate" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif"
-                            android:text="BLE GATT"
-                            android:textColor="?attr/textMuted"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <!-- 精密心率仪表盘 -->
+                    <!-- 经典心率圆环与排版 -->
                     <FrameLayout
                         android:layout_width="@dimen/ring_size"
                         android:layout_height="@dimen/ring_size"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="10dp">
 
                         <com.fsheartcast.osc.ui.HeartRateRingView
                             android:id="@+id/ring"
@@ -139,12 +114,12 @@
                                 android:id="@+id/tvBpm"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
+                                android:fontFamily="sans-serif"
                                 android:includeFontPadding="false"
-                                android:letterSpacing="-0.03"
+                                android:letterSpacing="-0.04"
                                 android:text="--"
                                 android:textColor="?attr/heartRate"
-                                android:textSize="58sp" />
+                                android:textSize="56sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -232,10 +207,9 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/pill_height"
                         android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_radar"
+                        android:drawableStart="@drawable/ic_play"
                         android:drawablePadding="8dp"
                         android:drawableTint="?attr/accentOn"
-                        android:elevation="4dp"
                         android:gravity="center"
                         android:text="@string/scan_start" />
 

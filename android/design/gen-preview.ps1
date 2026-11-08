@@ -39,15 +39,13 @@ function RenderMainScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$dark)
     if ($dark) {
         $bg = Col '#0D0F12'; $surface = Col '#16191E'; $alt = Col '#1E232B'
         $hair = Col '#2B323C'; $txt = Col '#F0F4F8'; $sec = Col '#94A3B8'
-        $mut = Col '#64748B'; $accent = Col '#14B8A6'; $onAcc = Col '#04211F'
-        $heart = Col '#FF5268'; $ok = Col '#10B981'; $amber = Col '#F59E0B'
-        $cardGlow = [System.Drawing.Color]::FromArgb(30, 20, 184, 166)
+        $mut = Col '#64748B'; $accent = Col '#3CC4BB'; $onAcc = Col '#04211F'
+        $heart = Col '#FF6B7A'; $ok = Col '#10B981'
     } else {
         $bg = Col '#F4F6F8'; $surface = Col '#FFFFFF'; $alt = Col '#EEF2F6'
         $hair = Col '#E2E8F0'; $txt = Col '#0F172A'; $sec = Col '#475569'
-        $mut = Col '#94A3B8'; $accent = Col '#0D9488'; $onAcc = Col '#F0FDFA'
-        $heart = Col '#E11D48'; $ok = Col '#059669'; $amber = Col '#D97706'
-        $cardGlow = [System.Drawing.Color]::FromArgb(18, 13, 148, 136)
+        $mut = Col '#94A3B8'; $accent = Col '#0E7C74'; $onAcc = Col '#F5FFFE'
+        $heart = Col '#E8505B'; $ok = Col '#059669'
     }
 
     $w = 360 * $S; $h = 800 * $S
@@ -58,107 +56,68 @@ function RenderMainScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$dark)
     $cw = $w - 2 * $pad
 
     # 1. 顶栏：品牌与状态胶囊
-    Draw $g 'FS-HeartCast' $x0 (14 * $S) (20 * $S) $txt 'Bold'
+    Draw $g 'FS-HeartCast-OSC' $x0 (14 * $S) (20 * $S) $txt 'Bold'
     Draw $g 'VRChat OSC Bridge' $x0 (38 * $S) (10.5 * $S) $mut 'Regular'
 
     $chipW = 76 * $S; $chipH = 28 * $S
     $chipX = $ox + $w - $pad - $chipW
     $chipY = 16 * $S
-    Round $g (New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(40, $ok.R, $ok.G, $ok.B))) $null $chipX $chipY $chipW $chipH (14 * $S)
+    Round $g (New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(40, $accent.R, $accent.G, $accent.B))) $null $chipX $chipY $chipW $chipH (14 * $S)
     
-    # 胶囊内状态圆点
     $dotOk = New-Object System.Drawing.SolidBrush $ok
     $g.FillEllipse($dotOk, [single]($chipX + 10 * $S), [single]($chipY + 11 * $S), [single](6 * $S), [single](6 * $S))
     $dotOk.Dispose()
-    Draw $g '已连接' ($chipX + 22 * $S) ($chipY + 7 * $S) (11 * $S) $ok 'Bold'
+    Draw $g '已连接' ($chipX + 22 * $S) ($chipY + 7 * $S) (11 * $S) $accent 'Bold'
 
-    # 2. 英雄级心率仪表卡片
+    # 2. 心率主卡片 (保留经典圆环与排版样式)
     $cardY = 58 * $S
-    $cardH = 368 * $S
-    Round $g (New-Object System.Drawing.SolidBrush $surface) (New-Object System.Drawing.Pen($hair, 1)) $x0 $cardY $cw $cardH (22 * $S)
+    $cardH = 360 * $S
+    Round $g (New-Object System.Drawing.SolidBrush $surface) (New-Object System.Drawing.Pen($hair, 1)) $x0 $cardY $cw $cardH (20 * $S)
 
-    # 卡片顶部标签行
-    Draw $g '实时心率监测' ($x0 + 16 * $S) ($cardY + 14 * $S) (12 * $S) $txt 'Bold'
-    Draw $g 'BLE GATT' ($x0 + $cw - 64 * $S) ($cardY + 14 * $S) (10 * $S) $mut 'Regular'
+    DrawCenter $g '实时心率' $x0 $cw ($cardY + 16 * $S) (11.5 * $S) $mut 'Bold'
 
-    # 心率仪表盘
-    $rs = 196 * $S
+    # 经典圆环
+    $rs = 204 * $S
     $rx = $ox + ($w - $rs) / 2
-    $ry = $cardY + 38 * $S
+    $ry = $cardY + 40 * $S
     $cx = $rx + $rs / 2
     $cy = $ry + $rs / 2
 
-    # 60 刻度环
-    for ($i = 0; $i -lt 60; $i++) {
-        $ang = -90 + (360 / 60) * $i
-        $rad = $ang * [Math]::PI / 180
-        $rOut = ($rs / 2) - 4 * $S
-        $rIn = $rOut - 6 * $S
-        $x1 = $cx + $rOut * [Math]::Cos($rad)
-        $y1 = $cy + $rOut * [Math]::Sin($rad)
-        $x2 = $cx + $rIn * [Math]::Cos($rad)
-        $y2 = $cy + $rIn * [Math]::Sin($rad)
-        
-        $tickColor = if ($i -lt 24) { [System.Drawing.Color]::FromArgb(210, $ok.R, $ok.G, $ok.B) } else { [System.Drawing.Color]::FromArgb(60, $hair.R, $hair.G, $hair.B) }
-        $penTick = New-Object System.Drawing.Pen($tickColor, [single](1.5 * $S))
-        $g.DrawLine($penTick, [single]$x1, [single]$y1, [single]$x2, [single]$y2)
-        $penTick.Dispose()
-    }
-
-    # 底环轨道
-    $arcR = $rs - 28 * $S
+    # 底环轨道 (原版 strokeWidth 11dp)
+    $arcR = $rs - 22 * $S
     $arcX = $cx - $arcR / 2
     $arcY = $cy - $arcR / 2
-    $penTrack = New-Object System.Drawing.Pen($hair, [single](9 * $S))
+    $penTrack = New-Object System.Drawing.Pen($hair, [single](11 * $S))
     $g.DrawEllipse($penTrack, [single]$arcX, [single]$arcY, [single]$arcR, [single]$arcR)
     $penTrack.Dispose()
 
-    # 动态渐变进度弧
-    $penArc = New-Object System.Drawing.Pen($ok, [single](9 * $S))
+    # 原版青绿->心跳红渐变进度弧
+    $penArc = New-Object System.Drawing.Pen($accent, [single](11 * $S))
     $penArc.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
     $penArc.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
-    $g.DrawArc($penArc, [single]$arcX, [single]$arcY, [single]$arcR, [single]$arcR, -90, 145)
+    $g.DrawArc($penArc, [single]$arcX, [single]$arcY, [single]$arcR, [single]$arcR, -90, 130)
     $penArc.Dispose()
 
-    # 弧端发光粒子
-    $tipRad = (-90 + 145) * [Math]::PI / 180
-    $tipX = $cx + ($arcR / 2) * [Math]::Cos($tipRad)
-    $tipY = $cy + ($arcR / 2) * [Math]::Sin($tipRad)
-    $bHalo = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(80, $ok.R, $ok.G, $ok.B))
-    $g.FillEllipse($bHalo, [single]($tipX - 8 * $S), [single]($tipY - 8 * $S), [single](16 * $S), [single](16 * $S))
-    $bHalo.Dispose()
-    $bCore = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White)
-    $g.FillEllipse($bCore, [single]($tipX - 3 * $S), [single]($tipY - 3 * $S), [single](6 * $S), [single](6 * $S))
-    $bCore.Dispose()
+    # 原版中心柔光
+    $bCenterGlow = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(26, $accent.R, $accent.G, $accent.B))
+    $g.FillEllipse($bCenterGlow, [single]($cx - 50 * $S), [single]($cy - 50 * $S), [single](100 * $S), [single](100 * $S))
+    $bCenterGlow.Dispose()
 
-    # 中心心率数值
-    $numFont = Fx (58 * $S) 'Bold' 'Segoe UI'
+    # 原版经典 56sp 心率数值排版
+    $numFont = Fx (56 * $S) 'Regular' 'Segoe UI'
     $nb = New-Object System.Drawing.SolidBrush $heart
     $nSize = $g.MeasureString('72', $numFont)
-    $g.DrawString('72', $numFont, $nb, [single]($ox + ($w - $nSize.Width) / 2), [single]($cy - 48 * $S))
+    $g.DrawString('72', $numFont, $nb, [single]($ox + ($w - $nSize.Width) / 2), [single]($cy - 44 * $S))
     $nb.Dispose(); $numFont.Dispose()
 
-    DrawCenter $g 'B P M' $ox $cw ($cy + 18 * $S) (9.5 * $S) $mut 'Bold'
+    DrawCenter $g 'B P M' $ox $cw ($cy + 22 * $S) (10 * $S) $mut 'Bold'
 
-    # ECG 脉动波形
-    $penEcg = New-Object System.Drawing.Pen($ok, [single](2 * $S))
-    $ecgY = $cy + 42 * $S
-    $pEcg = New-Object System.Drawing.Drawing2D.GraphicsPath
-    $pEcg.AddLine([single]($cx - 36 * $S), [single]$ecgY, [single]($cx - 16 * $S), [single]$ecgY)
-    $pEcg.AddLine([single]($cx - 12 * $S), [single]($ecgY - 4 * $S), [single]($cx - 8 * $S), [single]$ecgY)
-    $pEcg.AddLine([single]($cx - 4 * $S), [single]($ecgY + 5 * $S), [single]$cx, [single]($ecgY - 14 * $S))
-    $pEcg.AddLine([single]($cx + 4 * $S), [single]($ecgY + 8 * $S), [single]($cx + 8 * $S), [single]$ecgY)
-    $pEcg.AddLine([single]($cx + 14 * $S), [single]($ecgY - 5 * $S), [single]($cx + 18 * $S), [single]$ecgY)
-    $pEcg.AddLine([single]($cx + 18 * $S), [single]$ecgY, [single]($cx + 36 * $S), [single]$ecgY)
-    $g.DrawPath($penEcg, $pEcg)
-    $penEcg.Dispose(); $pEcg.Dispose()
-
-    # 卡片内集成状态信息条
+    # 卡片底部集成状态信息条 (消除原版大片虚无)
     $dockY = $cardY + $cardH - 52 * $S
     $dockH = 38 * $S
-    Round $g (New-Object System.Drawing.SolidBrush $alt) (New-Object System.Drawing.Pen($hair, 1)) ($x0 + 12 * $S) $dockY ($cw - 24 * $S) $dockH (12 * $S)
+    Round $g (New-Object System.Drawing.SolidBrush $alt) (New-Object System.Drawing.Pen($hair, 1)) ($x0 + 14 * $S) $dockY ($cw - 28 * $S) $dockH (12 * $S)
     
-    Draw $g 'HUAWEI WATCH GT 4' ($x0 + 26 * $S) ($dockY + 11 * $S) (12 * $S) $txt 'Bold'
+    Draw $g 'HUAWEI WATCH GT 4' ($x0 + 28 * $S) ($dockY + 11 * $S) (12 * $S) $txt 'Bold'
     
     $sepX = $x0 + $cw - 148 * $S
     $penSep = New-Object System.Drawing.Pen($hair, 1)
@@ -168,30 +127,30 @@ function RenderMainScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$dark)
     $g.FillEllipse((New-Object System.Drawing.SolidBrush $ok), [single]($sepX + 12 * $S), [single]($dockY + 16 * $S), [single](6 * $S), [single](6 * $S))
     Draw $g '已连接 · 正在推送' ($sepX + 24 * $S) ($dockY + 11 * $S) (11 * $S) $sec 'Regular'
 
-    # 3. 操作指令栏
-    $btnY = $cardY + $cardH + 12 * $S
-    $btnH = 48 * $S
+    # 3. 操作指令栏 (恢复经典纯胶囊状 Capsule 形状)
+    $btnY = $cardY + $cardH + 14 * $S
+    $btnH = 52 * $S
     $half = ($cw - 12 * $S) / 2
+    $capsuleRadius = $btnH / 2
 
-    # 主按钮：开始扫描
-    Round $g (New-Object System.Drawing.SolidBrush $accent) $null $x0 $btnY $half $btnH (16 * $S)
-    DrawCenter $g '● 开始扫描' $x0 $half ($btnY + 15 * $S) (13.5 * $S) $onAcc 'Bold'
+    # 主按钮：开始扫描 (胶囊状)
+    Round $g (New-Object System.Drawing.SolidBrush $accent) $null $x0 $btnY $half $btnH $capsuleRadius
+    DrawCenter $g '▶ 开始扫描' $x0 $half ($btnY + 17 * $S) (14 * $S) $onAcc 'Bold'
 
-    # 次按钮：连接手表
+    # 次按钮：断开连接 (胶囊状)
     $bx = $x0 + $half + 12 * $S
-    Round $g (New-Object System.Drawing.SolidBrush $surface) (New-Object System.Drawing.Pen($hair, 1)) $bx $btnY $half $btnH (16 * $S)
-    DrawCenter $g '断开连接' $bx $half ($btnY + 15 * $S) (13.5 * $S) $txt 'Bold'
+    Round $g (New-Object System.Drawing.SolidBrush $surface) (New-Object System.Drawing.Pen($hair, 1)) $bx $btnY $half $btnH $capsuleRadius
+    DrawCenter $g '断开连接' $bx $half ($btnY + 17 * $S) (14 * $S) $txt 'Bold'
 
     # 4. 附近心率设备卡片
-    $dY = $btnY + $btnH + 12 * $S
+    $dY = $btnY + $btnH + 14 * $S
     $dH = 176 * $S
     Round $g (New-Object System.Drawing.SolidBrush $surface) (New-Object System.Drawing.Pen($hair, 1)) $x0 $dY $cw $dH (20 * $S)
 
-    Draw $g '心率设备' ($x0 + 16 * $S) ($dY + 14 * $S) (14 * $S) $txt 'Bold'
+    Draw $g '设备' ($x0 + 16 * $S) ($dY + 14 * $S) (14 * $S) $txt 'Bold'
     
-    # 数量微标
-    Round $g (New-Object System.Drawing.SolidBrush $alt) (New-Object System.Drawing.Pen($hair, 1)) ($x0 + 82 * $S) ($dY + 14 * $S) (24 * $S) (18 * $S) (9 * $S)
-    DrawCenter $g '2' ($x0 + 82 * $S) (24 * $S) ($dY + 15 * $S) (10 * $S) $accent 'Bold'
+    Round $g (New-Object System.Drawing.SolidBrush $alt) (New-Object System.Drawing.Pen($hair, 1)) ($x0 + 58 * $S) ($dY + 14 * $S) (24 * $S) (18 * $S) (9 * $S)
+    DrawCenter $g '2' ($x0 + 58 * $S) (24 * $S) ($dY + 15 * $S) (10 * $S) $accent 'Bold'
     
     Draw $g '清空' ($x0 + $cw - 46 * $S) ($dY + 14 * $S) (12 * $S) $sec 'Regular'
 
@@ -201,7 +160,6 @@ function RenderMainScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$dark)
     $rowW = $cw - 24 * $S
     Round $g (New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(28, $accent.R, $accent.G, $accent.B))) (New-Object System.Drawing.Pen($accent, 1)) ($x0 + 12 * $S) $r1Y $rowW $rH (14 * $S)
     
-    # 头像
     Round $g (New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(44, $accent.R, $accent.G, $accent.B))) $null ($x0 + 22 * $S) ($r1Y + 10 * $S) (36 * $S) (36 * $S) (18 * $S)
     DrawCenter $g 'H' ($x0 + 22 * $S) (36 * $S) ($r1Y + 18 * $S) (14 * $S) $accent 'Bold'
 
@@ -237,7 +195,6 @@ function RenderMainScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$dark)
     $g.DrawLine($penTabBorder, [single]$ox, [single]$tabY, [single]($ox + $w), [single]$tabY)
     $penTabBorder.Dispose()
 
-    # 选中标签药丸背景
     $tabW = ($w - 48 * $S) / 2
     $pill1X = $ox + 24 * $S
     Round $g (New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(36, $accent.R, $accent.G, $accent.B))) $null $pill1X ($tabY + 10 * $S) $tabW (44 * $S) (14 * $S)
@@ -252,12 +209,12 @@ function RenderSettingsScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$d
     if ($dark) {
         $bg = Col '#0D0F12'; $surface = Col '#16191E'; $alt = Col '#1E232B'
         $hair = Col '#2B323C'; $txt = Col '#F0F4F8'; $sec = Col '#94A3B8'
-        $mut = Col '#64748B'; $accent = Col '#14B8A6'; $onAcc = Col '#04211F'
+        $mut = Col '#64748B'; $accent = Col '#3CC4BB'; $onAcc = Col '#04211F'
         $ok = Col '#10B981'
     } else {
         $bg = Col '#F4F6F8'; $surface = Col '#FFFFFF'; $alt = Col '#EEF2F6'
         $hair = Col '#E2E8F0'; $txt = Col '#0F172A'; $sec = Col '#475569'
-        $mut = Col '#94A3B8'; $accent = Col '#0D9488'; $onAcc = Col '#F0FDFA'
+        $mut = Col '#94A3B8'; $accent = Col '#0E7C74'; $onAcc = Col '#F0FDFA'
         $ok = Col '#059669'
     }
 
@@ -333,7 +290,6 @@ function RenderSettingsScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$d
         $cl = Col $colors[$i]
         
         if ($i -eq 0) {
-            # 选中态：外圈光环
             $penRing = New-Object System.Drawing.Pen($cl, [single](2 * $S))
             $g.DrawEllipse($penRing, [single]($dotX - 4 * $S), [single]($dotY - 4 * $S), [single](34 * $S), [single](34 * $S))
             $penRing.Dispose()
@@ -346,7 +302,7 @@ function RenderSettingsScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$d
 
     # 语言行
     Draw $g '应用语言' ($x0 + 16 * $S) ($c2Y + 168 * $S) (13.5 * $S) $txt 'Bold'
-    Draw $g '跟随系统  ›' ($x0 + $cw - 92 * $S) ($c2Y + 168 * $S) (12 * $S) $mut 'Regular'
+    Draw $g '跟随系统  >' ($x0 + $cw - 92 * $S) ($c2Y + 168 * $S) (12 * $S) $mut 'Regular'
 
     # 分组 3：关于
     $g3Y = $c2Y + $c2H + 20 * $S
@@ -366,7 +322,7 @@ function RenderSettingsScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$d
     # 检查更新
     $g.DrawLine((New-Object System.Drawing.Pen($hair, 1)), [single]($x0 + 16 * $S), [single]($c3Y + 64 * $S), [single]($x0 + $cw - 16 * $S), [single]($c3Y + 64 * $S))
     Draw $g '检查更新' ($x0 + 16 * $S) ($c3Y + 74 * $S) (13 * $S) $txt 'Bold'
-    Draw $g '已是最新版本  ›' ($x0 + $cw - 110 * $S) ($c3Y + 74 * $S) (11.5 * $S) $ok 'Regular'
+    Draw $g '已是最新版本  >' ($x0 + $cw - 110 * $S) ($c3Y + 74 * $S) (11.5 * $S) $ok 'Regular'
 
     # 底部标签栏
     $tabY = $h - 64 * $S
@@ -384,7 +340,6 @@ function RenderSettingsScreen([System.Drawing.Graphics]$g, [double]$ox, [bool]$d
     DrawCenter $g '⚙  设置' $pill2X $tabW ($tabY + 23 * $S) (13 * $S) $accent 'Bold'
 }
 
-# 渲染双主题主界面
 $W = [int](2 * 360 * $S + 40)
 $H = [int](800 * $S)
 
@@ -415,3 +370,45 @@ $outSettings = "C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC\android\design\ui-v3-setti
 $bmpSettings.Save($outSettings, [System.Drawing.Imaging.ImageFormat]::Png)
 $bmpSettings.Dispose()
 Write-Host "Generated: $outSettings"
+
+# 3. Side-by-side comparison with old version
+$oldBmp = [System.Drawing.Image]::FromFile("C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC\android\design\ui-v2-main.png")
+$newBmp = [System.Drawing.Image]::FromFile($outMain)
+
+$halfW = [int]($oldBmp.Width / 2)
+$H_old = $oldBmp.Height
+
+$cmpW = $halfW * 2 + 40
+$cmpBmp = New-Object System.Drawing.Bitmap $cmpW, ($H_old + 80)
+$gCmp = [System.Drawing.Graphics]::FromImage($cmpBmp)
+$gCmp.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$gCmp.Clear([System.Drawing.ColorTranslator]::FromHtml('#0A0C0E'))
+
+$fTitle = New-Object System.Drawing.Font('Segoe UI', 18, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
+$fSub = New-Object System.Drawing.Font('Segoe UI', 12, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+$bRed = New-Object System.Drawing.SolidBrush ([System.Drawing.ColorTranslator]::FromHtml('#EF4444'))
+$bGreen = New-Object System.Drawing.SolidBrush ([System.Drawing.ColorTranslator]::FromHtml('#10B981'))
+$bMuted = New-Object System.Drawing.SolidBrush ([System.Drawing.ColorTranslator]::FromHtml('#94A3B8'))
+
+$gCmp.DrawString("原来 DeepSeek 版本 (旧版)", $fTitle, $bRed, [single]30, [single]15)
+$gCmp.DrawString("文字重叠 · 空白过大 · 按钮无序 · 界面扁平", $fSub, $bMuted, [single]30, [single]42)
+
+$gCmp.DrawString("按要求调整后的 UI (保留原心率环与胶囊按钮)", $fTitle, $bGreen, [single]($halfW + 50), [single]15)
+$gCmp.DrawString("经典心率圆圈 + 原版排版 + 纯胶囊按钮 + 设备栏无重叠", $fSub, $bMuted, [single]($halfW + 50), [single]42)
+
+$rectOldSrc = New-Object System.Drawing.Rectangle 0, 0, $halfW, $H_old
+$rectOldDest = New-Object System.Drawing.Rectangle 20, 70, $halfW, $H_old
+$gCmp.DrawImage($oldBmp, $rectOldDest, $rectOldSrc, [System.Drawing.GraphicsUnit]::Pixel)
+
+$rectNewSrc = New-Object System.Drawing.Rectangle 0, 0, $halfW, $H_old
+$rectNewDest = New-Object System.Drawing.Rectangle ($halfW + 40), 70, $halfW, $H_old
+$gCmp.DrawImage($newBmp, $rectNewDest, $rectNewSrc, [System.Drawing.GraphicsUnit]::Pixel)
+
+$gCmp.Dispose()
+$oldBmp.Dispose()
+$newBmp.Dispose()
+
+$outCmp = "C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC\android\design\ui-comparison.png"
+$cmpBmp.Save($outCmp, [System.Drawing.Imaging.ImageFormat]::Png)
+$cmpBmp.Dispose()
+Write-Host "Generated: $outCmp"

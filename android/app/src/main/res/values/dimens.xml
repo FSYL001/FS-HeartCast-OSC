@@ -19,7 +19,7 @@
     <dimen name="card_radius">20dp</dimen>
     <dimen name="row_radius">14dp</dimen>
     <dimen name="input_radius">12dp</dimen>
-    <dimen name="pill_height">48dp</dimen>
+    <dimen name="pill_height">52dp</dimen>
     <dimen name="tabbar_height">64dp</dimen>
-    <dimen name="ring_size">216dp</dimen>
+    <dimen name="ring_size">204dp</dimen>
 </resources>
