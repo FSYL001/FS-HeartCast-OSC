@@ -48,6 +48,14 @@ public final class CrashHandler {
         });
     }
 
+    /** 主动记录一次已捕获但严重的异常。 */
+    public static void record(Context context, Throwable throwable) {
+        try {
+            write(context.getApplicationContext(), throwable);
+        } catch (Throwable ignored) {
+        }
+    }
+
     private static void write(Context context, Throwable throwable) {
         StringWriter buffer = new StringWriter();
         PrintWriter writer = new PrintWriter(buffer);
@@ -65,7 +73,25 @@ public final class CrashHandler {
         String text = buffer.toString();
         Log.e(TAG, text);
 
-        File dir = new File(context.getExternalFilesDir(null), DIR);
+        // 1. 写应用内部私有目录（保证 100% 成功，不受外部存储状态或权限限制）
+        try {
+            File internalDir = new File(context.getFilesDir(), DIR);
+            writeToDir(internalDir, text);
+        } catch (Throwable ignored) {
+        }
+
+        // 2. 写外部私有目录（方便通过电脑或文件管理器直接查看）
+        try {
+            File ext = context.getExternalFilesDir(null);
+            if (ext != null) {
+                File externalDir = new File(ext, DIR);
+                writeToDir(externalDir, text);
+            }
+        } catch (Throwable ignored) {
+        }
+    }
+
+    private static void writeToDir(File dir, String text) {
         if (!dir.exists() && !dir.mkdirs()) {
             return;
         }
@@ -75,17 +101,41 @@ public final class CrashHandler {
             fileWriter.write(text);
             fileWriter.close();
         } catch (Exception ignored) {
-            // 写不进去就算了
         }
     }
 
     /** 读取上次崩溃记录，没有则返回 null。 */
     public static String readLast(Context context) {
+        // 先读内部私有目录
         try {
-            File file = new File(new File(context.getExternalFilesDir(null), DIR), FILE);
-            if (!file.exists()) {
-                return null;
+            File internalFile = new File(new File(context.getFilesDir(), DIR), FILE);
+            String text = readFile(internalFile);
+            if (text != null && text.length() > 0) {
+                return text;
             }
+        } catch (Throwable ignored) {
+        }
+
+        // 再读外部私有目录
+        try {
+            File ext = context.getExternalFilesDir(null);
+            if (ext != null) {
+                File externalFile = new File(new File(ext, DIR), FILE);
+                String text = readFile(externalFile);
+                if (text != null && text.length() > 0) {
+                    return text;
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+        return null;
+    }
+
+    private static String readFile(File file) {
+        if (file == null || !file.exists()) {
+            return null;
+        }
+        try {
             java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file));
             StringBuilder builder = new StringBuilder();
             String line;

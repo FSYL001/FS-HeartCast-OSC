@@ -163,16 +163,23 @@ public final class HeartRateRingView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        if (w <= 0 || h <= 0) {
+            return;
+        }
         float inset = strokeWidth / 2f + dp(6);
         arcRect.set(inset, inset, w - inset, h - inset);
 
         float cx = w / 2f;
+        float cy = h / 2f;
         float radius = Math.min(w, h) / 2f;
 
-        // 中心柔光
-        glowPaint.setShader(new RadialGradient(cx, cx, radius * 0.72f,
-                new int[] { withAlpha(accentColor, 26), 0x00000000 },
-                new float[] { 0f, 1f }, Shader.TileMode.CLAMP));
+        // 中心柔光（半径必须严格 > 0）
+        float glowRadius = radius * 0.72f;
+        if (glowRadius > 0.01f) {
+            glowPaint.setShader(new RadialGradient(cx, cy, glowRadius,
+                    new int[] { withAlpha(accentColor, 26), 0x00000000 },
+                    new float[] { 0f, 1f }, Shader.TileMode.CLAMP));
+        }
 
         updateGradient();
     }

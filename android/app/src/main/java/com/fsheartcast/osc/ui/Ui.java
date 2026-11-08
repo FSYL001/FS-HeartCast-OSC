@@ -98,4 +98,13 @@ public final class Ui {
         drawable.setStroke(strokePx, color);
         return drawable;
     }
+
+    /** 生成一个纯色圆角矩形 drawable（标签底块/背景用）。 */
+    public static GradientDrawable pill(int color, float radiusPx) {
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setColor(color);
+        drawable.setCornerRadius(radiusPx);
+        return drawable;
+    }
 }

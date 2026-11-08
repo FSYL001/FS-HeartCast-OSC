@@ -74,7 +74,7 @@ public final class MainActivity extends Activity {
     private TextView tvLinkState;
     private TextView tvStatusChip;
     private TextView tvDeviceCount;
-    private TextView tvEmpty;
+    private View tvEmpty;
     private TextView tvTarget;
     private TextView tvOscStatus;
     private View statusDot;
@@ -152,35 +152,40 @@ public final class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        appliedStyle = Appearance.styleRes(this);
-        appliedLanguage = Prefs.language(this);
-        Appearance.apply(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         CrashHandler.install(getApplicationContext());
-        core = HeartRateCore.get(this);
-        bindViews();
-        setupTabs();
-        setupLivePage();
-        setupSettingsPage();
-        loadOscFields();
+        try {
+            appliedStyle = Appearance.styleRes(this);
+            appliedLanguage = Prefs.language(this);
+            Appearance.apply(this);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        if (savedInstanceState != null) {
-            currentPage = savedInstanceState.getInt("page", PAGE_LIVE);
-        }
-        applyPage(currentPage, false);
-        applyKeepScreenOn();
+            core = HeartRateCore.get(this);
+            bindViews();
+            setupTabs();
+            setupLivePage();
+            setupSettingsPage();
+            loadOscFields();
 
-        if (Prefs.autoScan(this) && hasBluetoothPermissions() && isBluetoothEnabled()) {
-            main.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!isFinishing() && currentPage == PAGE_LIVE) {
-                        startScan();
+            if (savedInstanceState != null) {
+                currentPage = savedInstanceState.getInt("page", PAGE_LIVE);
+            }
+            applyPage(currentPage, false);
+            applyKeepScreenOn();
+
+            if (Prefs.autoScan(this) && hasBluetoothPermissions() && isBluetoothEnabled()) {
+                main.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!isFinishing() && currentPage == PAGE_LIVE) {
+                            startScan();
+                        }
                     }
-                }
-            }, 420);
+                }, 420);
+            }
+        } catch (Throwable t) {
+            CrashHandler.record(getApplicationContext(), t);
+            throw t;
         }
     }
 
@@ -209,7 +214,7 @@ public final class MainActivity extends Activity {
         tvLinkState = (TextView) findViewById(R.id.tvLinkState);
         tvStatusChip = (TextView) findViewById(R.id.tvStatusChip);
         tvDeviceCount = (TextView) findViewById(R.id.tvDeviceCount);
-        tvEmpty = (TextView) findViewById(R.id.tvEmpty);
+        tvEmpty = findViewById(R.id.tvEmpty);
         tvTarget = (TextView) findViewById(R.id.tvTarget);
         tvOscStatus = (TextView) findViewById(R.id.tvOscStatus);
         statusDot = findViewById(R.id.statusDot);
@@ -274,13 +279,13 @@ public final class MainActivity extends Activity {
         int inactive = muted;
 
         if (page == PAGE_LIVE) {
-            tabLive.setBackgroundResource(R.drawable.bg_tab_pill);
-            tabSettings.setBackgroundResource(0);
+            tabLive.setBackground(Ui.pill(Ui.color(this, R.attr.accentSoft), Ui.dp(this, 16)));
+            tabSettings.setBackground(null);
             animateTab(iconLive, labelLive, true, accent, muted);
             animateTab(iconSettings, labelSettings, false, active, inactive);
         } else {
-            tabLive.setBackgroundResource(0);
-            tabSettings.setBackgroundResource(R.drawable.bg_tab_pill);
+            tabLive.setBackground(null);
+            tabSettings.setBackground(Ui.pill(Ui.color(this, R.attr.accentSoft), Ui.dp(this, 16)));
             animateTab(iconLive, labelLive, false, accent, muted);
             animateTab(iconSettings, labelSettings, true, active, inactive);
         }
