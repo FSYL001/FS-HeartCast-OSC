@@ -115,32 +115,44 @@ public final class UpdateChecker {
     }
 
     private static JSONObject fetchJson(String urlText) throws Exception {
-        HttpURLConnection connection = null;
-        try {
-            URL url = new URL(urlText);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(8000);
-            connection.setReadTimeout(10000);
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept", "application/vnd.github+json");
-            connection.setRequestProperty("User-Agent", USER_AGENT);
-            int code = connection.getResponseCode();
-            if (code != 200) {
-                throw new IllegalStateException("HTTP " + code);
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-            StringBuilder builder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                builder.append(line).append('\n');
-            }
-            reader.close();
-            return new JSONObject(builder.toString());
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
+        String currentUrl = urlText;
+        for (int redirectCount = 0; redirectCount < 3; redirectCount++) {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(currentUrl);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(8000);
+                connection.setReadTimeout(10000);
+                connection.setInstanceFollowRedirects(true);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/vnd.github+json");
+                connection.setRequestProperty("User-Agent", USER_AGENT);
+                int code = connection.getResponseCode();
+                if (code >= 300 && code < 400) {
+                    String newUrl = connection.getHeaderField("Location");
+                    if (newUrl != null && newUrl.length() > 0) {
+                        currentUrl = newUrl;
+                        continue;
+                    }
+                }
+                if (code != 200) {
+                    throw new IllegalStateException("HTTP " + code);
+                }
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line).append('\n');
+                }
+                reader.close();
+                return new JSONObject(builder.toString());
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
         }
+        throw new IllegalStateException("Too many redirects");
     }
 
     public static String currentVersion(Context context) {

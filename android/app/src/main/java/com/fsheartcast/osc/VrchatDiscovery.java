@@ -199,20 +199,37 @@ public final class VrchatDiscovery {
             try {
                 InetAddress address = info.getHost();
                 if (address != null && address.getHostAddress() != null) {
-                    return address.getHostAddress();
+                    String ip = address.getHostAddress();
+                    if (isValidHostIp(ip)) {
+                        return ip;
+                    }
                 }
-            } catch (Exception ignored) {
-                // 个别机型 getHost() 返回 null
+            } catch (Throwable ignored) {
+                // 个别机型 getHost() 异常
             }
-            try {
-                java.util.List<InetAddress> addresses = info.getHostAddresses();
-                if (addresses != null && !addresses.isEmpty() && addresses.get(0) != null) {
-                    return addresses.get(0).getHostAddress();
+            if (android.os.Build.VERSION.SDK_INT >= 34) {
+                try {
+                    java.util.List<InetAddress> addresses = info.getHostAddresses();
+                    if (addresses != null) {
+                        for (int i = 0; i < addresses.size(); i++) {
+                            InetAddress addr = addresses.get(i);
+                            if (addr != null && addr.getHostAddress() != null) {
+                                String ip = addr.getHostAddress();
+                                if (isValidHostIp(ip)) {
+                                    return ip;
+                                }
+                            }
+                        }
+                    }
+                } catch (Throwable ignored) {
+                    // ignore
                 }
-            } catch (Exception ignored) {
-                // ignore
             }
             return null;
+        }
+
+        private static boolean isValidHostIp(String ip) {
+            return ip != null && ip.length() > 0 && !ip.startsWith("0.0.0.0") && !"::".equals(ip);
         }
 
         private void finish(final Result result) {

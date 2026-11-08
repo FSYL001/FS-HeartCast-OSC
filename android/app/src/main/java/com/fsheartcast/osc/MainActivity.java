@@ -93,6 +93,7 @@ public final class MainActivity extends Activity {
     private TextView btnDiscover;
     private TextView tvDiscoverStatus;
     private TextView tvUpdateState;
+    private boolean checkingUpdate;
 
     // 设置页
     private Switch swAutoScan;
@@ -172,6 +173,7 @@ public final class MainActivity extends Activity {
             }
             applyPage(currentPage, false);
             applyKeepScreenOn();
+            maybeAutoCheckUpdate();
 
             if (Prefs.autoScan(this) && hasBluetoothPermissions() && isBluetoothEnabled()) {
                 main.postDelayed(new Runnable() {
@@ -1011,7 +1013,7 @@ public final class MainActivity extends Activity {
         main.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!isFinishing()) {
+                if (!isFinishing() && !isDestroyed()) {
                     runUpdateCheck(false);
                 }
             }
@@ -1019,6 +1021,13 @@ public final class MainActivity extends Activity {
     }
 
     private void runUpdateCheck(final boolean manual) {
+        if (checkingUpdate) {
+            if (manual) {
+                toast(getString(R.string.update_checking));
+            }
+            return;
+        }
+        checkingUpdate = true;
         if (manual && tvUpdateState != null) {
             tvUpdateState.setText(R.string.update_checking);
         }
@@ -1026,6 +1035,7 @@ public final class MainActivity extends Activity {
             UpdateChecker.check(this, new UpdateChecker.Callback() {
                 @Override
                 public void onResult(UpdateChecker.Release release, boolean newer, String error) {
+                    checkingUpdate = false;
                     if (tvUpdateState != null) {
                         tvUpdateState.setText("");
                     }
@@ -1053,6 +1063,7 @@ public final class MainActivity extends Activity {
                 }
             });
         } catch (Throwable t) {
+            checkingUpdate = false;
             if (tvUpdateState != null) {
                 tvUpdateState.setText("");
             }
@@ -1124,7 +1135,7 @@ public final class MainActivity extends Activity {
         VrchatDiscovery.scan(this, new VrchatDiscovery.Callback() {
             @Override
             public void onFinished(VrchatDiscovery.Result result) {
-                if (isFinishing()) {
+                if (isFinishing() || isDestroyed()) {
                     return;
                 }
                 if (result != null) {
@@ -1132,10 +1143,10 @@ public final class MainActivity extends Activity {
                     return;
                 }
                 // 2) 备选：找电脑上的中继（可选安装）
-                LanDiscovery.scan(new LanDiscovery.Callback() {
+                LanDiscovery.scan(MainActivity.this, new LanDiscovery.Callback() {
                     @Override
                     public void onFinished(LanDiscovery.Result relay) {
-                        if (isFinishing()) {
+                        if (isFinishing() || isDestroyed()) {
                             return;
                         }
                         if (relay != null) {

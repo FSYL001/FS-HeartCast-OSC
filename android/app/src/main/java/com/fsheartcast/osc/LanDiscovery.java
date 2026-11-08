@@ -44,12 +44,31 @@ public final class LanDiscovery {
     }
 
     public static void scan(final Callback callback) {
+        scan(null, callback);
+    }
+
+    public static void scan(final android.content.Context context, final Callback callback) {
+        final android.content.Context appContext = context == null ? null : context.getApplicationContext();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Result result = null;
                 DatagramSocket socket = null;
+                android.net.wifi.WifiManager.MulticastLock multicastLock = null;
                 try {
+                    if (appContext != null) {
+                        try {
+                            android.net.wifi.WifiManager wm =
+                                    (android.net.wifi.WifiManager) appContext.getSystemService(android.content.Context.WIFI_SERVICE);
+                            if (wm != null) {
+                                multicastLock = wm.createMulticastLock("fs-heartcast-lan");
+                                multicastLock.setReferenceCounted(false);
+                                multicastLock.acquire();
+                            }
+                        } catch (Throwable ignored) {
+                        }
+                    }
+
                     socket = new DatagramSocket();
                     socket.setBroadcast(true);
                     socket.setSoTimeout(150);
@@ -60,7 +79,7 @@ public final class LanDiscovery {
                         for (int p = 0; p < PORTS.length; p++) {
                             try {
                                 socket.send(new DatagramPacket(probe, probe.length, targets.get(i), PORTS[p]));
-                            } catch (Exception ignored) {
+                            } catch (Throwable ignored) {
                                 // 单个目标失败不影响整体扫描
                             }
                         }
@@ -79,15 +98,24 @@ public final class LanDiscovery {
                             }
                         } catch (java.net.SocketTimeoutException ignored) {
                             // 继续等
-                        } catch (Exception ignored) {
+                        } catch (Throwable ignored) {
                             // ignore
                         }
                     }
-                } catch (Exception ignored) {
+                } catch (Throwable ignored) {
                     // 扫描失败按“没找到”处理
                 } finally {
                     if (socket != null) {
-                        socket.close();
+                        try {
+                            socket.close();
+                        } catch (Throwable ignored) {
+                        }
+                    }
+                    if (multicastLock != null && multicastLock.isHeld()) {
+                        try {
+                            multicastLock.release();
+                        } catch (Throwable ignored) {
+                        }
                     }
                 }
 
