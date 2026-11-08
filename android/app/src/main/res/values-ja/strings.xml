@@ -111,6 +111,10 @@
     <string name="update_later">後で</string>
     <string name="update_ignore">このバージョンをスキップ</string>
     <string name="update_notes_empty">（リリースノートはありません）</string>
+    <string name="crash_log_title">前回のクラッシュログ</string>
+    <string name="crash_log_value">タップでコピー</string>
+    <string name="crash_log_copied">クラッシュログをコピーしました</string>
+    <string name="crash_log_none">クラッシュログはありません</string>
     <string name="no_device">デバイス未選択</string>
     <string name="tab_live">心拍数</string>
     <string name="tab_settings">設定</string>

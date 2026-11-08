@@ -111,6 +111,10 @@
     <string name="update_later">Later</string>
     <string name="update_ignore">Skip this version</string>
     <string name="update_notes_empty">No release notes.</string>
+    <string name="crash_log_title">Last crash log</string>
+    <string name="crash_log_value">Tap to copy</string>
+    <string name="crash_log_copied">Crash log copied to clipboard</string>
+    <string name="crash_log_none">No crash log</string>
     <string name="no_device">No device selected</string>
     <string name="tab_live">Heart rate</string>
     <string name="tab_settings">Settings</string>

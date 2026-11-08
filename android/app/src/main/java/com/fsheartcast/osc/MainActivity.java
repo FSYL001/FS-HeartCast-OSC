@@ -158,6 +158,7 @@ public final class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        CrashHandler.install(getApplicationContext());
         core = HeartRateCore.get(this);
         bindViews();
         setupTabs();
@@ -949,10 +950,40 @@ public final class MainActivity extends Activity {
         findViewById(R.id.linkAifadian).setOnClickListener(open("https://ifdian.net/a/fsyl001"));
         findViewById(R.id.linkEmail).setOnClickListener(open("mailto:email@fsyl001.sbs"));
         findViewById(R.id.linkBlog).setOnClickListener(open("https://blog.fsyl001.sbs"));
+        setupCrashLogRow();
         findViewById(R.id.rowCheckUpdate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 runUpdateCheck(true);
+            }
+        });
+    }
+
+    private void setupCrashLogRow() {
+        View row = findViewById(R.id.rowCrashLog);
+        if (row == null) {
+            return;
+        }
+        boolean hasCrash = CrashHandler.readLast(this) != null;
+        row.setVisibility(hasCrash ? View.VISIBLE : View.GONE);
+        row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = CrashHandler.readLast(MainActivity.this);
+                if (text == null) {
+                    toast(getString(R.string.crash_log_none));
+                    return;
+                }
+                try {
+                    android.content.ClipboardManager clipboard =
+                            (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    if (clipboard != null) {
+                        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("crash", text));
+                    }
+                    toast(getString(R.string.crash_log_copied));
+                } catch (Throwable t) {
+                    toast(getString(R.string.crash_log_none));
+                }
             }
         });
     }
@@ -975,41 +1006,53 @@ public final class MainActivity extends Activity {
     }
 
     private void runUpdateCheck(final boolean manual) {
-        if (!manual) {
-            Prefs.setUpdateCheckedAt(this, System.currentTimeMillis());
-        } else if (tvUpdateState != null) {
+        if (manual && tvUpdateState != null) {
             tvUpdateState.setText(R.string.update_checking);
         }
-        UpdateChecker.check(this, new UpdateChecker.Callback() {
-            @Override
-            public void onResult(UpdateChecker.Release release, boolean newer, String error) {
-                if (tvUpdateState != null) {
-                    tvUpdateState.setText("");
-                }
-                if (error != null) {
-                    if (manual) {
-                        toast(getString(R.string.update_failed));
+        try {
+            UpdateChecker.check(this, new UpdateChecker.Callback() {
+                @Override
+                public void onResult(UpdateChecker.Release release, boolean newer, String error) {
+                    if (tvUpdateState != null) {
+                        tvUpdateState.setText("");
                     }
-                    return;
-                }
-                if (manual) {
+                    if (isFinishing() || isDestroyed()) {
+                        return;
+                    }
+                    if (error != null) {
+                        // 失败时不记录时间，下次启动会重试
+                        if (manual) {
+                            toast(getString(R.string.update_failed));
+                        }
+                        return;
+                    }
                     Prefs.setUpdateCheckedAt(MainActivity.this, System.currentTimeMillis());
-                }
-                if (release == null || !newer) {
-                    if (manual) {
-                        toast(getString(R.string.update_latest));
+                    if (release == null || !newer) {
+                        if (manual) {
+                            toast(getString(R.string.update_latest));
+                        }
+                        return;
                     }
-                    return;
+                    if (!manual && release.tag.equals(Prefs.updateIgnoredTag(MainActivity.this))) {
+                        return;
+                    }
+                    showUpdateDialog(release);
                 }
-                if (!manual && release.tag.equals(Prefs.updateIgnoredTag(MainActivity.this))) {
-                    return;
-                }
-                showUpdateDialog(release);
+            });
+        } catch (Throwable t) {
+            if (tvUpdateState != null) {
+                tvUpdateState.setText("");
             }
-        });
+            if (manual) {
+                toast(getString(R.string.update_failed));
+            }
+        }
     }
 
     private void showUpdateDialog(final UpdateChecker.Release release) {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
         String notes = release.notes == null ? "" : release.notes.trim();
         if (notes.length() > 600) {
             notes = notes.substring(0, 600) + "…";
@@ -1017,6 +1060,15 @@ public final class MainActivity extends Activity {
         if (notes.length() == 0) {
             notes = getString(R.string.update_notes_empty);
         }
+        try {
+            showUpdateDialogInner(release, notes);
+        } catch (Throwable t) {
+            // 弹窗失败时退化为直接打开下载页
+            openUrl(release.apkUrl != null ? release.apkUrl : release.pageUrl);
+        }
+    }
+
+    private void showUpdateDialogInner(final UpdateChecker.Release release, String notes) {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.update_found_title, release.tag))
                 .setMessage(notes)

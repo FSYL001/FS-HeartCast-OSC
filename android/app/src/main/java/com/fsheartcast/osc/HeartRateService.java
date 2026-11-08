@@ -54,6 +54,7 @@ public final class HeartRateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashHandler.install(getApplicationContext());
         core = HeartRateCore.get(this);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         createChannel();

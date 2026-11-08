@@ -111,6 +111,10 @@
     <string name="update_later">稍後</string>
     <string name="update_ignore">忽略此版本</string>
     <string name="update_notes_empty">（該版本沒有發佈說明）</string>
+    <string name="crash_log_title">上次崩潰紀錄</string>
+    <string name="crash_log_value">點擊複製</string>
+    <string name="crash_log_copied">崩潰紀錄已複製</string>
+    <string name="crash_log_none">沒有崩潰紀錄</string>
     <string name="no_device">未選擇裝置</string>
     <string name="tab_live">心率</string>
     <string name="tab_settings">設定</string>

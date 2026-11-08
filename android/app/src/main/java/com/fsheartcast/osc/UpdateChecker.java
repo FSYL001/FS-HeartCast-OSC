@@ -87,19 +87,27 @@ public final class UpdateChecker {
 
                     release = new Release(tag, name, notes, pageUrl, apkUrl);
                     newer = compareVersions(tag, currentVersion(appContext)) > 0;
-                } catch (Exception e) {
-                    error = e.getClass().getSimpleName();
+                } catch (Throwable e) {
+                    error = e.getClass().getSimpleName() + ": " + e.getMessage();
                 }
 
                 final Release finalRelease = release;
                 final boolean finalNewer = newer;
                 final String finalError = error;
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onResult(finalRelease, finalNewer, finalError);
-                    }
-                });
+                try {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                callback.onResult(finalRelease, finalNewer, finalError);
+                            } catch (Throwable t) {
+                                android.util.Log.e("FSHeartCast", "update callback failed", t);
+                            }
+                        }
+                    });
+                } catch (Throwable ignored) {
+                    // 主线程不可用时忽略
+                }
             }
         }, "update-check");
         thread.setDaemon(true);

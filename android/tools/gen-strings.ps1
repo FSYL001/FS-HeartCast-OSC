@@ -114,6 +114,10 @@ $extras = [ordered]@{
     "update_later" = @{ en = "Later"; zh = "稍后"; tw = "稍後"; ja = "後で" }
     "update_ignore" = @{ en = "Skip this version"; zh = "忽略此版本"; tw = "忽略此版本"; ja = "このバージョンをスキップ" }
     "update_notes_empty" = @{ en = "No release notes."; zh = "（该版本没有发布说明）"; tw = "（該版本沒有發佈說明）"; ja = "（リリースノートはありません）" }
+    "crash_log_title" = @{ en = "Last crash log"; zh = "上次崩溃日志"; tw = "上次崩潰紀錄"; ja = "前回のクラッシュログ" }
+    "crash_log_value" = @{ en = "Tap to copy"; zh = "点击复制"; tw = "點擊複製"; ja = "タップでコピー" }
+    "crash_log_copied" = @{ en = "Crash log copied to clipboard"; zh = "崩溃日志已复制，可直接发给我"; tw = "崩潰紀錄已複製"; ja = "クラッシュログをコピーしました" }
+    "crash_log_none" = @{ en = "No crash log"; zh = "没有崩溃日志"; tw = "沒有崩潰紀錄"; ja = "クラッシュログはありません" }
     "no_device" = @{ en = "No device selected"; zh = "未选择设备"; tw = "未選擇裝置"; ja = "デバイス未選択" }
     "tab_live" = @{ en = "Heart rate"; zh = "心率"; tw = "心率"; ja = "心拍数" }
     "tab_settings" = @{ en = "Settings"; zh = "设置"; tw = "設定"; ja = "設定" }

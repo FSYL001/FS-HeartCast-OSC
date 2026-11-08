@@ -111,6 +111,10 @@
     <string name="update_later">稍后</string>
     <string name="update_ignore">忽略此版本</string>
     <string name="update_notes_empty">（该版本没有发布说明）</string>
+    <string name="crash_log_title">上次崩溃日志</string>
+    <string name="crash_log_value">点击复制</string>
+    <string name="crash_log_copied">崩溃日志已复制，可直接发给我</string>
+    <string name="crash_log_none">没有崩溃日志</string>
     <string name="no_device">未选择设备</string>
     <string name="tab_live">心率</string>
     <string name="tab_settings">设置</string>

@@ -805,6 +805,38 @@
                             android:src="@drawable/ic_chevron_right"
                             android:tint="?attr/textMuted" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/rowCrashLog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/Text.RowTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/crash_log_title" />
+
+                        <TextView
+                            android:id="@+id/tvCrashState"
+                            style="@style/Text.RowValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/crash_log_value" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="4dp"
+                            android:contentDescription="@string/crash_log_title"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="?attr/textMuted" />
+                    </LinearLayout>
                     <TextView
                         style="@style/Text.SectionLabel"
                         android:layout_width="wrap_content"
