@@ -161,8 +161,8 @@ def main():
         f'--auto-add-overlay '
         f'--min-sdk-version 26 '
         f'--target-sdk-version 34 '
-        f'--version-code 5 '
-        f'--version-name 1.2.1'
+        f'--version-code 6 '
+        f'--version-name 1.2.2'
     )
     run_win_cmd(cmd_link)
 
@@ -243,7 +243,7 @@ def main():
 
     # 7. Apksigner
     print("[7/7] 签名 APK (apksigner)...")
-    final_apk = os.path.join(out_dir, "FS-HeartCast-OSC-1.2.1-debug.apk")
+    final_apk = os.path.join(out_dir, "FS-HeartCast-OSC-1.2.2-debug.apk")
     keystore = os.path.join(root, "debug.keystore")
     sign_cmd = [
         apksigner, "sign",
@@ -269,10 +269,10 @@ def main():
     size_kb = round(os.path.getsize(final_apk) / 1024, 1)
 
     # 复制到桌面及 Artifact 目录
-    desktop_apk = r"C:\Users\JKH\Desktop\FS-HeartCast-OSC-1.2.1-debug.apk"
+    desktop_apk = r"C:\Users\JKH\Desktop\FS-HeartCast-OSC-1.2.2-debug.apk"
     shutil.copy2(final_apk, desktop_apk)
 
-    artifact_apk = r"C:\Users\JKH\.gemini\antigravity\brain\d64f1fc9-3676-4be5-a643-d1075453d82d\FS-HeartCast-OSC-1.2.1-debug.apk"
+    artifact_apk = r"C:\Users\JKH\.gemini\antigravity\brain\d64f1fc9-3676-4be5-a643-d1075453d82d\FS-HeartCast-OSC-1.2.2-debug.apk"
     try:
         shutil.copy2(final_apk, artifact_apk)
     except Exception as e:

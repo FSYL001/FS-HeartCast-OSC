@@ -1,4 +1,4 @@
-﻿# Build FS-HeartCast-OSC (Android) without Gradle / Android Studio.
+# Build FS-HeartCast-OSC (Android) without Gradle / Android Studio.
 #
 # 只需要三样东西：
 #   1. JDK 17
@@ -16,8 +16,8 @@ param(
     [string]$AndroidHome = $env:ANDROID_HOME,
     [string]$JdkHome = $env:JAVA_HOME,
     [string]$OutDir,
-    [string]$VersionName = "1.2.1",
-    [int]$VersionCode = 5,
+    [string]$VersionName = "1.2.2",
+    [int]$VersionCode = 6,
     [int]$MinSdk = 26,
     [int]$TargetSdk = 34
 )

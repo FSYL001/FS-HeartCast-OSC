@@ -41,7 +41,7 @@ Avatar 参数
 - 项目当前没有 `.sln`，`HOSC.Diagnostics` 是一个未跟踪的独立控制台项目，不在主程序构建中。
 - 本次记录问题共 37 项：P0 确认 0 项、P0 候选 1 项（计入 P1-5）、P1 6 项、P2 16 项、P3 15 项。问题数量包含建议性优化，不代表全部都会在当前设备上复现。
 
-**2026-11-08 补充**：仓库在 v1.0.0 之后新增了独立的 Android 端（`android/`，当前 v1.2.1）——
+**2026-11-08 补充**：仓库在 v1.0.0 之后新增了独立的 Android 端（`android/`，当前 v1.2.2）——
 手机直接连手表读心率，再通过局域网 OSC 推给 VRChat，与桌面版共用同一套 Avatar 参数。
 它不改变本文档对 Windows 端的任何结论；Android 端的实现、构建、发布与踩坑记录见第 23 节。
 
@@ -1589,12 +1589,12 @@ C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC\PROJECT_HANDOVER.md
 
 ---
 
-## 23. Android 端（2026-11 新增，当前 v1.2.1）
+## 23. Android 端（2026-11 新增，当前 v1.2.2）
 
 ### 23.1 定位与状态
 
 - 包名 `com.fsheartcast.osc`；单 Activity（`MainActivity`）+ 两个页面（心率 / 设置），设置不再是独立 Activity
-- Android 8.0+（minSdk 26），compileSdk / targetSdk 34；当前 `versionCode 5` / `versionName 1.2.1`
+- Android 8.0+（minSdk 26），compileSdk / targetSdk 34；当前 `versionCode 6` / `versionName 1.2.2`
 - **没有任何第三方或 AndroidX 依赖**，只用框架 API；APK 约 260 KB，调试签名
 - 通过 GitHub Releases 分发，并在 App 内做版本检查（见 23.9）
 - 与桌面版的关系：共用同一套心率来源与 OSC 参数契约，可以互为替代——手机当采集端时，电脑端只需要开着 VRChat
@@ -1850,7 +1850,7 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
 - [ ] 检查 `%APPDATA%\HOSC\settings.json` 的读写。
 - [ ] 阅读 P1/P2 问题，决定修复顺序。
 - [ ] 不要删除 `HOSC.Diagnostics`/`logo备份`/发布 zip；先确认作者意图。
-**Android 端（v1.2.1）**
+**Android 端（v1.2.2）**
 
 - [ ] 用 `build-apk.ps1`（或 Android Studio）跑通构建，确认产物与 `dist/` 里的一致。
 - [ ] 真机验证：扫描/连接手表、OSC 直连 `电脑IP:9000`、自动检测（mDNS）、检查更新弹窗。
@@ -1866,6 +1866,7 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
 | --- | --- | --- |
 | 1.0 | 2026-11-07 | 首次审查：Windows 桌面端只读静态审查，记录 37 项问题（P0 候选 1、P1 6、P2 16、P3 15），新增本文件 |
 | 1.1 | 2026-11-08 | 新增第 23 节（Android 端 v1.2.1 完整记录：架构、契约、构建、资源生成、测试、发布与更新、局域网发现、限制）；文档头改为本次 HEAD `4283397`；§0 摘要补充 Android 说明；附录 D 增加 Android 交接清单；新增本附录 |
+| 1.2 | 2026-11-08 | 升级 Android 端至 v1.2.2：UI 视觉重做（经典心率环与胶囊按钮回归、非重叠设备卡片、深浅色+6色强调色）、修复启动闪退与 ClassCastException、构建工具链升级为标准 AAPT2 与双写崩溃日志 |
 
 说明：
 

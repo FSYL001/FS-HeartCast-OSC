@@ -29,13 +29,13 @@
 ## 1. 已经打包好的 APK
 
 ```
-android\build\output\FS-HeartCast-OSC-1.1.1-debug.apk
-android\dist\FS-HeartCast-OSC-1.1.1-debug.apk      ← 同一份
+android\build\output\FS-HeartCast-OSC-1.2.2-debug.apk
+android\dist\FS-HeartCast-OSC-1.2.2-debug.apk      ← 同一份
 ```
 
 - 最低 Android 8.0（API 26），目标 API 34，已在 Android 14/15 的目标版本上编译；
 - 约 264 KB，**不依赖任何第三方 / AndroidX 库**；
-- `adb install -r FS-HeartCast-OSC-1.1.1-debug.apk`，或传到手机点击安装。
+- `adb install -r FS-HeartCast-OSC-1.2.2-debug.apk`，或传到手机点击安装。
 
 ---
 
