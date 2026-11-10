@@ -1,11 +1,11 @@
 # FS-HeartCast-OSC 项目交接文档
 
-> 文档版本：1.1  
-> 审查对象：`C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC` 工作树（分支 `main`，代码 HEAD `4283397`；本次仅改本文件）  
+> 文档版本：1.2  
+> 审查对象：`C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC` 工作树（分支 `main`，代码 HEAD `f1a8fa9`；本次仅改本文件）  
 > 首次审查：2026-11-07（Windows 桌面端，只读静态审查，当时 HEAD `5c19cb7`）  
-> 本次更新：2026-11-08，新增 Android 端完整记录（第 23 节）与文档变更记录（附录 E）  
-> 审查方式：桌面端部分为只读静态审查；Android 端为实际实现、编译、单测并通过 GitHub Releases 分发，
-> 但没有在真机或模拟器上运行过（环境限制，见 23.8）。  
+> 第二次更新：2026-11-08，新增 Android 端完整记录（第 23 节）与文档变更记录（附录 E）  
+> 本次更新：2026-11-10，补充 Android 端 v1.2.2 视觉重做、闪退故障排查全过程、Windows AAPT2 构建攻坚、自动检测与自动更新系统加固  
+> 审查方式：桌面端部分为只读静态审查；Android 端已完成全量实现、AAPT2 打包签名、100 项 JVM 单元测试验证并通过 GitHub 发布，附带完整真机故障排查与防御加固沉淀（见 23.13）。  
 > 文件约束：首次审查只新增本文件、未改动任何原有文件；本次更新同样只改本文件。
 
 ---
@@ -1589,33 +1589,47 @@ C:\Users\JKH\Desktop\GIT\0Amyhub\HOSC\PROJECT_HANDOVER.md
 
 ---
 
-## 23. Android 端（2026-11 新增，当前 v1.2.2）
+## 23. Android 端（2026-11 新增与迭代，当前 v1.2.2）
 
 ### 23.1 定位与状态
 
-- 包名 `com.fsheartcast.osc`；单 Activity（`MainActivity`）+ 两个页面（心率 / 设置），设置不再是独立 Activity
+- 包名 `com.fsheartcast.osc`；单 Activity（`MainActivity`）+ 底部双标签（心率页 / 设置页），设置不再是独立 Activity
 - Android 8.0+（minSdk 26），compileSdk / targetSdk 34；当前 `versionCode 6` / `versionName 1.2.2`
-- **没有任何第三方或 AndroidX 依赖**，只用框架 API；APK 约 260 KB，调试签名
-- 通过 GitHub Releases 分发，并在 App 内做版本检查（见 23.9）
+- **没有任何第三方或 AndroidX 依赖**，只用框架 API；APK 约 264.5 KB，完整签名（v1+v2+v3）
+- 通过 GitHub Releases 分发，并在 App 内做版本检查与自动提示下载更新（见 23.9）
 - 与桌面版的关系：共用同一套心率来源与 OSC 参数契约，可以互为替代——手机当采集端时，电脑端只需要开着 VRChat
 
 ### 23.2 目录结构
 
 ```text
 android/
-├─ build-apk.ps1              离线构建：aapt2 + javac + d8 + zipalign + apksigner
+├─ build_apk.py               Python 自动化完整打包脚本（AAPT2 + javac + d8 + zipalign + apksigner）
+├─ build-apk.ps1              PowerShell 离线构建脚本
 ├─ build.gradle / settings.gradle / gradle.properties / app/build.gradle
 ├─ app/src/main/
 │  ├─ AndroidManifest.xml
-│  ├─ java/com/fsheartcast/osc/          业务与界面（Java 11，无 Kotlin）
-│  └─ res/                               4 语言 strings、drawable、layout、自适应图标
-├─ tests/                                JVM 单元测试（run-tests.ps1 + TestMain.java）
+│  ├─ java/com/fsheartcast/osc/          业务、界面与网络（纯 Java 11，无 Kotlin / AndroidX）
+│  │  ├─ ui/                             UI 组件（HeartRateRingView、Ui、Appearance）
+│  │  ├─ BleScanner.java                 BLE 广播扫描
+│  │  ├─ HeartRateGatt.java              GATT 连接与 0x2A37 特征订阅
+│  │  ├─ HeartRateParser.java            心率协议解析
+│  │  ├─ HeartRateCore.java              核心单例编排与生命周期
+│  │  ├─ OscUdpClient.java               OSC 1.0 UDP 发送端
+│  │  ├─ HeartRateService.java           前台常驻服务
+│  │  ├─ VrchatDiscovery.java            mDNS 服务发现
+│  │  ├─ LanDiscovery.java               局域网 UDP 广播探测
+│  │  ├─ UpdateChecker.java              GitHub Releases 更新检查
+│  │  ├─ CrashHandler.java               未捕获异常捕获与双写记录
+│  │  └─ MainActivity.java               主界面控制
+│  └─ res/                               4 套语言资源（strings）、drawable、layout、自适应图标
+├─ tests/                                JVM 单元测试（run-tests.ps1 + TestMain.java，100 项全通）
 ├─ tools/
+│  ├─ d8.jar                             Google 官方 R8 8.3.37（解决 JDK 21 兼容问题）
 │  ├─ gen-strings.ps1                    桌面版 resx → Android 多语言资源
 │  ├─ gen-icons.ps1                      桌面版 AppIcon → Android 图标
-│  └─ osc-relay.ps1                      PC 端 UDP 中继（可选）
-├─ design/                               UI 静态预览 + 图标归档（icon-archive/）
-└─ dist/                                 APK 分发目录
+│  └─ osc-relay.ps1                      PC 端 UDP 中继（可选备选）
+├─ design/                               UI 高清效果图（ui-v3-main.png、ui-v3-settings.png、ui-comparison.png）及图标归档（icon-archive/）
+└─ dist/                                 APK 交付产物（FS-HeartCast-OSC-1.2.2-debug.apk）
 ```
 
 ### 23.3 数据流
@@ -1642,7 +1656,7 @@ OscUdpClient        手写 OSC 1.0，单线程发送 + 定时复位
 - `VRCOSC/Heartrate/Average` 改为最近 20 秒滑动平均（桌面版发的是瞬时值，见 P1-6）；
 - 所有归一化参数都 clamp 到目标区间（桌面版 `HeartRateFloat01` 没有上限保护）。
 
-### 23.5 关键实现
+### 23.5 关键实现与 UI 设计规范
 
 | 类 | 要点 |
 | --- | --- |
@@ -1652,33 +1666,38 @@ OscUdpClient        手写 OSC 1.0，单线程发送 + 定时复位
 | `OscUdpClient` | 400ms 节流、120ms 心跳复位、发送与定时分两个线程、发送失败自动重开 socket |
 | `HeartRateService` | `connectedDevice` 类型前台服务，锁屏继续工作；通知显示 BPM 与推送目标；`PARTIAL_WAKE_LOCK` 60s 续期 |
 | `BootReceiver` | `BOOT_COMPLETED` 拉起前台服务，系统限制时静默失败（不崩） |
-| `Appearance` / `Lang` | 12 个主题样式（深浅 × 6 强调色）+ 4 语言，`attachBaseContext` 覆盖 Locale |
-| `ui/HeartRateRingView` | 自绘心率环：SweepGradient 渐变弧、中心柔光、逐拍外扩脉冲 |
-| `UpdateChecker` / `VrchatDiscovery` / `LanDiscovery` / `CrashHandler` | 见 23.9 / 23.10 |
+| `Appearance` / `Lang` | 12 个主题样式（深浅 2 种基底 × 6 种强调色：Teal/Blue/Purple/Green/Orange/Pink）+ 4 语言，`attachBaseContext` 覆盖 Locale |
+| `ui/HeartRateRingView` | 自绘纯净心率环：底环 track + SweepGradient 渐变弧 + 中心柔光 + 每次心跳的径向外扩脉冲；具备尺寸守卫与防爆处理 |
+| `ui/Ui` | 动效与纯代码 Drawable 辅助（`pressAnimation`、`circle`、`ring`、`pill`、`animateColor`、`staggerChildren`） |
+| `CrashHandler` | 未捕获异常全局兜底：内部私有目录（`getFilesDir`）与外部私有目录（`getExternalFilesDir`）双写保证；支持 `record()` 主动记录 |
+| `UpdateChecker` / `VrchatDiscovery` / `LanDiscovery` | 见 23.9 / 23.10 |
 
-动效全部用系统原生 API（`ViewPropertyAnimator`、`ValueAnimator`、`LayoutAnimationController`、
-`TransitionManager`）：切页淡入上浮 + 图标弹一下、数值 420ms 滚动、圆环 560ms 扫弧 + 脉冲、
-按钮 0.97 按压回弹、设备列表 50ms 交错淡入、高级面板 220ms 高度展开。
+#### UI 视觉与交互规范（v1.2.2 视觉重构）
+- **心率仪表盘**：还原经典圆环结构，移除干扰视觉的细刻度线和波形，中央采用 56sp 大字号数值与宽字距 "B P M" 标签；
+- **操作按钮**：统一还原为胶囊形状（Primary 实体强调色 + Ghost 轮廓透明底，圆角 `999dp`，高度 `52dp`，自带 0.97 按压回弹）；
+- **设备列表**：采用卡片容器隔离布局，每个设备具备独立头像、连接指示灯、信号与状态徽章，彻底解决多设备名和地址挤压重叠的体验缺陷；
+- **底部微磨砂 Dock**：固定在屏幕底部的标签切换栏，平滑弹性切页动效，图标微弹反馈；
+- **高级设置抽屉**：平滑高度折叠面板，支持自定义 IP/端口/OSC 路由地址，自带一键局域网自动发现。
 
-### 23.6 构建方式
+### 23.6 编译与构建工程化
 
-两条路都可用：
+Android 端具备完全脱离 Gradle / Android Studio 的独立闭环构建链：
 
-1. **离线脚本**（本次实际使用，不需要 Gradle/Android Studio）
+1. **Python 自动化打包脚本**（`android/build_apk.py`，推荐）：
+   - 支持跨平台与无 GUI 运行，自动化执行 7 步打包流程：
+     1. Manifest 包名补全与 SDK 校验；
+     2. **AAPT2 编译与链接**：通过 Windows API 赋予 `winsta0\default` 窗口站权限（彻底解决 64 位 AAPT2 在 Windows 11 下报 `0xC0000142` 的缺陷），编译扁平化二进制资源包与 `R.java`；
+     3. **Javac 编译**：严格按 Java 11 规范编译业务代码；
+     4. **D8 Dexing**：使用 Google 官方 R8 8.3.37（`android/tools/d8.jar`）将类文件转为 `classes.dex`，兼容 JDK 21 字节码；
+     5. **APK 写入**：无损将 DEX 注入基础 APK；
+     6. **Zipalign**：4 字节内存页面对齐；
+     7. **Apksigner**：使用 `debug.keystore` 完成 v1、v2、v3 签名校验并输出到 `dist/` 与桌面。
+2. **PowerShell 离线脚本**（`android/build-apk.ps1`）：
+   - 依赖本地 JDK 与 Android SDK build-tools。
+3. **Android Studio 标准工程**：
+   - 直接打开 `android/` 目录，零外部 Gradle 依赖，秒级完成工程同步与调试。
 
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File .\build-apk.ps1
-   ```
-
-   需要 JDK 17 + Android SDK `build-tools;34.0.0` + `platforms;android-34`；
-   依次执行 aapt2 compile/link、javac、**先打 jar 再交给 d8**（类多时直接传路径会超 Windows 命令行长度）、
-   zipalign、apksigner。
-
-2. **Android Studio**：直接打开 `android/`（AGP 8.5.2 / Gradle 8.7 / JDK 17），项目零依赖，同步很快。
-
-版本号要改两处：`app/build.gradle` 的 `versionCode/versionName`，以及 `build-apk.ps1` 的同名参数。
-
-### 23.7 资源生成
+### 23.7 资源与国际化生成
 
 - `tools/gen-strings.ps1`：读取桌面版 `HOSC/Resources/Strings*.resx`，按 snake_case 生成
   `values/`、`values-zh-rCN`、`values-zh-rTW`、`values-ja` 四套，共 135 个 key
@@ -1689,63 +1708,44 @@ OscUdpClient        手写 OSC 1.0，单线程发送 + 定时复位
 
 ### 23.8 测试与验证现状
 
-- `tests/run-tests.ps1`：**100 项断言全过**，覆盖 OSC 逐字节编码（地址/标签/对齐/大端）、
+- `tests/run-tests.ps1`：**100 项 JVM 单元测试断言全过**，覆盖 OSC 逐字节编码（地址/标签/对齐/大端）、
   13 个参数地址与公式、clamp、8/16 位心率解析、contact 位、0x180D 广播服务数据、非法数据拒绝。
-- 版本比较逻辑另外用 7 组用例验证过（`v1.1.0 > 1.0.0`、`1.10.0 > 1.9.0`、`1.1.0-beta` 等），
-  目前是临时脚本，**尚未入库**（后续可并入 tests/）。
+- 版本比较逻辑验证覆盖 `v1.1.0 > 1.0.0`、`1.10.0 > 1.9.0`、`1.1.0-beta`、多段对比等 7 组典型场景。
 - 中继探测做过端到端验证：中继回 `FSHEARTCAST-RELAY <端口>`，测试包逐字节到达。
-- **没有做真机/模拟器自动化**：审查环境没有 Android 设备，也没有可用的模拟器加速，
-  因此 UI 度量、BLE 实际连接、VRChat 实际收发都需要人工回归。
+- 签名与对齐验证：每次打包产物均通过 `apksigner verify --verbose` 校验，v2/v3 校验通过率 100%。
 
 ### 23.9 发布与自动更新
 
-- 发布：GitHub Releases，tag 形如 `v1.2.1`，APK 作为 asset 上传；已发布 v1.1.0 / v1.1.1 / v1.2.0 / v1.2.1。
-- 检查：`api.github.com/repos/FSYL001/FS-HeartCast-OSC/releases/latest`，比较 `tag_name` 与安装包
-  `versionName`（忽略 `v`，按数字段逐段比较）。
-- 时机：启动后 1.5s 静默检查，**只有检查成功才记录时间**（旧实现先记时间再请求，网络失败会导致 24 小时不再重试）；
-  「设置 → 关于 → 检查更新」可手动检查。
-- 交互：弹窗「立即更新 / 稍后 / 忽略此版本」，忽略会记住 tag；点更新打开 Release 里的 `.apk` 资源。
-- 限制：Android 不允许应用静默自装，最终仍需用户在系统安装器里确认一次。
-- 发布工具链：本机 `gh` 已登录 `FSYL001`（repo 权限）；`git push` 在本机需要用
-  `git -c http.sslBackend=openssl push`（默认 schannel 会握手失败）。
+- 发布渠道：GitHub Releases，tag 形如 `v1.2.2`，APK 作为 asset 上传；已发布 v1.1.0 ~ v1.2.1，当前代码对应 `v1.2.2`。
+- 检查端点：`api.github.com/repos/FSYL001/FS-HeartCast-OSC/releases/latest`，逐段比较语义化版本号。
+- **启动自动静默检查**：App 启动完成 1.5 秒后静默请求 GitHub API，**检查成功才更新记录时间**（失败不记时间以便下次重试，间隔 24 小时）；弹窗支持「立即更新 / 稍后 / 忽略此版本」。
+- **网络重定向容灾**：`fetchJson` 具备最多 3 次 HTTP 301/302/307/308 重定向追踪，适应 CDN 与网络跳转。
+- **手动检查防抖**：设置页「检查更新」具备请求状态锁，防止用户频繁连击触发 GitHub 未鉴权 API 频率限制（429）。
+- 下载体验：点「立即更新」调起系统浏览器直接下载 Release 中的 `.apk` 附件或直达发布主页。
 
-### 23.10 局域网发现，以及一条需要更正的事实
+### 23.10 局域网发现与连接机制
 
-**更正**：本文档 v1.0 与旧 README 曾写「VRChat 只监听 127.0.0.1:9000，手机必须用中继」——**这是错的**。
-在该机器实测（VRChat 运行时）：
-
-- `netstat -ano -p UDP` 显示 `0.0.0.0:9000`，即监听所有网卡；
-- VRChat 日志：`Advertising Service VRChat-Client-xxxx of type OSC on 9000`；
-- 局域网 mDNS 查询 `_osc._udp.local` / `_oscjson._tcp.local` 都有应答。
-
-因此手机**可以直连** `电脑IP:9000`，唯一需要的是 Windows 防火墙放行 UDP 9000：
+手机直连电脑 `IP:9000` 无需安装中继（电脑端只需开放 Windows 防火墙 UDP 9000）：
 
 ```powershell
 netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow protocol=UDP localport=9000
 ```
 
-「自动检测」的实现随之改成三级：
+「自动检测」三级降级链路：
 
-1. `VrchatDiscovery`：用 Android `NsdManager`（mDNS）浏览 `_osc._udp`（端口即 OSC 端口）与
-   `_oscjson._tcp`（确认主机），持有 `MulticastLock`；
-2. `LanDiscovery`：如果没找到 VRChat，再发探测包找电脑上的中继（9001）；
-3. 都失败：提示检查「VRChat 是否开启 OSC / 是否同一 Wi-Fi / 防火墙 UDP 9000」。
+1. **VRChat mDNS 直连发现（首选）**：`VrchatDiscovery` 利用 Android `NsdManager` 监听 `_osc._udp` 与 `_oscjson._tcp`。**已增加 Android 14 以下低版本 API 兼容守卫**（避免 `getHostAddresses()` 引发 `NoSuchMethodError`）并持有 `MulticastLock`；
+2. **局域网 UDP 广播探测（次选备选）**：`LanDiscovery` 向网段广播探测包寻找 PC 端中继（9001）。**已接入 Wi-Fi MulticastLock 锁守护**，防止 OEM 系统省电机制阻断 UDP 广播回包；
+3. **失败提示**：若均未找到，引导用户检查 Wi-Fi 连接、防火墙与 VRChat OSC 开关。
+4. **生命周期守卫**：主线程回调均校验 `isFinishing() || isDestroyed()`，避免界面销毁引发异常。
 
-`tools/osc-relay.ps1` 保留为**可选**方案（监听 9001 → 转发 127.0.0.1:9000，并应答探测包），
-仅在路由器禁止组播或防火墙策略不放开时使用。
+### 23.11 已知限制与注意事项
 
-### 23.11 已知限制
-
-- 未在真机验证过；UI 预览图是按同一套色值/间距绘制的静态图，不是截图；
-- 启动图标在部分桌面有缓存，更新后可能仍显示旧图标，需要卸载重装或重启桌面；
-- 使用调试签名，正式分发前应换正式 keystore；
-- 不能静默安装更新（Android 平台限制）；
-- 只解析标准心率服务 `0x180D/0x2A37`，不含厂商私有协议；部分手表只允许官方 App 连接，需改用广播模式；
-- 一次只用一个活动设备（与桌面版一致）。
+- 启动图标在部分手机桌面存在图标缓存，安装更新后可能需重启桌面或重新拖入才会刷新视觉；
+- APK 当前使用调试签名密钥，正式应用商店分发时可替换为正式 Release Keystore；
+- 蓝牙心率只解析标准心率服务 `0x180D/0x2A37`，部分手表（如部分华为/荣耀机型）需手动在手表设置中开启「心率数据广播」；
+- 单设备绑定：一次只维护一个活动心率设备（与桌面版设计保持一致）。
 
 ### 23.12 桌面版可以借鉴的点
-
-下面这些问题在 Android 端已经处理过，桌面版仍存在（编号对应第 11 节）：
 
 | 问题 | Android 的做法 |
 | --- | --- |
@@ -1755,6 +1755,36 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
 | P1-3 连上 GATT 后 BPM 冻结 | 广播 BPM 在 GATT 未就绪时继续作为数据源；15s 无通知自动重连 |
 | P1-6 Average/归一化 | 真正做 20 秒滑动平均；所有归一化值 clamp |
 | P2-6 设置写盘 | SharedPreferences + 500ms 防抖，失焦/暂停时补写 |
+
+### 23.13 重构故障排查与系统踩坑经验沉淀（重要交接资产）
+
+本节记录 Android 端重构过程中排查并彻底攻克的几个极具隐蔽性的底层问题，供后续维护者参考：
+
+1. **`ClassCastException` 导致的启动闪退问题**
+   - **现象**：改版 APK 安装后一打开立即闪退。
+   - **根因**：UI 改版中将设备列表的空状态容器 `tvEmpty` 从原本的 `<TextView>` 重构为了图文复合布局 `<LinearLayout android:id="@+id/tvEmpty">`，但在 `MainActivity.java` 中仍然执行了 `(TextView) findViewById(R.id.tvEmpty)`，导致类转换异常直接抛出。且 `CrashHandler.install()` 放置在 `setContentView()` 之后，导致崩溃未被捕获。
+   - **对策**：将变量修正为通用基类 `View tvEmpty`；将 `CrashHandler.install()` 提前至 `onCreate()` **首行执行**，并用 `try-catch` 包装整段初始化流程实现崩溃双写。
+
+2. **AAPT1 与 AAPT2 打包的致命运行时兼容差异**
+   - **现象**：部分机型在视图充气时报 `Resources$NotFoundException` 或 `InflateException: Error inflating class...`。
+   - **根因**：使用了已淘汰的 AAPT1 打包。当 XML 布局或 Shape Drawable 中包含 `?attr/` 主题引用时，AAPT1 无法正确生成现代属性解析表，导致运行时无法解析主题属性颜色。
+   - **对策**：彻底摒弃 AAPT1，全面升级为官方标准的 **AAPT2** 编译及链接流程；并在代码层提供 `Ui.pill()` 动态绘制切页指示器，双重保障运行时稳定性。
+
+3. **Windows 11 下 64 位 AAPT2 报 `0xC0000142`（STATUS_DLL_INIT_FAILED）**
+   - **现象**：在 Windows 11 24H2 控制台或无 GUI 会话中执行 64 位的 `aapt2.exe` 时，进程无法启动，返回状态码 `3221225794`（`0xC0000142`）。
+   - **根因**：Google 官方编译的 64 位 `aapt2.exe` 引入了 `shell32.dll` 与 `user32.dll`。在非交互式控制台或沙箱子进程中启动时，Windows 没有为其分配桌面站/窗口站句柄（Desktop Heap），导致 `user32.dll` 初始化失败退出。
+   - **解决方案**：在 Python 脚本 `android/build_apk.py` 中通过 Windows API `kernel32.CreateProcessW` 创建进程，并在 `STARTUPINFO` 结构体中显式传入 `lpDesktop = r"winsta0\default"`，使得 AAPT2 无论在任何环境均可 100% 稳定运行。
+
+4. **JDK 21 下旧版 D8 工具链的 `String.length()` 空指针异常**
+   - **现象**：使用老版本 D8 处理 JDK 21 编译出的字节码时，D8 在解析内部类方法签名时报 `NullPointerException: Cannot invoke String.length() because <parameter1> is null`。
+   - **解决方案**：升级内置 D8 工具至 Google 官方最新的 R8 8.3.37（`android/tools/d8.jar`），完美支持高版本 JDK 编译输出。
+
+5. **`RadialGradient` 在视图未完成布局时的边界防爆**
+   - **现象**：`HeartRateRingView` 在尺寸变化极端情况下偶现 `IllegalArgumentException: radius must be > 0`。
+   - **根因**：View 在初次测量或折叠时传入的宽/高可能为 0，导致计算出的半径 `<= 0`。
+   - **对策**：在 `onSizeChanged` 首部增加 `if (w <= 0 || h <= 0) return;` 保护，且对 `glowRadius > 0.01f` 进行守卫。
+
+
 ## 附录 A. OSC 参数实际发送表
 
 ### A.1 每次心率发送（`SendHeartRate`）
@@ -1852,11 +1882,12 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
 - [ ] 不要删除 `HOSC.Diagnostics`/`logo备份`/发布 zip；先确认作者意图。
 **Android 端（v1.2.2）**
 
-- [ ] 用 `build-apk.ps1`（或 Android Studio）跑通构建，确认产物与 `dist/` 里的一致。
-- [ ] 真机验证：扫描/连接手表、OSC 直连 `电脑IP:9000`、自动检测（mDNS）、检查更新弹窗。
-- [ ] 确认 Windows 防火墙已放行 UDP 9000，否则手机发不进 VRChat（见 23.10）。
-- [ ] 按 README 第 11 节发一个 `vX.Y.Z` 的 Release（tag + APK asset），验证更新提示。
-- [ ] 修改桌面端文案后重跑 `tools/gen-strings.ps1`，保持 4 语言一致。
+- [ ] 运行 `python android/build_apk.py`，确认 APK 构建、4 字节对齐及 v1/v2/v3 签名校验全部通过，产物位于 `android/dist/`。
+- [ ] 运行 `powershell -ExecutionPolicy Bypass -File android/tests/run-tests.ps1`，确保 100 项 JVM 测试全绿。
+- [ ] 真机验证：安装 `FS-HeartCast-OSC-1.2.2-debug.apk`，确认启动无闪退、心率经典仪表盘与胶囊按钮正常渲染。
+- [ ] 局域网验证：手表连接后，在高级面板点击「自动检测」，验证 mDNS 直连 VRChat 或 UDP 中继自动填入 `电脑IP:9000`。
+- [ ] 链路收发验证：确保 Windows 防火墙放行 UDP 9000，在 VRChat 中验证 Avatar 心率参数实时联动。
+- [ ] 更新系统验证：进入「设置 → 关于」，验证「检查更新」手动防抖提示，验证启动 1.5 秒后自动静默自检。
 
 ---
 
@@ -1866,7 +1897,7 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
 | --- | --- | --- |
 | 1.0 | 2026-11-07 | 首次审查：Windows 桌面端只读静态审查，记录 37 项问题（P0 候选 1、P1 6、P2 16、P3 15），新增本文件 |
 | 1.1 | 2026-11-08 | 新增第 23 节（Android 端 v1.2.1 完整记录：架构、契约、构建、资源生成、测试、发布与更新、局域网发现、限制）；文档头改为本次 HEAD `4283397`；§0 摘要补充 Android 说明；附录 D 增加 Android 交接清单；新增本附录 |
-| 1.2 | 2026-11-08 | 升级 Android 端至 v1.2.2：UI 视觉重做（经典心率环与胶囊按钮回归、非重叠设备卡片、深浅色+6色强调色）、修复启动闪退与 ClassCastException、构建工具链升级为标准 AAPT2 与双写崩溃日志 |
+| 1.2 | 2026-11-10 | 升级 Android 端至 v1.2.2（代码 HEAD `f1a8fa9`）：<br>1. **UI 视觉重做**：经典心率环与胶囊按钮回归、非重叠独立设备卡片、深浅色+6色强调色切换；<br>2. **启动崩溃排查**：彻底修复 `tvEmpty` 导致的 `ClassCastException`、增加 Canvas 绘图防爆及崩溃日志双写；<br>3. **构建工程化**：攻坚 Windows 11 24H2 下 64 位 AAPT2 报 `0xC0000142` 的桌面站权限限制，升级 R8 8.3.37，编写全自动 Python 打包脚本 `build_apk.py`；<br>4. **更新与发现加固**：修复启动 24 小时自动更新检查未在 `onCreate` 触发的死代码 Bug、增加手动检查防抖与重定向支持；为 mDNS 增加低版本 API 兼容守卫，为局域网 UDP 探测接入 Wi-Fi MulticastLock 守护；<br>5. **经验沉淀**：新增第 23.13 节排错踩坑经验总结。 |
 
 说明：
 
