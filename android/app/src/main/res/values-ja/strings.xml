@@ -111,6 +111,12 @@
     <string name="update_later">後で</string>
     <string name="update_ignore">このバージョンをスキップ</string>
     <string name="update_notes_empty">（リリースノートはありません）</string>
+    <string name="update_route_title">更新チャンネル</string>
+    <string name="update_route_github">GitHub（公式）</string>
+    <string name="update_route_gitee">Gitee（国内ミラー）</string>
+    <string name="update_route_select_title">更新チャンネルの選択</string>
+    <string name="update_route_switched">更新チャンネルを %1$s に設定しました</string>
+    <string name="gitee_label">Gitee ミラー</string>
     <string name="crash_log_title">前回のクラッシュログ</string>
     <string name="crash_log_value">タップでコピー</string>
     <string name="crash_log_copied">クラッシュログをコピーしました</string>

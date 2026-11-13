@@ -14,14 +14,29 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * 检查 GitHub Releases 的最新版本。
+ * 检查 GitHub / Gitee Releases 的最新版本。
+ * 支持用户在设置中选择 GitHub（官方源）或 Gitee（国内镜像加速源）。
  * 只读取公开 API，不需要 token；请求在后台线程，结果回主线程。
  */
 public final class UpdateChecker {
 
+    public static final String ROUTE_GITHUB = "github";
+    public static final String ROUTE_GITEE = "gitee";
+
     public static final String REPO = "FSYL001/FS-HeartCast-OSC";
-    private static final String LATEST_URL =
-            "https://api.github.com/repos/" + REPO + "/releases/latest";
+    public static final String GITHUB_REPO = REPO;
+    public static final String GITEE_REPO = REPO;
+
+    public static final String GITHUB_API_URL =
+            "https://api.github.com/repos/" + GITHUB_REPO + "/releases/latest";
+    public static final String GITEE_API_URL =
+            "https://gitee.com/api/v5/repos/" + GITEE_REPO + "/releases/latest";
+
+    public static final String GITHUB_PAGE_URL =
+            "https://github.com/" + GITHUB_REPO + "/releases";
+    public static final String GITEE_PAGE_URL =
+            "https://gitee.com/" + GITEE_REPO + "/releases";
+
     private static final String USER_AGENT = "FS-HeartCast-OSC-Android";
 
     private UpdateChecker() {
@@ -33,13 +48,19 @@ public final class UpdateChecker {
         public final String notes;
         public final String pageUrl;
         public final String apkUrl;
+        public final String route;
 
         Release(String tag, String name, String notes, String pageUrl, String apkUrl) {
+            this(tag, name, notes, pageUrl, apkUrl, ROUTE_GITHUB);
+        }
+
+        Release(String tag, String name, String notes, String pageUrl, String apkUrl, String route) {
             this.tag = tag;
             this.name = name;
             this.notes = notes;
             this.pageUrl = pageUrl;
             this.apkUrl = apkUrl;
+            this.route = route;
         }
     }
 
@@ -53,7 +74,12 @@ public final class UpdateChecker {
     }
 
     public static void check(final Context context, final Callback callback) {
+        check(context, Prefs.updateRoute(context), callback);
+    }
+
+    public static void check(final Context context, final String route, final Callback callback) {
         final Context appContext = context.getApplicationContext();
+        final String effectiveRoute = ROUTE_GITEE.equalsIgnoreCase(route) ? ROUTE_GITEE : ROUTE_GITHUB;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -61,11 +87,16 @@ public final class UpdateChecker {
                 String error = null;
                 boolean newer = false;
                 try {
-                    JSONObject json = fetchJson(LATEST_URL);
+                    String apiUrl = ROUTE_GITEE.equals(effectiveRoute) ? GITEE_API_URL : GITHUB_API_URL;
+                    String defaultPage = ROUTE_GITEE.equals(effectiveRoute) ? GITEE_PAGE_URL : GITHUB_PAGE_URL;
+                    JSONObject json = fetchJson(apiUrl);
                     String tag = json.optString("tag_name", "");
                     String name = json.optString("name", tag);
                     String notes = json.optString("body", "");
-                    String pageUrl = json.optString("html_url", "https://github.com/" + REPO + "/releases");
+                    String pageUrl = json.optString("html_url", "");
+                    if (pageUrl.length() == 0) {
+                        pageUrl = (tag.length() > 0) ? (defaultPage + "/tag/" + tag) : defaultPage;
+                    }
 
                     String apkUrl = null;
                     JSONArray assets = json.optJSONArray("assets");
@@ -85,7 +116,7 @@ public final class UpdateChecker {
                         }
                     }
 
-                    release = new Release(tag, name, notes, pageUrl, apkUrl);
+                    release = new Release(tag, name, notes, pageUrl, apkUrl, effectiveRoute);
                     newer = compareVersions(tag, currentVersion(appContext)) > 0;
                 } catch (Throwable e) {
                     error = e.getClass().getSimpleName() + ": " + e.getMessage();
@@ -125,7 +156,7 @@ public final class UpdateChecker {
                 connection.setReadTimeout(10000);
                 connection.setInstanceFollowRedirects(true);
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "application/vnd.github+json");
+                connection.setRequestProperty("Accept", "application/json, application/vnd.github+json;q=0.9");
                 connection.setRequestProperty("User-Agent", USER_AGENT);
                 int code = connection.getResponseCode();
                 if (code >= 300 && code < 400) {

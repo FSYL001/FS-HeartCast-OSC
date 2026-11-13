@@ -19,6 +19,13 @@ function Find-Jdk([string]$hint) {
             if (Test-Path (Join-Path $d.FullName "bin\javac.exe")) { return $d.FullName }
         }
     }
+    $wellKnown = @(
+        "C:\Program Files\JetBrains\PyCharm Community Edition 2024.3.1.1\jbr",
+        "C:\Program Files\Android\Android Studio\jbr"
+    )
+    foreach ($cand in $wellKnown) {
+        if (Test-Path (Join-Path $cand "bin\javac.exe")) { return $cand }
+    }
     return $null
 }
 

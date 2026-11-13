@@ -1784,6 +1784,31 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
    - **根因**：View 在初次测量或折叠时传入的宽/高可能为 0，导致计算出的半径 `<= 0`。
    - **对策**：在 `onSizeChanged` 首部增加 `if (w <= 0 || h <= 0) return;` 保护，且对 `glowRadius > 0.01f` 进行守卫。
 
+### 23.14 Gitee 开源镜像与双线路更新系统
+
+1. **开源授权规范化（CC BY-NC 4.0）**
+   - 新增根目录 [`LICENSE`](LICENSE) 文件，明确遵循 **知识共享 署名-非商业性使用 4.0 国际许可协议（CC BY-NC 4.0）**。
+   - **署名（Attribution）**：任何基于本项目的再分发、修改与二次开发，必须保留原作者署名（FSYL）及原开源仓库链接。
+   - **严禁商用（Non-Commercial）**：严禁将软件（APK / EXE）、源码或衍生版本用于任何商业目的、付费倒卖或捆绑销售。商业使用需经作者书面明确授权。
+   - 同步更新根目录 [`README.md`](README.md) 的徽章、开源协议说明与商业授权联络方式。
+
+2. **Gitee 镜像仓库集成**
+   - 本地 Git 仓库配置双远端：
+     - `origin`: `https://github.com/FSYL001/FS-HeartCast-OSC.git`
+     - `gitee`: `https://gitee.com/FSYL001/FS-HeartCast-OSC.git`
+   - Android 端与 Windows 桌面端「关于」页面均已接入 Gitee 镜像主页跳转。
+
+3. **双线路更新检测与下载系统（GitHub / Gitee）**
+   - **架构设计**：在 [`Prefs.java`](android/app/src/main/java/com/fsheartcast/osc/Prefs.java) 中增加 `updateRoute`（持久化存储线路选择，支持 `"github"` 与 `"gitee"`）。
+   - **UI 交互**：在设置页面「检查更新」下方增加「更新线路」配置行，点击弹出单选对话框：
+     - `GitHub（官方源）`：国际通用，直连 GitHub Releases API。
+     - `Gitee（国内加速源）`：国内快速访问，直连 Gitee v5 Releases API。
+   - **接口适配**：[`UpdateChecker.java`](android/app/src/main/java/com/fsheartcast/osc/UpdateChecker.java) 全面适配两端 Release JSON：
+     - GitHub: `https://api.github.com/repos/FSYL001/FS-HeartCast-OSC/releases/latest`
+     - Gitee: `https://gitee.com/api/v5/repos/FSYL001/FS-HeartCast-OSC/releases/latest`
+     - 自动解析 `tag_name`、`name`、`body`（更新日志）及 `.apk` 资产包下载地址，支持 404 状态下友好的线路切换指引。
+   - **多语言适配**：提供简体中文、繁体中文、英文、日文 4 语言更新线路文案。
+
 
 ## 附录 A. OSC 参数实际发送表
 
@@ -1898,6 +1923,7 @@ netsh advfirewall firewall add rule name="VRChat OSC 9000" dir=in action=allow p
 | 1.0 | 2026-11-07 | 首次审查：Windows 桌面端只读静态审查，记录 37 项问题（P0 候选 1、P1 6、P2 16、P3 15），新增本文件 |
 | 1.1 | 2026-11-08 | 新增第 23 节（Android 端 v1.2.1 完整记录：架构、契约、构建、资源生成、测试、发布与更新、局域网发现、限制）；文档头改为本次 HEAD `4283397`；§0 摘要补充 Android 说明；附录 D 增加 Android 交接清单；新增本附录 |
 | 1.2 | 2026-11-10 | 升级 Android 端至 v1.2.2（代码 HEAD `f1a8fa9`）：<br>1. **UI 视觉重做**：经典心率环与胶囊按钮回归、非重叠独立设备卡片、深浅色+6色强调色切换；<br>2. **启动崩溃排查**：彻底修复 `tvEmpty` 导致的 `ClassCastException`、增加 Canvas 绘图防爆及崩溃日志双写；<br>3. **构建工程化**：攻坚 Windows 11 24H2 下 64 位 AAPT2 报 `0xC0000142` 的桌面站权限限制，升级 R8 8.3.37，编写全自动 Python 打包脚本 `build_apk.py`；<br>4. **更新与发现加固**：修复启动 24 小时自动更新检查未在 `onCreate` 触发的死代码 Bug、增加手动检查防抖与重定向支持；为 mDNS 增加低版本 API 兼容守卫，为局域网 UDP 探测接入 Wi-Fi MulticastLock 守护；<br>5. **经验沉淀**：新增第 23.13 节排错踩坑经验总结。 |
+| 1.3 | 2026-11-13 | 规范开源许可与双线路更新：<br>1. **开源授权（CC BY-NC 4.0）**：补齐根目录 `LICENSE`，明确署名要求、严禁任何商业用途/倒卖，更新 `README.md` 协议与商业授权说明；<br>2. **Gitee 镜像支持**：配置 Gitee 远端镜像仓库，并在桌面与 Android 端设置页添加镜像主页入口；<br>3. **双线路软件更新**：Android 端支持自由切换「GitHub（官方源）」与「Gitee（国内加速源）」，适配 Gitee Releases API 与友好错误回退。 |
 
 说明：
 

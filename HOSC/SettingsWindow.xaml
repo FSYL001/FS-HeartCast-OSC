@@ -280,6 +280,19 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                                 <Border Style="{StaticResource CommunityLogoTile}">
+                                    <Image Source="pack://application:,,,/Assets/GitHubLogo.png"
+                                           Stretch="Uniform"
+                                           Margin="2" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Hyperlink NavigateUri="https://gitee.com/FSYL001/FS-HeartCast-OSC"
+                                               RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Run Text="{Binding [GiteeLabel], Mode=OneWay, Source={x:Static local:AppResources.Instance}}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <Border Style="{StaticResource CommunityLogoTile}">
                                     <Image Source="pack://application:,,,/Assets/BilibiliLogo.png"
                                            Stretch="Uniform"
                                            Margin="2" />

@@ -911,6 +911,38 @@
                             android:tint="?attr/textMuted" />
                     </LinearLayout>
 
+                    <!-- 更新线路 -->
+                    <LinearLayout
+                        android:id="@+id/rowUpdateRoute"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="52dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/Text.RowTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/update_route_title" />
+
+                        <TextView
+                            android:id="@+id/tvUpdateRouteValue"
+                            style="@style/Text.RowValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="@string/update_route_title"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="?attr/textMuted" />
+                    </LinearLayout>
+
                     <!-- 崩溃日志复制 -->
                     <LinearLayout
                         android:id="@+id/rowCrashLog"
@@ -980,6 +1012,37 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:contentDescription="@string/git_hub_label"
+                            android:src="@drawable/ic_external"
+                            android:tint="?attr/textMuted" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linkGitee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="52dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@string/gitee_label"
+                            android:src="@drawable/ic_gitee" />
+
+                        <TextView
+                            style="@style/Text.RowTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:text="@string/gitee_label" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="@string/gitee_label"
                             android:src="@drawable/ic_external"
                             android:tint="?attr/textMuted" />
                     </LinearLayout>

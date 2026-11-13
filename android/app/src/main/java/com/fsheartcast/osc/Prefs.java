@@ -29,6 +29,9 @@ public final class Prefs {
     public static final String KEY_BOOT_START = "boot_start";
     public static final String KEY_UPDATE_CHECKED_AT = "update_checked_at";
     public static final String KEY_UPDATE_IGNORED_TAG = "update_ignored_tag";
+    public static final String KEY_UPDATE_ROUTE = "update_route";
+    public static final String ROUTE_GITHUB = "github";
+    public static final String ROUTE_GITEE = "gitee";
 
     public static final String DEFAULT_IP = "192.168.1.100";
     public static final int DEFAULT_PORT = 9000;
@@ -182,6 +185,18 @@ public final class Prefs {
 
     public static void setUpdateIgnoredTag(Context context, String value) {
         putString(context, KEY_UPDATE_IGNORED_TAG, value == null ? "" : value);
+    }
+
+    public static String updateRoute(Context context) {
+        String route = sp(context).getString(KEY_UPDATE_ROUTE, ROUTE_GITHUB);
+        if (ROUTE_GITEE.equalsIgnoreCase(route)) {
+            return ROUTE_GITEE;
+        }
+        return ROUTE_GITHUB;
+    }
+
+    public static void setUpdateRoute(Context context, String value) {
+        putString(context, KEY_UPDATE_ROUTE, ROUTE_GITEE.equalsIgnoreCase(value) ? ROUTE_GITEE : ROUTE_GITHUB);
     }
 
     /** 粗略校验主机名/IP，避免在主线程做 DNS 解析。 */

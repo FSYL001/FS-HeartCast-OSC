@@ -8,10 +8,16 @@
 
 <p align="center">
   <a href="https://github.com/FSYL001/FS-HeartCast-OSC/releases">
-    <img src="https://img.shields.io/badge/Release-v1.0.0-3CC4BB" alt="Release v1.0.0" />
+    <img src="https://img.shields.io/badge/Release-v1.2.2-3CC4BB" alt="Release" />
+  </a>
+  <a href="https://gitee.com/FSYL001/FS-HeartCast-OSC">
+    <img src="https://img.shields.io/badge/Gitee-FS--HeartCast--OSC-C71D23?logo=gitee" alt="Gitee" />
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg" alt="License: CC BY-NC 4.0" />
   </a>
   <img src="https://img.shields.io/badge/.NET-6.0-512BD4" alt=".NET 6.0" />
-  <img src="https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6" alt="Windows 10/11" />
+  <img src="https://img.shields.io/badge/Android-5.0+-3DDC84?logo=android" alt="Android 5.0+" />
   <img src="https://img.shields.io/badge/UI-4%20Languages-4CC38A" alt="4 Languages" />
 </p>
 
@@ -169,6 +175,7 @@ HOSC/
 ## 社区与支持
 
 - GitHub：<https://github.com/FSYL001/FS-HeartCast-OSC>
+- Gitee（国内镜像）：<https://gitee.com/FSYL001/FS-HeartCast-OSC>
 - Bilibili：<https://space.bilibili.com/450000657>
 - 抖音：<https://www.douyin.com/user/MS4wLjABAAAAzWfG071S0Ol0_wF3xT1i0oL5eSpPdiYZZY_gKib9S_M>
 - 爱发电：<https://ifdian.net/a/fsyl001>
@@ -179,10 +186,14 @@ HOSC/
 
 ## 贡献指南
 
-- 提交 Issue 时请附上 Windows 版本、设备型号与复现步骤
+- 提交 Issue 时请附上系统版本、设备型号与复现步骤
 - 欢迎补充设备兼容性报告与多语言翻译
-- 提交 PR 前请确保 `dotnet build -c Release` 构建通过
+- Android 源码位于 `android/`，WPF 桌面端源码位于 `HOSC/`
 
 ## 许可证
 
-当前仓库尚未附带 `LICENSE` 文件，具体许可证将在后续版本中明确。在此之前，代码仅供个人学习与测试使用。
+本项目采用 **[CC BY-NC 4.0（知识共享 署名-非商业性使用 4.0 国际许可协议）](LICENSE)** 开源。
+
+- **必须署名（Attribution）**：在任何传播、再分发或二次修改中，必须保留原作者署名（FSYL）以及原开源项目地址。
+- **严禁商用（Non-Commercial）**：严禁将本项目、衍生代码、编译安装包（APK / EXE）用于任何商业目的、收费倒卖或商业软件捆绑销售。
+- **商业授权**：如需获得商业授权或商务合作，请通过邮件联系作者：`email@fsyl001.sbs` 或 `3320969905@qq.com`。

@@ -93,6 +93,7 @@ public final class MainActivity extends Activity {
     private TextView btnDiscover;
     private TextView tvDiscoverStatus;
     private TextView tvUpdateState;
+    private TextView tvUpdateRouteValue;
     private boolean checkingUpdate;
 
     // 设置页
@@ -231,6 +232,7 @@ public final class MainActivity extends Activity {
         btnDiscover = (TextView) findViewById(R.id.btnDiscover);
         tvDiscoverStatus = (TextView) findViewById(R.id.tvDiscoverStatus);
         tvUpdateState = (TextView) findViewById(R.id.tvUpdateState);
+        tvUpdateRouteValue = (TextView) findViewById(R.id.tvUpdateRouteValue);
         etIp = (EditText) findViewById(R.id.etIp);
         etPort = (EditText) findViewById(R.id.etPort);
         etHr = (EditText) findViewById(R.id.etHr);
@@ -960,6 +962,10 @@ public final class MainActivity extends Activity {
 
     private void setupAbout() {
         findViewById(R.id.linkGitHub).setOnClickListener(open("https://github.com/FSYL001/FS-HeartCast-OSC"));
+        View linkGitee = findViewById(R.id.linkGitee);
+        if (linkGitee != null) {
+            linkGitee.setOnClickListener(open("https://gitee.com/FSYL001/FS-HeartCast-OSC"));
+        }
         findViewById(R.id.linkBilibili).setOnClickListener(open("https://space.bilibili.com/450000657"));
         findViewById(R.id.linkDouyin).setOnClickListener(open("https://www.douyin.com/user/MS4wLjABAAAAzWfG071S0Ol0_wF3xT1i0oL5eSpPdiYZZY_gKib9S_M"));
         findViewById(R.id.linkAifadian).setOnClickListener(open("https://ifdian.net/a/fsyl001"));
@@ -972,6 +978,55 @@ public final class MainActivity extends Activity {
                 runUpdateCheck(true);
             }
         });
+        setupUpdateRouteRow();
+    }
+
+    private void updateRouteDisplay() {
+        if (tvUpdateRouteValue == null) {
+            return;
+        }
+        String route = Prefs.updateRoute(this);
+        if (Prefs.ROUTE_GITEE.equals(route)) {
+            tvUpdateRouteValue.setText(R.string.update_route_gitee);
+        } else {
+            tvUpdateRouteValue.setText(R.string.update_route_github);
+        }
+    }
+
+    private void setupUpdateRouteRow() {
+        View row = findViewById(R.id.rowUpdateRoute);
+        updateRouteDisplay();
+        if (row == null) {
+            return;
+        }
+        row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showUpdateRouteDialog();
+            }
+        });
+    }
+
+    private void showUpdateRouteDialog() {
+        final String[] items = new String[] {
+                getString(R.string.update_route_github),
+                getString(R.string.update_route_gitee)
+        };
+        int current = Prefs.ROUTE_GITEE.equals(Prefs.updateRoute(this)) ? 1 : 0;
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.update_route_select_title)
+                .setSingleChoiceItems(items, current, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newRoute = (which == 1) ? Prefs.ROUTE_GITEE : Prefs.ROUTE_GITHUB;
+                        Prefs.setUpdateRoute(MainActivity.this, newRoute);
+                        updateRouteDisplay();
+                        toast(getString(R.string.update_route_switched, items[which]));
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     private void setupCrashLogRow() {
@@ -1045,7 +1100,12 @@ public final class MainActivity extends Activity {
                     if (error != null) {
                         // 失败时不记录时间，下次启动会重试
                         if (manual) {
-                            toast(getString(R.string.update_failed));
+                            String msg = getString(R.string.update_failed);
+                            if (error.contains("404")) {
+                                boolean isGitee = Prefs.ROUTE_GITEE.equals(Prefs.updateRoute(MainActivity.this));
+                                msg = msg + (isGitee ? " (Gitee 暂无 Release)" : " (404 Not Found)");
+                            }
+                            toast(msg);
                         }
                         return;
                     }

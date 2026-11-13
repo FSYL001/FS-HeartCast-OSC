@@ -64,6 +64,7 @@
   <data name="WebmasterEmailLabel" xml:space="preserve"><value>站长邮箱</value></data>
   <data name="CommunityGroup" xml:space="preserve"><value>社区主页</value></data>
   <data name="GitHubLabel" xml:space="preserve"><value>GitHub 主页</value></data>
+  <data name="GiteeLabel" xml:space="preserve"><value>Gitee 镜像主页</value></data>
   <data name="BilibiliLabel" xml:space="preserve"><value>B站主页</value></data>
   <data name="DouyinLabel" xml:space="preserve"><value>抖音主页</value></data>
   <data name="AifadianLabel" xml:space="preserve"><value>爱发电主页</value></data>

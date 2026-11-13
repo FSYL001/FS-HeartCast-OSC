@@ -111,6 +111,12 @@
     <string name="update_later">稍后</string>
     <string name="update_ignore">忽略此版本</string>
     <string name="update_notes_empty">（该版本没有发布说明）</string>
+    <string name="update_route_title">更新线路</string>
+    <string name="update_route_github">GitHub（官方源）</string>
+    <string name="update_route_gitee">Gitee（国内加速源）</string>
+    <string name="update_route_select_title">选择更新线路</string>
+    <string name="update_route_switched">更新线路已切换为：%1$s</string>
+    <string name="gitee_label">Gitee 镜像主页</string>
     <string name="crash_log_title">上次崩溃日志</string>
     <string name="crash_log_value">点击复制</string>
     <string name="crash_log_copied">崩溃日志已复制，可直接发给我</string>
